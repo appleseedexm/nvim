@@ -22,6 +22,10 @@ Plug('github/copilot.vim')
 Plug('mbbill/undotree')
 Plug('folke/zen-mode.nvim')
 
+-- Formatter
+Plug('google/vim-maktaba')
+Plug('google/vim-codefmt')
+Plug('google/vim-glaive')
 
 -- LSP
 Plug('neovim/nvim-lspconfig')
