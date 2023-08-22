@@ -2,9 +2,8 @@
 vim.g.mapleader = " "
 vim.keymap.set('n', '<leader>pv', vim.cmd.Ex)
 
-local telescope = require('telescope.builtin')
-vim.keymap.set('n', '<leader>e', telescope.find_files, {})
 
+vim.keymap.set("n", "<C-s>", ":Ag<CR>")
 
 -- primagen conf
 --
