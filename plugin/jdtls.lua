@@ -1,3 +1,4 @@
+local jdtls = require('jdtls')
 local java_cmds = vim.api.nvim_create_augroup('java_cmds', { clear = true })
 local cache_vars = {}
 
@@ -115,8 +116,8 @@ local function enable_debugger(bufnr)
     require('jdtls.dap').setup_dap_main_class_configs()
 
     local opts = { buffer = bufnr }
-    vim.keymap.set('n', '<leader>df', "<cmd>lua require('jdtls').test_class()<cr>", opts)
-    vim.keymap.set('n', '<leader>dn', "<cmd>lua require('jdtls').test_nearest_method()<cr>", opts)
+    vim.keymap.set('n', '<leader>df', jdtls.test_class(), opts)
+    vim.keymap.set('n', '<leader>dn', jdtls.test_nearest_method(), opts)
 end
 
 local function jdtls_on_attach(client, bufnr)
@@ -127,22 +128,26 @@ local function jdtls_on_attach(client, bufnr)
     if features.codelens then
         enable_codelens(bufnr)
     end
+    require('me.lsp.conf').on_attach(client, bufnr, {
+        server_side_fuzzy_completion = true,
+    })
+
+    jdtls.setup_dap({ hotcodereplace = 'auto' })
+    jdtls.setup.add_commands()
 
     -- The following mappings are based on the suggested usage of nvim-jdtls
     -- https://github.com/mfussenegger/nvim-jdtls#usage
 
     local opts = { buffer = bufnr }
-    vim.keymap.set('n', '<A-o>', "<cmd>lua require('jdtls').organize_imports()<cr>", opts)
-    vim.keymap.set('n', 'crv', "<cmd>lua require('jdtls').extract_variable()<cr>", opts)
-    vim.keymap.set('x', 'crv', "<esc><cmd>lua require('jdtls').extract_variable(true)<cr>", opts)
-    vim.keymap.set('n', 'crc', "<cmd>lua require('jdtls').extract_constant()<cr>", opts)
-    vim.keymap.set('x', 'crc', "<esc><cmd>lua require('jdtls').extract_constant(true)<cr>", opts)
-    vim.keymap.set('x', 'crm', "<esc><Cmd>lua require('jdtls').extract_method(true)<cr>", opts)
+    vim.keymap.set('n', '<A-o>', jdtls.organize_imports, opts)
+    vim.keymap.set('n', 'crv', jdtls.extract_variable, opts)
+    vim.keymap.set('x', 'crv', jdtls.extract_variable, opts)
+    vim.keymap.set('n', 'crc', jdtls.extract_constant, opts)
+    vim.keymap.set('x', 'crc', jdtls.extract_constant, opts)
+    vim.keymap.set('x', 'crm', [[<ESC><CMD>lua require('jdtls').extract_method(true)<CR>]], opts)
 end
 
 local function jdtls_setup(event)
-    local jdtls = require('jdtls')
-
     local path = get_jdtls_paths()
     local data_dir = path.data_dir .. '/' .. vim.fn.fnamemodify(vim.fn.getcwd(), ':p:h:t')
 
@@ -200,7 +205,7 @@ local function jdtls_setup(event)
                 downloadSources = true,
             },
             configuration = {
-                updateBuildConfiguration = 'interactive',
+                updateBuildConfiguration = 'automatic',
                 runtimes = path.runtimes,
             },
             maven = {
