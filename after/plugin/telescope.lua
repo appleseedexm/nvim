@@ -8,8 +8,10 @@ vim.keymap.set('n', '<C-p>', builtin.git_files, {})
 vim.keymap.set('n', '<leader>ps', function()
     builtin.grep_string({ search = vim.fn.input("Grep > ") })
 end)
-vim.keymap.set('n', '<leader>vh', builtin.help_tags, {})
-
+vim.keymap.set('n', '<leader>th', builtin.help_tags, {})
+vim.keymap.set('n', '<leader>to', builtin.lsp_document_symbols, {})
+vim.keymap.set('n', '<leader>tr', builtin.lsp_references, {})
+vim.keymap.set('n', '<leader>td', builtin.lsp_type_definitions, {})
 
 telescope.setup(
     {
