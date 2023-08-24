@@ -112,12 +112,16 @@ local function enable_codelens(bufnr)
 end
 
 local function enable_debugger(bufnr)
-    require('jdtls').setup_dap({ hotcodereplace = 'auto' })
+    local jdtls_test = require('jdtls.tests')
+    -- require('jdtls').setup_dap({ hotcodereplace = 'auto' })
+    require('jdtls').setup_dap()
     require('jdtls.dap').setup_dap_main_class_configs()
 
     local opts = { buffer = bufnr }
-    vim.keymap.set('n', '<leader>df', jdtls.test_class(), opts)
-    vim.keymap.set('n', '<leader>dn', jdtls.test_nearest_method(), opts)
+    vim.keymap.set('n', '<leader>df', jdtls.test_class, opts)
+    vim.keymap.set('n', '<leader>dn', jdtls.test_nearest_method, opts)
+    vim.keymap.set('n', '<leader>dg', jdtls_test.generate, opts)
+    vim.keymap.set('n', '<leader>ds', jdtls_test.goto_subjects, opts)
 end
 
 local function jdtls_on_attach(client, bufnr)
@@ -128,24 +132,25 @@ local function jdtls_on_attach(client, bufnr)
     if features.codelens then
         enable_codelens(bufnr)
     end
-    require('me.lsp.conf').on_attach(client, bufnr, {
-        server_side_fuzzy_completion = true,
-    })
-
-    jdtls.setup_dap({ hotcodereplace = 'auto' })
-    jdtls.setup.add_commands()
-
-    -- The following mappings are based on the suggested usage of nvim-jdtls
-    -- https://github.com/mfussenegger/nvim-jdtls#usage
 
     local opts = { buffer = bufnr }
-    vim.keymap.set('n', '<A-o>', jdtls.organize_imports, opts)
-    vim.keymap.set('n', 'crv', jdtls.extract_variable, opts)
-    vim.keymap.set('x', 'crv', jdtls.extract_variable, opts)
-    vim.keymap.set('n', 'crc', jdtls.extract_constant, opts)
-    vim.keymap.set('x', 'crc', jdtls.extract_constant, opts)
-    vim.keymap.set('x', 'crm', [[<ESC><CMD>lua require('jdtls').extract_method(true)<CR>]], opts)
+    vim.keymap.set('n', 'cf', "<cmd>FormatCode<cr>", opts)
+    vim.keymap.set('n', 'co', "<cmd>lua require('jdtls').organize_imports()<cr>", opts)
+    vim.keymap.set('n', 'crv', "<cmd>lua require('jdtls').extract_variable()<cr>", opts)
+    vim.keymap.set('x', 'crv', "<esc><cmd>lua require('jdtls').extract_variable(true)<cr>", opts)
+    vim.keymap.set('n', 'crc', "<cmd>lua require('jdtls').extract_constant()<cr>", opts)
+    vim.keymap.set('x', 'crc', "<esc><cmd>lua require('jdtls').extract_constant(true)<cr>", opts)
+    vim.keymap.set('x', 'crm', "<esc><Cmd>lua require('jdtls').extract_method(true)<cr>", opts)
+
+
+    -- CAREFUL: if this is called before keymaps the keymaps will not work, not sure if it works afterwards
+    --    require('me.lsp.conf').on_attach(client, bufnr, {
+    --        server_side_fuzzy_completion = true,
+    --    })
+
+    jdtls.setup.add_commands()
 end
+
 
 local function jdtls_setup(event)
     local path = get_jdtls_paths()
@@ -196,11 +201,12 @@ local function jdtls_setup(event)
 
     local lsp_settings = {
         java = {
-            -- jdt = {
-            --   ls = {
-            --     vmargs = "-XX:+UseParallelGC -XX:GCTimeRatio=4 -XX:AdaptiveSizePolicyWeight=90 -Dsun.zip.disableMemoryMapping=true -Xmx10G -Xms100m"
-            --   }
-            -- },
+            jdt = {
+                ls = {
+                    vmargs =
+                    "-XX:+UseParallelGC -XX:GCTimeRatio=4 -XX:AdaptiveSizePolicyWeight=90 -Dsun.zip.disableMemoryMapping=true -Xmx10G -Xms100m"
+                }
+            },
             eclipse = {
                 downloadSources = true,
             },
@@ -238,10 +244,18 @@ local function jdtls_setup(event)
                 'org.hamcrest.MatcherAssert.assertThat',
                 'org.hamcrest.Matchers.*',
                 'org.hamcrest.CoreMatchers.*',
-                'org.junit.jupiter.api.Assertions.*',
                 'java.util.Objects.requireNonNull',
                 'java.util.Objects.requireNonNullElse',
                 'org.mockito.Mockito.*',
+                'org.mockito.ArgumentMatchers.*',
+                'org.mockito.Answers.*',
+                'org.junit.Assert.*',
+                'org.junit.Assume.*',
+                'org.junit.jupiter.api.Assertions.*',
+                'org.junit.jupiter.api.Assumptions.*',
+                'org.junit.jupiter.api.DynamicContainer.*',
+                'org.junit.jupiter.api.DynamicTest.*',
+                'org.assertj.core.api.Assertions.*',
             },
         },
         contentProvider = {
