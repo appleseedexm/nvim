@@ -1,4 +1,3 @@
-local jdtls = require('jdtls')
 local java_cmds = vim.api.nvim_create_augroup('java_cmds', { clear = true })
 local cache_vars = {}
 
@@ -83,10 +82,10 @@ local function get_jdtls_paths()
         -- https://github.com/eclipse/eclipse.jdt.ls/wiki/Running-the-JAVA-LS-server-from-the-command-line#initialize-request
         --
         -- This example assume you are using sdkman: https://sdkman.io
-        -- {
-        --   name = 'JavaSE-17',
-        --   path = vim.fn.expand('~/.sdkman/candidates/java/17.0.6-tem'),
-        -- },
+        {
+            name = 'JavaSE-17',
+            path = vim.fn.expand('/usr/lib/jvm/java-17-openjdk'),
+        },
         -- {
         --   name = 'JavaSE-18',
         --   path = vim.fn.expand('~/.sdkman/candidates/java/18.0.2-amzn'),
@@ -112,16 +111,15 @@ local function enable_codelens(bufnr)
 end
 
 local function enable_debugger(bufnr)
-    local jdtls_test = require('jdtls.tests')
     -- require('jdtls').setup_dap({ hotcodereplace = 'auto' })
     require('jdtls').setup_dap()
     require('jdtls.dap').setup_dap_main_class_configs()
 
     local opts = { buffer = bufnr }
-    vim.keymap.set('n', '<leader>df', jdtls.test_class, opts)
-    vim.keymap.set('n', '<leader>dn', jdtls.test_nearest_method, opts)
-    vim.keymap.set('n', '<leader>dg', jdtls_test.generate, opts)
-    vim.keymap.set('n', '<leader>ds', jdtls_test.goto_subjects, opts)
+    vim.keymap.set('n', '<leader>df', "<cmd>lua require('jdtls').test_class()<cr>", opts)
+    vim.keymap.set('n', '<leader>dn', "<cmd>lua require('jdtls').test_nearest_method()<cr>", opts)
+    vim.keymap.set('n', '<leader>dg', "<cmd>lua require('jdtls.tests').generate()<cr>", opts)
+    vim.keymap.set('n', '<leader>ds', "<cmd>lua require('jdtls.tests').goto_subjects()<cr>", opts)
 end
 
 local function jdtls_on_attach(client, bufnr)
@@ -133,6 +131,9 @@ local function jdtls_on_attach(client, bufnr)
         enable_codelens(bufnr)
     end
 
+    require('jdtls').setup.add_commands()
+
+
     local opts = { buffer = bufnr }
     vim.keymap.set('n', 'cf', "<cmd>FormatCode<cr>", opts)
     vim.keymap.set('n', 'co', "<cmd>lua require('jdtls').organize_imports()<cr>", opts)
@@ -142,17 +143,12 @@ local function jdtls_on_attach(client, bufnr)
     vim.keymap.set('x', 'crc', "<esc><cmd>lua require('jdtls').extract_constant(true)<cr>", opts)
     vim.keymap.set('x', 'crm', "<esc><Cmd>lua require('jdtls').extract_method(true)<cr>", opts)
 
-
-    -- CAREFUL: if this is called before keymaps the keymaps will not work, not sure if it works afterwards
-    --    require('me.lsp.conf').on_attach(client, bufnr, {
-    --        server_side_fuzzy_completion = true,
-    --    })
-
-    jdtls.setup.add_commands()
 end
 
 
 local function jdtls_setup(event)
+    local jdtls = require('jdtls')
+
     local path = get_jdtls_paths()
     local data_dir = path.data_dir .. '/' .. vim.fn.fnamemodify(vim.fn.getcwd(), ':p:h:t')
 
@@ -179,7 +175,7 @@ local function jdtls_setup(event)
         '-Dlog.protocol=true',
         '-Dlog.level=ALL',
         '-javaagent:' .. path.java_agent,
-        '-Xms10g',
+        '-Xms1g',
         '--add-modules=ALL-SYSTEM',
         '--add-opens',
         'java.base/java.util=ALL-UNNAMED',
@@ -204,18 +200,22 @@ local function jdtls_setup(event)
             jdt = {
                 ls = {
                     vmargs =
-                    "-XX:+UseParallelGC -XX:GCTimeRatio=4 -XX:AdaptiveSizePolicyWeight=90 -Dsun.zip.disableMemoryMapping=true -Xmx10G -Xms100m"
+                    "-XX:+UseParallelGC -XX:GCTimeRatio=4 -XX:AdaptiveSizePolicyWeight=90 -Dsun.zip.disableMemoryMapping=true -Xmx10G -Xms1G"
                 }
             },
             eclipse = {
                 downloadSources = true,
             },
             configuration = {
-                updateBuildConfiguration = 'automatic',
+                updateBuildConfiguration = 'interactive',
                 runtimes = path.runtimes,
             },
             maven = {
                 downloadSources = true,
+            },
+            flags = {
+                allow_incremental_sync = true,
+                server_side_fuzzy_completion = true,
             },
             implementationsCodeLens = {
                 enabled = true,
@@ -230,10 +230,6 @@ local function jdtls_setup(event)
             -- },
             format = {
                 enabled = false,
-                settings = {
-                    profile = 'GoogleStyle',
-                    url = '/home/dev/dev/eclipse-java-google-style.xml'
-                },
             }
         },
         signatureHelp = {
@@ -261,7 +257,6 @@ local function jdtls_setup(event)
         contentProvider = {
             preferred = 'fernflower',
         },
-        extendedClientCapabilities = jdtls.extendedClientCapabilities,
         sources = {
             organizeImports = {
                 starThreshold = 9999,
@@ -276,6 +271,9 @@ local function jdtls_setup(event)
         },
     }
 
+    local extendedClientCapabilities = jdtls.extendedClientCapabilities;
+    extendedClientCapabilities.resolveAdditionalTextEditsSupport = true;
+
     -- This starts a new client & server,
     -- or attaches to an existing client & server depending on the `root_dir`.
     jdtls.start_or_attach({
@@ -289,6 +287,7 @@ local function jdtls_setup(event)
         },
         init_options = {
             bundles = path.bundles,
+            extendedClientCapabilities = extendedClientCapabilities,
         },
     })
 end
