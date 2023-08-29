@@ -22,7 +22,7 @@ Plug("MunifTanjim/nui.nvim")
 Plug('rose-pine/neovim')
 
 -- Code
-Plug('github/copilot.vim')
+Plug('zbirenbaum/copilot.lua', { lazy = true })
 Plug('nvim-treesitter/nvim-treesitter', { ['do'] = ':TSUpdate' })
 Plug('preservim/nerdcommenter')
 
@@ -53,6 +53,8 @@ Plug('mfussenegger/nvim-jdtls')
 Plug('mfussenegger/nvim-dap')
 Plug('mfussenegger/nvim-dap-ui')
 
+-- Rust
+Plug('simrat39/rust-tools.nvim')
 
 
 vim.call('plug#end')
