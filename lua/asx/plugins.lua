@@ -31,6 +31,7 @@ Plug('tpope/vim-fugitive')
 Plug('airblade/vim-gitgutter')
 Plug('kdheepak/lazygit.nvim', { lazy = true })
 Plug('harrisoncramer/gitlab.nvim', { ['do'] = vim.fn['gitlab#build'] }) -- depends on nui
+Plug('sindrets/diffview.nvim')
 
 -- Google Formatter
 Plug('google/vim-maktaba')
