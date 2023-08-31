@@ -13,6 +13,9 @@ vim.keymap.set('n', '<leader>to', builtin.lsp_document_symbols, {})
 vim.keymap.set('n', '<leader>trf', builtin.lsp_references, {})
 vim.keymap.set('n', '<leader>td', builtin.lsp_type_definitions, {})
 vim.keymap.set('n', '<leader>trs', builtin.resume, {})
+vim.keymap.set("n", "<leader>tgc", require("extensions.telescope-diff").git_bcommits)
+vim.keymap.set("n", "<leader>tgs", require("extensions.telescope-diff").git_status)
+
 
 local pickers = {
 
