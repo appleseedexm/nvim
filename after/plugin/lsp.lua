@@ -58,9 +58,24 @@ lsp.on_attach(function(client, bufnr)
     vim.keymap.set("n", "<leader>f", vim.lsp.buf.format, opts)
 end)
 
-lsp.skip_server_setup({ 'jdtls' })
+lsp.skip_server_setup({ 'jdtls', 'rust_analyzer' })
+
+
+-- PRE-Setup language specific
+
+-- RUST
+local rust_lsp = lsp.build_options('rust_analyzer', {})
+-- RUST END
 
 lsp.setup()
+
+
+-- POST-Setup language specific
+
+-- RUST
+require('rust-tools').setup({server = rust_lsp})
+-- RUST END
+
 
 vim.diagnostic.config({
     virtual_text = true
