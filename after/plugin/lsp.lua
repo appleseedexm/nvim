@@ -8,9 +8,11 @@ lsp.preset("recommended")
 --
 --})
 
--- Fix Undefined global 'vim'
-lsp.nvim_workspace()
-
+require('lspconfig').lua_ls.setup(
+  lsp.nvim_lua_ls({
+    single_file_support = true,
+  })
+)
 
 local cmp = require('cmp')
 local cmp_select = { behavior = cmp.SelectBehavior.Select }
@@ -73,7 +75,7 @@ lsp.setup()
 -- POST-Setup language specific
 
 -- RUST
-require('rust-tools').setup({server = rust_lsp})
+require('rust-tools').setup({ server = rust_lsp })
 -- RUST END
 
 
