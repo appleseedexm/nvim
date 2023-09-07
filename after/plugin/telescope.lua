@@ -1,5 +1,3 @@
-require('telescope').load_extension('fzf')
-
 local telescope = require('telescope')
 
 local builtin = require('telescope.builtin')
@@ -60,3 +58,5 @@ telescope.setup(
         pickers = pickers
     }
 )
+
+require('telescope').load_extension('fzf')
