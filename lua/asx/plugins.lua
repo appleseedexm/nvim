@@ -12,11 +12,14 @@ Plug('scrooloose/nerdtree')
 Plug('ThePrimeagen/harpoon')
 
 -- Misc
+Plug('nvim-tree/nvim-web-devicons')
 Plug('majutsushi/tagbar')
 Plug('kylechui/nvim-surround')
 Plug('mbbill/undotree')
 Plug('folke/zen-mode.nvim')
-Plug("MunifTanjim/nui.nvim")
+Plug('MunifTanjim/nui.nvim')
+Plug('nvim-lualine/lualine.nvim')
+
 
 -- Themes
 Plug('rose-pine/neovim')
@@ -52,7 +55,7 @@ Plug('L3MON4D3/LuaSnip')
 -- JAVA
 Plug('mfussenegger/nvim-jdtls')
 Plug('mfussenegger/nvim-dap')
-Plug('mfussenegger/nvim-dap-ui')
+Plug('rcarriga/nvim-dap-ui')
 
 -- Rust
 Plug('simrat39/rust-tools.nvim')
