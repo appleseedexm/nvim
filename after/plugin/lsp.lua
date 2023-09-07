@@ -2,12 +2,6 @@ local lsp = require("lsp-zero")
 
 lsp.preset("recommended")
 
---lsp.ensure_installed({
---  'tsserver',
---  'rust_analyzer',
---
---})
-
 require('lspconfig').lua_ls.setup(
   lsp.nvim_lua_ls({
     single_file_support = true,
