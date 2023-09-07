@@ -2,9 +2,11 @@
 
 ## Requirements
 
-- make
-- go
-- ripgrep
+- make (fzf / telescope)
+- go (gitlab)
+- ripgrep (telescope)
+- universal-ctags (tagbar)
+- nerd fonts (lualine)
 
 ## Manual Steps
 
