@@ -7,6 +7,7 @@
 - ripgrep (telescope)
 - universal-ctags (tagbar)
 - nerd fonts (lualine)
+- lazygit (lazygit)
 
 ## Manual Steps
 
