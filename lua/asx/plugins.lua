@@ -19,6 +19,7 @@ Plug('mbbill/undotree')
 Plug('folke/zen-mode.nvim')
 Plug('MunifTanjim/nui.nvim')
 Plug('nvim-lualine/lualine.nvim')
+Plug('chrisbra/improvedft')
 
 
 -- Themes
