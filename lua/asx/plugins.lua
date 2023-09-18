@@ -24,6 +24,7 @@ Plug('chrisbra/improvedft')
 
 -- Themes
 Plug('rose-pine/neovim')
+Plug('Skullamortis/forest.nvim')
 
 -- Code
 Plug('zbirenbaum/copilot.lua', { lazy = true })
