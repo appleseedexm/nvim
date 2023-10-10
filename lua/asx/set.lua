@@ -34,3 +34,6 @@ vim.opt.ignorecase = true
 vim.opt.smartcase = true
 
 vim.opt.shell = "/bin/zsh"
+
+vim.opt.splitbelow = true
+vim.opt.splitright = true
