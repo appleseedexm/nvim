@@ -34,6 +34,11 @@ local conditions = {
 }
 
 -- Config
+local basicConfig = {
+  options = {
+    theme = 'seoul256'
+  }
+}
 local config = {
   options = {
     -- Disable sections and component separators
@@ -218,4 +223,4 @@ ins_right {
 }
 
 -- Now don't forget to initialize lualine
-lualine.setup(config)
+lualine.setup(basicConfig)
