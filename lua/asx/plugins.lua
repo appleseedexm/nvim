@@ -21,6 +21,7 @@ Plug('MunifTanjim/nui.nvim')
 Plug('nvim-lualine/lualine.nvim')
 Plug('chrisbra/improvedft')
 Plug('voldikss/vim-floaterm')
+Plug('toppair/peek.nvim', {['do'] = vim.fn['deno task --quiet build:fast']})
 
 -- Themes
 Plug('rose-pine/neovim')
@@ -39,11 +40,6 @@ Plug('harrisoncramer/gitlab.nvim',
     { ['do'] = function() require("gitlab.server").build(true) end }) -- depends on nui
 Plug('sindrets/diffview.nvim')
 
--- Google Formatter
-Plug('google/vim-maktaba')
-Plug('google/vim-codefmt')
-Plug('google/vim-glaive')
-
 -- LSP
 Plug('williamboman/mason.nvim')
 Plug('williamboman/mason-lspconfig.nvim')
@@ -58,6 +54,11 @@ Plug('rcarriga/nvim-dap-ui')
 Plug('hrsh7th/nvim-cmp')
 Plug('hrsh7th/cmp-nvim-lsp')
 Plug('L3MON4D3/LuaSnip')
+--
+-- Google Formatter
+Plug('google/vim-maktaba')
+Plug('google/vim-codefmt')
+Plug('google/vim-glaive')
 
 -- JAVA
 Plug('mfussenegger/nvim-jdtls')
