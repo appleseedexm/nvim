@@ -47,6 +47,7 @@ lsp.on_attach(function(client, bufnr)
     vim.keymap.set("n", "[d", function() vim.diagnostic.goto_next() end, opts)
     vim.keymap.set("n", "]d", function() vim.diagnostic.goto_prev() end, opts)
     vim.keymap.set("n", "<leader>vca", function() vim.lsp.buf.code_action() end, opts)
+    vim.keymap.set("v", "<leader>vca", function() vim.lsp.buf.code_action() end, opts)
     vim.keymap.set("n", "<leader>vrr", function() vim.lsp.buf.references() end, opts)
     vim.keymap.set("n", "<leader>vrn", function() vim.lsp.buf.rename() end, opts)
     vim.keymap.set('n', '<leader>D', vim.lsp.buf.type_definition, opts)
@@ -56,22 +57,7 @@ end)
 
 lsp.skip_server_setup({ 'jdtls', 'rust_analyzer' })
 
-
--- PRE-Setup language specific
-
--- RUST
-local rust_lsp = lsp.build_options('rust_analyzer', {})
--- RUST END
-
 lsp.setup()
-
-
--- POST-Setup language specific
-
--- RUST
-require('rust-tools').setup({ server = rust_lsp })
--- RUST END
-
 
 vim.diagnostic.config({
     virtual_text = true
