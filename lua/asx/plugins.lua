@@ -45,10 +45,14 @@ Plug('google/vim-codefmt')
 Plug('google/vim-glaive')
 
 -- LSP
-Plug('neovim/nvim-lspconfig')
 Plug('williamboman/mason.nvim')
 Plug('williamboman/mason-lspconfig.nvim')
+Plug('neovim/nvim-lspconfig')
 Plug('VonHeikemen/lsp-zero.nvim', { branch = 'v2.x' })
+
+-- DAP
+Plug('mfussenegger/nvim-dap')
+Plug('rcarriga/nvim-dap-ui')
 
 -- Autocompletion
 Plug('hrsh7th/nvim-cmp')
@@ -57,8 +61,6 @@ Plug('L3MON4D3/LuaSnip')
 
 -- JAVA
 Plug('mfussenegger/nvim-jdtls')
-Plug('mfussenegger/nvim-dap')
-Plug('rcarriga/nvim-dap-ui')
 
 -- Rust
 Plug('simrat39/rust-tools.nvim')
