@@ -20,7 +20,7 @@ Plug('folke/zen-mode.nvim')
 Plug('MunifTanjim/nui.nvim')
 Plug('nvim-lualine/lualine.nvim')
 Plug('chrisbra/improvedft')
-
+Plug('voldikss/vim-floaterm')
 
 -- Themes
 Plug('rose-pine/neovim')
