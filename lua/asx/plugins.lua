@@ -21,7 +21,7 @@ Plug('MunifTanjim/nui.nvim')
 Plug('nvim-lualine/lualine.nvim')
 Plug('chrisbra/improvedft')
 Plug('voldikss/vim-floaterm')
-Plug('toppair/peek.nvim', {['do'] = vim.fn['deno task --quiet build:fast']})
+Plug('iamcco/markdown-preview.nvim', { ['do'] = 'cd app && npx --yes yarn install' })
 
 -- Themes
 Plug('rose-pine/neovim')
