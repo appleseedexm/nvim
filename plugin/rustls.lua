@@ -1,4 +1,3 @@
--- this just configures all rust related plugins based on lsp zero
 local rust_cmds = vim.api.nvim_create_augroup('rust_cmds', { clear = true })
 
 local function setup_dap()
@@ -36,21 +35,21 @@ local function on_attach(_, bufnr)
     local rt  = require("rust-tools")
 
     -- Hover actions
-    --vim.keymap.set("n", "<C-space>", rt.hover_actions.hover_actions, { buffer = bufnr })
+    vim.keymap.set("n", "<C-space>", rt.hover_actions.hover_actions, { buffer = bufnr })
     -- Code action groups
-    vim.keymap.set("n", "<Leader>ca", rt.code_action_group.code_action_group, { buffer = bufnr })
+    vim.keymap.set("n", "<leader>ca", rt.code_action_group.code_action_group, { buffer = bufnr })
+    vim.keymap.set("n", "<leader>cru", rt.runnables.runnables(), { buffer = bufnr })
 
 end
 
 local function setup(event)
     setup_dap()
 
-    local lspzero = require("lsp-zero")
     local rt = require("rust-tools")
-    local rust_lsp = lspzero.build_options('rust_analyzer', {})
-    rust_lsp.on_attach = on_attach
     rt.setup({
-        server = rust_lsp,
+        server = {
+            on_attach = on_attach,
+        }
     })
 end
 
