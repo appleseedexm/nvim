@@ -3,10 +3,20 @@ local lsp = require("lsp-zero")
 lsp.preset("recommended")
 
 require('lspconfig').lua_ls.setup(
-  lsp.nvim_lua_ls({
-    single_file_support = true,
-  })
+    lsp.nvim_lua_ls({
+        single_file_support = true,
+    })
 )
+
+require('lspconfig').lemminx.setup({
+    settings = {
+        xml = {
+            server = {
+                workDir = "~/.cache/lemminx",
+            }
+        }
+    }
+})
 
 local cmp = require('cmp')
 local cmp_select = { behavior = cmp.SelectBehavior.Select }
