@@ -123,7 +123,7 @@ local function enable_debugger(bufnr)
     vim.keymap.set('n', '<leader>df', "<cmd>lua require('jdtls').test_class()<cr>", opts)
     vim.keymap.set('n', '<leader>dn', "<cmd>lua require('jdtls').test_nearest_method()<cr>", opts)
     vim.keymap.set('n', '<leader>dg', "<cmd>lua require('jdtls.tests').generate()<cr>", opts)
-    vim.keymap.set('n', '<leader>ds', "<cmd>lua require('jdtls.tests').goto_subjects()<cr>", opts)
+    vim.keymap.set('n', '<leader>dj', "<cmd>lua require('jdtls.tests').goto_subjects()<cr>", opts)
 end
 
 local function jdtls_on_attach(client, bufnr)
