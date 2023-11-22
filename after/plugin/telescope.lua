@@ -25,7 +25,7 @@ local pickers = {
 
     lsp_definitions = { fname_width = 100, },
 
-    lsp_document_symbols = { fname_width = 100, },
+    lsp_document_symbols = { fname_width = 100, symbol_width = 140, },
 
     lsp_dynamic_workspace_symbols = { fname_width = 100, },
 
