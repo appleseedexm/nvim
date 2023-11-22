@@ -4,8 +4,6 @@ local function rust_dap()
     local extension_path = require('mason-registry')
         .get_package('codelldb')
         :get_install_path() .. '/extension/'
-    -- Update this path
-    --local extension_path = vim.env.HOME .. '/.vscode/extensions/vadimcn.vscode-lldb-1.6.7/'
     local codelldb_path = extension_path .. 'adapter/codelldb'
     local liblldb_path = extension_path .. 'lldb/lib/liblldb'
     local this_os = vim.loop.os_uname().sysname;
@@ -22,37 +20,6 @@ local function rust_dap()
     return {
         adapter = require('rust-tools.dap').get_codelldb_adapter(
             codelldb_path, liblldb_path)
-    }
-end
-
-local function setup_dap()
-    local dap = require('dap')
-
-    local codelldb_path = require('mason-registry')
-        .get_package('codelldb')
-        :get_install_path()
-
-    dap.adapters.codelldb = {
-        type = 'server',
-        port = "${port}",
-        executable = {
-            command = codelldb_path .. '/extension/adapter/codelldb',
-            args = { "--port", "${port}" },
-        }
-    }
-
-    dap.configurations.rust = {
-        {
-            name = "Rust debug",
-            type = "codelldb",
-            request = "launch",
-            program = function()
-                return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/target/debug/', 'file')
-            end,
-            cwd = '${workspaceFolder}',
-            stopOnEntry = true,
-            showDisassembly = "never",
-        },
     }
 end
 
