@@ -27,6 +27,7 @@ Plug('gpanders/editorconfig.nvim')
 -- Themes
 Plug('rose-pine/neovim')
 Plug('Skullamortis/forest.nvim')
+Plug('rebelot/kanagawa.nvim')
 
 -- Code
 Plug('zbirenbaum/copilot.lua', { lazy = true })
