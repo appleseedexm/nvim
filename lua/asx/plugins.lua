@@ -23,6 +23,7 @@ Plug('chrisbra/improvedft')
 Plug('voldikss/vim-floaterm')
 Plug('iamcco/markdown-preview.nvim', { ['do'] = 'cd app && npx --yes yarn install' })
 Plug('gpanders/editorconfig.nvim')
+Plug('danth/pathfinder.vim')
 
 -- Themes
 Plug('rose-pine/neovim')
@@ -62,7 +63,7 @@ Plug('google/vim-maktaba')
 Plug('google/vim-codefmt')
 Plug('google/vim-glaive')
 
--- JAVA
+-- Java
 Plug('mfussenegger/nvim-jdtls')
 
 -- Rust

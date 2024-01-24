@@ -8,6 +8,7 @@
 - universal-ctags (tagbar)
 - nerd fonts (lualine)
 - lazygit (lazygit)
+- pynvim (pathfinder)
 
 ## Manual Steps
 
