@@ -23,7 +23,6 @@ Plug('chrisbra/improvedft')
 Plug('voldikss/vim-floaterm')
 Plug('iamcco/markdown-preview.nvim', { ['do'] = 'cd app && npx --yes yarn install' })
 Plug('gpanders/editorconfig.nvim')
-Plug('danth/pathfinder.vim')
 
 -- Themes
 Plug('rose-pine/neovim')
@@ -48,7 +47,7 @@ Plug('sindrets/diffview.nvim')
 Plug('williamboman/mason.nvim')
 Plug('williamboman/mason-lspconfig.nvim')
 Plug('neovim/nvim-lspconfig')
-Plug('VonHeikemen/lsp-zero.nvim', { branch = 'v2.x' })
+Plug('VonHeikemen/lsp-zero.nvim', { branch = 'v3.x' })
 
 -- DAP
 Plug('mfussenegger/nvim-dap')
