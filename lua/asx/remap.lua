@@ -2,10 +2,10 @@ vim.g.mapleader = " "
 vim.keymap.set('n', '<leader>pv', vim.cmd.Ex)
 
 -- remap [[ and ]]
-vim.keymap.set("n", "[[", "?{<CR>w99[{")
-vim.keymap.set("n", "]]", "j0[[%/{<CR>")
-vim.keymap.set("n", "[]", "k$][%?}<CR>")
-vim.keymap.set("n", "][", "/}<CR>b99]}")
+--vim.keymap.set("n", "[[", "?{<CR>w99[{")
+--vim.keymap.set("n", "]]", "j0[[%/{<CR>")
+--vim.keymap.set("n", "[]", "k$][%?}<CR>")
+--vim.keymap.set("n", "][", "/}<CR>b99]}")
 
 vim.keymap.set("n", "<C-s>", ":Ag<CR>")
 
