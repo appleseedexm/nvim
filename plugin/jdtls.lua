@@ -139,8 +139,8 @@ local function jdtls_on_attach(client, bufnr)
 
 
     local opts = { buffer = bufnr }
-    vim.keymap.set('n', 'cf', "<cmd>FormatCode<cr>", opts)
-    vim.keymap.set('n', 'co', "<cmd>lua require('jdtls').organize_imports()<cr>", opts)
+    vim.keymap.set('n', '<leader>cf', "<cmd>FormatCode<cr>", opts)
+    vim.keymap.set('n', '<leader>co', "<cmd>lua require('jdtls').organize_imports()<cr>", opts)
     vim.keymap.set('n', 'crv', "<cmd>lua require('jdtls').extract_variable()<cr>", opts)
     vim.keymap.set('x', 'crv', "<esc><cmd>lua require('jdtls').extract_variable(true)<cr>", opts)
     vim.keymap.set('n', 'crc', "<cmd>lua require('jdtls').extract_constant()<cr>", opts)

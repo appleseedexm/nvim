@@ -54,7 +54,7 @@ require("dapui").setup(
                 size = 0.2
             } },
             position = "bottom",
-            size = 10
+            size = 5
         } },
         mappings = {
             edit = "e",
@@ -73,11 +73,11 @@ require("dapui").setup(
 
 local dap, dapui = require("dap"), require("dapui")
 dap.listeners.after.event_initialized["dapui_config"] = function()
-    dapui.open()
+    dapui.open({ reset = true })
 end
 dap.listeners.before.event_terminated["dapui_config"] = function()
-    dapui.close()
+    dapui.close({ reset = true })
 end
 dap.listeners.before.event_exited["dapui_config"] = function()
-    dapui.close()
+    dapui.close({ reset = true })
 end
