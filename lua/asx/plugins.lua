@@ -53,6 +53,7 @@ Plug('VonHeikemen/lsp-zero.nvim', { branch = 'v3.x' })
 -- DAP
 Plug('mfussenegger/nvim-dap')
 Plug('rcarriga/nvim-dap-ui')
+Plug('nvim-neotest/nvim-nio')
 
 -- Autocompletion
 Plug('hrsh7th/nvim-cmp')
