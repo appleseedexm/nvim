@@ -1,6 +1,6 @@
 # nvim config
 
-## Requirements
+## Dependencies
 
 - make (fzf / telescope)
 - go (gitlab)
