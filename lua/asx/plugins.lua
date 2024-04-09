@@ -35,6 +35,8 @@ Plug('nvim-treesitter/nvim-treesitter', { ['do'] = ':TSUpdate' })
 Plug('nvim-treesitter/nvim-treesitter-context')
 Plug('nvim-treesitter/nvim-treesitter-textobjects')
 Plug('preservim/nerdcommenter')
+Plug('mfussenegger/nvim-lint')
+Plug('stevearc/conform.nvim')
 
 -- Git
 Plug('tpope/vim-fugitive')
