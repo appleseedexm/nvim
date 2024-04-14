@@ -8,7 +8,20 @@
 - universal-ctags (tagbar)
 - nerd fonts (lualine)
 - lazygit (lazygit)
-- pynvim (pathfinder)
+
+## Soft Dependencies
+
+These will throw an error if not found, but probably only need configuratiom or plugin removal
+- JDKs (jdtls)
+- Obsidian (obsidian)
+
+## LSPs
+
+- Rust
+- Java
+- Go
+- JS / TS
+- Angular
 
 ## Manual Steps
 
