@@ -1,4 +1,6 @@
-require("obsidian").setup({
+local obsidian = require("obsidian")
+
+obsidian.setup({
     -- A list of workspace names, paths, and configuration overrides.
     -- If you use the Obsidian app, the 'path' of a workspace should generally be
     -- your vault root (where the `.obsidian` folder is located).
@@ -292,3 +294,7 @@ require("obsidian").setup({
         end,
     },
 })
+
+
+vim.keymap.set("n", "<leader>obs", ":obsidian")
+vim.keymap.set("n", "<leader>oss", vim.cmd.ObsidianQuickSwitch)
