@@ -1,8 +1,13 @@
 # nvim config
 
+## Plugins
+
+I use [vim-plug](https://github.com/junegunn/vim-plug) to manage plugins.
+
 ## Dependencies
 
-- make (fzf / telescope)
+- fzf (telescope)
+- gcc (treesitter)
 - go (gitlab)
 - ripgrep (telescope)
 - universal-ctags (tagbar)

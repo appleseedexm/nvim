@@ -24,6 +24,7 @@ Plug('voldikss/vim-floaterm')
 Plug('iamcco/markdown-preview.nvim', { ['do'] = 'cd app && npx --yes yarn install' })
 Plug('gpanders/editorconfig.nvim')
 Plug('epwalsh/obsidian.nvim')
+Plug('alexghergh/nvim-tmux-navigation')
 
 -- Themes
 Plug('rose-pine/neovim')
