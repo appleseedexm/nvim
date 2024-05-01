@@ -178,7 +178,7 @@ local function jdtls_setup(event)
         '-Dlog.protocol=true',
         '-Dlog.level=ALL',
         '-javaagent:' .. path.java_agent,
-        '-Xms1g',
+        '-Xmx1g',
         '--add-modules=ALL-SYSTEM',
         '--add-opens',
         'java.base/java.util=ALL-UNNAMED',
@@ -203,7 +203,7 @@ local function jdtls_setup(event)
             jdt = {
                 ls = {
                     vmargs =
-                    "-XX:+UseParallelGC -XX:GCTimeRatio=4 -XX:AdaptiveSizePolicyWeight=90 -Dsun.zip.disableMemoryMapping=true -Xmx10G -Xms1G"
+                    "-XX:+UseParallelGC -XX:GCTimeRatio=4 -XX:AdaptiveSizePolicyWeight=90 -Dsun.zip.disableMemoryMapping=true"
                 }
             },
             eclipse = {
