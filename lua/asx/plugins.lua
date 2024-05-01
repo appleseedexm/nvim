@@ -9,7 +9,7 @@ Plug('junegunn/fzf.vim')
 Plug('nvim-telescope/telescope.nvim')
 Plug('nvim-telescope/telescope-fzf-native.nvim', { ['do'] = vim.fn['make'] })
 Plug('scrooloose/nerdtree')
-Plug('ThePrimeagen/harpoon')
+Plug('ThePrimeagen/harpoon', { branch = 'harpoon2' })
 
 -- Misc
 Plug('nvim-tree/nvim-web-devicons')

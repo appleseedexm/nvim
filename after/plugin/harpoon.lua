@@ -1,40 +1,32 @@
-local mark = require("harpoon.mark")
-local ui = require("harpoon.ui")
+local harpoon = require("harpoon")
 
-require('harpoon').setup({
-    global_settings = {
-        -- sets the marks upon calling `toggle` on the ui, instead of require `:w`.
-        save_on_toggle = false,
+harpoon:setup()
 
-        -- saves the harpoon file upon every change. disabling is unrecommended.
-        save_on_change = true,
+-- basic telescope configuration
+local conf = require("telescope.config").values
+local function toggle_telescope(harpoon_files)
+    local file_paths = {}
+    for _, item in ipairs(harpoon_files.items) do
+        table.insert(file_paths, item.value)
+    end
 
-        -- sets harpoon to run the command immediately as it's passed to the terminal when calling `sendCommand`.
-        enter_on_sendcmd = false,
+    require("telescope.pickers").new({}, {
+        prompt_title = "Harpoon",
+        finder = require("telescope.finders").new_table({
+            results = file_paths,
+        }),
+        previewer = conf.file_previewer({}),
+        sorter = conf.generic_sorter({}),
+    }):find()
+end
 
-        -- closes any tmux windows harpoon that harpoon creates when you close Neovim.
-        tmux_autoclose_windows = false,
+vim.keymap.set("n", "<C-e>", function() toggle_telescope(harpoon:list()) end,
+    { desc = "Open harpoon window" })
 
-        -- filetypes that you want to prevent from adding to the harpoon list menu.
-        excluded_filetypes = { "harpoon" },
 
-        -- set marks specific to each git branch inside git repository
-        mark_branch = true,
+vim.keymap.set("n", "<leader>a", function() harpoon:list():add() end)
+vim.keymap.set("n", "<C-e>", function() harpoon.ui:toggle_quick_menu(harpoon:list()) end)
 
-        -- enable tabline with harpoon marks
-        tabline = false,
-        tabline_prefix = "   ",
-        tabline_suffix = "   ",
-    },
-    menu = {
-        width = vim.api.nvim_win_get_width(0) - 4,
-    }
-})
-
-vim.keymap.set("n", "<leader>a", mark.add_file)
-vim.keymap.set("n", "<C-e>", ui.toggle_quick_menu)
-
-vim.keymap.set("n", "<C-h>", function() ui.nav_next() end)
-vim.keymap.set("n", "<C-l>", function() ui.nav_prev() end)
---vim.keymap.set("n", "<C-n>", function() ui.nav_file(3) end)
---vim.keymap.set("n", "<C-s>", function() ui.nav_file(4) end)
+-- Toggle previous & next buffers stored within Harpoon list
+vim.keymap.set("n", "<S-P>", function() harpoon:list():prev({ ui_nav_wrap = true }) end)
+vim.keymap.set("n", "<S-N>", function() harpoon:list():next({ ui_nav_wrap = true }) end)
