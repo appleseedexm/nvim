@@ -8,7 +8,7 @@ Plug('junegunn/fzf', { ['do'] = vim.fn['fzf#install'] })
 Plug('junegunn/fzf.vim')
 Plug('nvim-telescope/telescope.nvim')
 Plug('nvim-telescope/telescope-fzf-native.nvim', { ['do'] = vim.fn['make'] })
-Plug('scrooloose/nerdtree')
+Plug('nvim-tree/nvim-tree.lua')
 Plug('ThePrimeagen/harpoon', { branch = 'harpoon2' })
 
 -- Misc
