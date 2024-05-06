@@ -3,6 +3,8 @@ local cache_vars = {}
 
 local root_files = {
     '.git',
+    'gradlew',
+    'settings.gradle.kts'
 }
 
 local features = {
@@ -84,16 +86,12 @@ local function get_jdtls_paths()
         -- This example assume you are using sdkman: https://sdkman.io
         {
             name = 'JavaSE-17',
-            path = vim.fn.expand('~/.sdkman/candidates/java/17.0.10-ms'),
+            path = vim.fn.expand('~/.sdkman/candidates/java/17.0.11-ms'),
         },
         {
             name = 'JavaSE-21',
-            path = vim.fn.expand('~/.sdkman/candidates/java/21-ms'),
+            path = vim.fn.expand('~/.sdkman/candidates/java/21.0.3-ms'),
         },
-        -- {
-        --   name = 'JavaSE-18',
-        --   path = vim.fn.expand('~/.sdkman/candidates/java/18.0.2-amzn'),
-        -- },
     }
 
     cache_vars.paths = path
