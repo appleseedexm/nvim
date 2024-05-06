@@ -2,10 +2,10 @@ vim.g.mapleader = " "
 --vim.keymap.set('n', '<leader>pv', vim.cmd.Ex)
 
 -- remap [[ and ]]
---vim.keymap.set("n", "[[", "?{<CR>w99[{")
---vim.keymap.set("n", "]]", "j0[[%/{<CR>")
---vim.keymap.set("n", "[]", "k$][%?}<CR>")
---vim.keymap.set("n", "][", "/}<CR>b99]}")
+vim.keymap.set("n", "[[", "?{<CR>w99[{")
+vim.keymap.set("n", "][", "/}<CR>b99]}")
+vim.keymap.set("n", "]]", "j0[[%/{<CR>")
+vim.keymap.set("n", "[]", "k$][%?}<CR>")
 
 vim.keymap.set("n", "<C-s>", ":Ag<CR>")
 
@@ -48,8 +48,8 @@ vim.keymap.set("i", "<C-c>", "<Esc>")
 vim.keymap.set("n", "Q", "<nop>")
 vim.keymap.set("n", "<C-f>", "<cmd>silent !tmux neww tms<CR>")
 
-vim.keymap.set("n", "<C-j>", "<cmd>cnext<CR>zz")
-vim.keymap.set("n", "<C-k>", "<cmd>cprev<CR>zz")
+vim.keymap.set("n", "<A-j>", "<cmd>cnext<CR>zz")
+vim.keymap.set("n", "<A-k>", "<cmd>cprev<CR>zz")
 vim.keymap.set("n", "<leader>j", "<cmd>lnext<CR>zz")
 vim.keymap.set("n", "<leader>k", "<cmd>lprev<CR>zz")
 vim.keymap.set("n", "<C-x>", ":lclose<CR>:cclose<CR>")
