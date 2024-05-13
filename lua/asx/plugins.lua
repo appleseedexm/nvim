@@ -33,6 +33,7 @@ Plug('rebelot/kanagawa.nvim')
 
 -- Code
 Plug('zbirenbaum/copilot.lua', { lazy = true })
+Plug('supermaven-inc/supermaven-nvim')
 Plug('nvim-treesitter/nvim-treesitter', { ['do'] = ':TSUpdate' })
 Plug('nvim-treesitter/nvim-treesitter-context')
 Plug('nvim-treesitter/nvim-treesitter-textobjects')
