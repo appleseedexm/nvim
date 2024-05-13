@@ -140,6 +140,18 @@ local golang_setup = function()
     }
 end
 
+local kotlin_setup = function()
+    local lspconfig = require('lspconfig')
+    lspconfig.kotlin_language_server.setup({
+        cmd = { 'kotlin-language-server' },
+        root_dir = lspconfig.util.root_pattern('gradlew', 'pom.xml', '.git', 'settings.gradle.kts'),
+        on_attach = function(client, bufnr)
+            lspconfig.on_attach(client, bufnr)
+            lspconfig.setup_buffer_keymaps(bufnr)
+        end
+    })
+end
+
 mason.setup({})
 masonlspconfig.setup({
     ensure_installed = {},
@@ -151,6 +163,7 @@ masonlspconfig.setup({
         lua_ls = lua_ls_setup,
         lemminx = lemminx_setup,
         golangci_lint_ls = golang_setup,
+        kotlin_language_server = kotlin_setup,
     }
 })
 

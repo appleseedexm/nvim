@@ -11,6 +11,8 @@ for _, pkg_name in ipairs {
     'lemminx',
     -- Lua
     'lua-language-server',
+    -- Kotlin
+    'kotlin-language-server',
     -- Rust
     'rust-analyzer',
     'codelldb',
