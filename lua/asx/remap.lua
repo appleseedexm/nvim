@@ -15,6 +15,9 @@ vim.keymap.set("n", "ZZ", "<nop>")
 -- copy line location to clipboard
 vim.keymap.set("n", "<leader>ll", ":redir @+ | echom expand('%:h') . '/' . expand('%:t') . ':' . line('.')    | redir END<CR>")
 
+-- zoom in new tab
+vim.keymap.set("n", "<C-w>z", ":tab split<CR>")
+
 -- primagen conf
 --
 -- move code
