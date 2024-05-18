@@ -43,5 +43,6 @@ vim.opt.shell = "/bin/zsh"
 
 vim.opt.splitbelow = true
 vim.opt.splitright = true
+vim.opt.winfixheight = false
 
 vim.opt.conceallevel = 1
