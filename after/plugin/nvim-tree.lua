@@ -96,3 +96,13 @@ require("nvim-tree").setup({
     },
     on_attach = on_attach,
 })
+
+vim.api.nvim_create_autocmd("BufEnter", {
+    nested = true,
+    callback = function()
+        if require("nvim-tree.utils").is_nvim_tree_buf() then
+            vim.cmd "set nowinfixwidth"
+            vim.cmd "set nowinfixheight"
+        end
+    end
+})
