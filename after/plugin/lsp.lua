@@ -163,7 +163,7 @@ masonlspconfig.setup({
         lua_ls = lua_ls_setup,
         lemminx = lemminx_setup,
         golangci_lint_ls = golang_setup,
-        kotlin_language_server = kotlin_setup,
+        kotlin_language_server = lsp.noop,
     }
 })
 

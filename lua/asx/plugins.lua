@@ -32,7 +32,6 @@ Plug('Skullamortis/forest.nvim')
 Plug('rebelot/kanagawa.nvim')
 
 -- Code
-Plug('zbirenbaum/copilot.lua', { lazy = true })
 Plug('supermaven-inc/supermaven-nvim')
 Plug('nvim-treesitter/nvim-treesitter', { ['do'] = ':TSUpdate' })
 Plug('nvim-treesitter/nvim-treesitter-context')
@@ -45,8 +44,6 @@ Plug('stevearc/conform.nvim')
 Plug('tpope/vim-fugitive')
 Plug('airblade/vim-gitgutter')
 Plug('kdheepak/lazygit.nvim', { lazy = true })
-Plug('harrisoncramer/gitlab.nvim',
-    { ['do'] = function() require("gitlab.server").build(true) end }) -- depends on nui
 Plug('sindrets/diffview.nvim')
 
 -- LSP
