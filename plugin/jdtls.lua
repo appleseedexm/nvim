@@ -16,6 +16,26 @@ local features = {
     debugger = true,
 }
 
+-- fix buildship loading issue https://github.com/mfussenegger/nvim-jdtls/issues/38
+local function patch_gradle_loading_times()
+
+    local root_markers = {'build.gradle.kts', 'pom.xml'}
+    local root_dir = require('jdtls.setup').find_root(root_markers)
+
+    -- For Gradle only lets remove the .settings folder
+    if root_dir ~=nil then
+        local f=io.open(root_dir .. "/build.gradle.kts","r")
+        if f~=nil then
+           io.close(f)
+           -- vim.g['test#java#runner'] = 'gradletest'
+           vim.api.nvim_exec([[
+           let test#java#runner = 'gradletest'
+           ]], true)
+           os.execute("rm -rf " .. root_dir .. "/.settings")
+        end
+    end
+end
+
 local function get_jdtls_paths()
     if cache_vars.paths then
         return cache_vars.paths
@@ -267,6 +287,8 @@ local function jdtls_setup(event)
             useBlocks = true,
         },
     }
+
+    patch_gradle_loading_times()
 
     local extendedClientCapabilities = jdtls.extendedClientCapabilities;
     extendedClientCapabilities.resolveAdditionalTextEditsSupport = true;
