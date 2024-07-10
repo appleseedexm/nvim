@@ -39,6 +39,9 @@ Plug('nvim-treesitter/nvim-treesitter-textobjects')
 Plug('preservim/nerdcommenter')
 Plug('mfussenegger/nvim-lint')
 Plug('stevearc/conform.nvim')
+-- SQL
+Plug('tpope/vim-dadbod')
+Plug('kristijanhusak/vim-dadbod-ui')
 
 -- Git
 Plug('tpope/vim-fugitive')
