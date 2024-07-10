@@ -18,22 +18,31 @@ local features = {
 
 -- fix buildship loading issue https://github.com/mfussenegger/nvim-jdtls/issues/38
 local function patch_gradle_loading_times()
+    local project_dir_markers = { 'build.gradle.kts' }
+    local root_dir = vim.fs.root(0, root_files)
 
-    local root_markers = {'build.gradle.kts', 'pom.xml'}
-    local root_dir = require('jdtls.setup').find_root(root_markers)
+    -- CAREFUL, this might be intense on big projects
+    -- find in root_dir
+    local subprojects = vim.fs.find(project_dir_markers,
+        { upward = false, type = "file", limit = math.huge, path = root_dir })
 
+        local count = 0
     -- For Gradle only lets remove the .settings folder
-    if root_dir ~=nil then
-        local f=io.open(root_dir .. "/build.gradle.kts","r")
-        if f~=nil then
-           io.close(f)
-           -- vim.g['test#java#runner'] = 'gradletest'
-           vim.api.nvim_exec([[
-           let test#java#runner = 'gradletest'
-           ]], true)
-           os.execute("rm -rf " .. root_dir .. "/.settings")
+    for i, subproject in ipairs(subprojects) do
+        local project_dir = vim.fs.dirname(subproject)
+
+        local f = io.open(project_dir .. "/build.gradle.kts", "r")
+        if f ~= nil then
+        io.close(f)
+        -- vim.g['test#java#runner'] = 'gradletest'
+        vim.api.nvim_exec2([[
+        let test#java#runner = 'gradletest'
+        ]], {output = true})
+        os.execute("rm -rf " .. project_dir .. "/.settings")
+        count = count + 1
         end
     end
+    print("jdtls patching: removed " .. count .. " gradle settings")
 end
 
 local function get_jdtls_paths()
@@ -288,8 +297,6 @@ local function jdtls_setup(event)
         },
     }
 
-    patch_gradle_loading_times()
-
     local extendedClientCapabilities = jdtls.extendedClientCapabilities;
     extendedClientCapabilities.resolveAdditionalTextEditsSupport = true;
 
@@ -308,6 +315,7 @@ local function jdtls_setup(event)
             bundles = path.bundles,
             extendedClientCapabilities = extendedClientCapabilities,
         },
+        before_init = patch_gradle_loading_times,
     })
 end
 
