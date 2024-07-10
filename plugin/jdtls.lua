@@ -300,7 +300,7 @@ local function jdtls_setup(event)
         settings = lsp_settings,
         on_attach = jdtls_on_attach,
         capabilities = cache_vars.capabilities,
-        root_dir = jdtls.setup.find_root(root_files),
+        root_dir = vim.fs.root(0, root_files),
         flags = {
             allow_incremental_sync = true,
         },
