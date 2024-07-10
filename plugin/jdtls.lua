@@ -26,20 +26,20 @@ local function patch_gradle_loading_times()
     local subprojects = vim.fs.find(project_dir_markers,
         { upward = false, type = "file", limit = math.huge, path = root_dir })
 
-        local count = 0
+    local count = 0
     -- For Gradle only lets remove the .settings folder
     for i, subproject in ipairs(subprojects) do
         local project_dir = vim.fs.dirname(subproject)
 
         local f = io.open(project_dir .. "/build.gradle.kts", "r")
         if f ~= nil then
-        io.close(f)
-        -- vim.g['test#java#runner'] = 'gradletest'
-        vim.api.nvim_exec2([[
+            io.close(f)
+            -- vim.g['test#java#runner'] = 'gradletest'
+            vim.api.nvim_exec2([[
         let test#java#runner = 'gradletest'
-        ]], {output = true})
-        os.execute("rm -rf " .. project_dir .. "/.settings")
-        count = count + 1
+        ]], { output = true })
+            os.execute("rm -rf " .. project_dir .. "/.settings")
+            count = count + 1
         end
     end
     print("jdtls patching: removed " .. count .. " gradle settings")
