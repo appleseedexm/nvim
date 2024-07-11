@@ -1,6 +1,5 @@
 -- Rose Pine
 require('rose-pine').setup({
-    disable_background = true
 })
 
 -- Forest
@@ -59,8 +58,8 @@ require('kanagawa').setup({
     overrides = function(colors) -- add/modify highlights
         return {}
     end,
-    theme = "wave",    -- Load "wave" theme when 'background' option is not set
-    background = {     -- map the value of 'background' option to a theme
+    theme = "wave",      -- Load "wave" theme when 'background' option is not set
+    background = {       -- map the value of 'background' option to a theme
         dark = "dragon", -- try "dragon" !
         light = "lotus"
     },
@@ -74,4 +73,21 @@ function ColorMyPencils(color)
     vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
 end
 
-ColorMyPencils()
+function ColorToggleLightDark(color)
+    local current_style = vim.o.background
+    if current_style == 'dark' then
+        vim.o.background = 'light'
+    else
+        vim.o.background = 'dark'
+    end
+
+    ColorMyPencils(color)
+end
+
+function ColorClear()
+    vim.cmd.colorscheme("default")
+    vim.cmd.set("notermguicolors")
+    vim.cmd.highlight("Search", "ctermfg=0")
+end
+
+--ColorMyPencils()
