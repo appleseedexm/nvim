@@ -90,4 +90,4 @@ function ColorClear()
     vim.cmd.highlight("Search", "ctermfg=0")
 end
 
---ColorMyPencils()
+ColorMyPencils()
