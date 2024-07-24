@@ -54,6 +54,7 @@ Plug('sindrets/diffview.nvim')
 -- LSP
 Plug('williamboman/mason.nvim')
 Plug('williamboman/mason-lspconfig.nvim')
+Plug('zapling/mason-lock.nvim')
 Plug('neovim/nvim-lspconfig')
 Plug('VonHeikemen/lsp-zero.nvim', { branch = 'v3.x' })
 
