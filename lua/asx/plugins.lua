@@ -30,6 +30,7 @@ Plug('alexghergh/nvim-tmux-navigation')
 Plug('rose-pine/neovim')
 Plug('Skullamortis/forest.nvim')
 Plug('rebelot/kanagawa.nvim')
+Plug('sainnhe/everforest')
 
 -- Code
 Plug('supermaven-inc/supermaven-nvim')

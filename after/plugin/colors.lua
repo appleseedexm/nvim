@@ -65,8 +65,14 @@ require('kanagawa').setup({
     },
 })
 
+-- Everforest
+vim.g.everforest_enable_italic = 1
+vim.g.everforest_better_performance = 1
+vim.g.everforest_background = "hard"
+vim.g.everforest_dim_inactive_windows = 1
+
 function ColorMyPencils(color)
-    color = color or "rose-pine"
+    color = color or "everforest"
     vim.cmd.colorscheme(color)
 
     vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
