@@ -91,7 +91,10 @@ require("nvim-tree").setup({
     },
     actions = {
         open_file = {
-            eject = false,
+            eject = true,
+            quit_on_open = true,
+            window_picker = {
+                enable = false, }
         },
     },
     on_attach = on_attach,
