@@ -1,4 +1,3 @@
-print("LOADING JAVA PLUGIN")
 local api = vim.api
 local jdtls_install = require('mason-registry')
     .get_package('jdtls')
@@ -45,14 +44,10 @@ local dap = require("dap")
 local root_markers = { 'gradlew', 'mvnw', '.git' }
 local root_dir = vim.fs.root(0, root_markers) or vim.fs.root(0, { "pom.xml" })
 if not root_dir then
-    print("No root dir found")
     return
 end
-print("ROOT DIR FOUND")
 local home = os.getenv('HOME')
-print("ROOT DIR FOUND")
 local workspace_folder = home .. "/.local/share/eclipse/" .. vim.fn.fnamemodify(root_dir, ":p:h:t")
-print("ROOT DIR FOUND")
 local jdtls = require('jdtls')
 --jdtls.jol_path = os.getenv('HOME') .. '/apps/jol.jar'
 local config = require('asx.lsp').mk_config({
@@ -171,8 +166,6 @@ local function test_with_profile(test_fn)
         end)
     end
 end
-
-print("now on attach")
 
 config.on_attach = function(client, bufnr)
     local function with_compile(fn)
@@ -301,6 +294,5 @@ config.init_options = {
     extendedClientCapabilities = extendedClientCapabilities,
 }
 -- mute; having progress reports is enough
-print("STARTING JAVA SERVER")
 --config.handlers['language/status'] = function() end
 jdtls.start_or_attach(config)

@@ -1,10 +1,8 @@
-print("LOADING LSP")
 local lsp = require 'vim.lsp'
 local api = vim.api
 local ms = lsp.protocol.Methods
 local M = {}
 
-print("LOADING LSP")
 ---@diagnostic disable-next-line: deprecated
 local get_clients = vim.lsp.get_clients or vim.lsp.get_active_clients
 
