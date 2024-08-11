@@ -27,10 +27,10 @@ local function on_attach(_, bufnr)
     local rt = require("rust-tools")
 
     -- Hover actions
-    vim.keymap.set("n", "<C-space>", rt.hover_actions.hover_actions, { buffer = bufnr })
+    vim.keymap.set("n", "<C-h>", rt.hover_actions.hover_actions, { buffer = bufnr })
     -- Code action groups
-    vim.keymap.set("n", "<leader>ca", rt.code_action_group.code_action_group, { buffer = bufnr })
-    vim.keymap.set("n", "<leader>cru", rt.runnables.runnables, { buffer = bufnr })
+    vim.keymap.set("n", "<leader>vca", rt.code_action_group.code_action_group, { buffer = bufnr })
+    vim.keymap.set("n", "<leader>crr", rt.runnables.runnables, { buffer = bufnr })
 end
 
 local function setup()
