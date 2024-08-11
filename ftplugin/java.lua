@@ -19,6 +19,13 @@ dap.adapters.hprof = {
 }
 dap.configurations.java = {
     {
+        type = 'java',
+        request = 'attach',
+        name = "Debug (Attach) - Remote",
+        hostName = "127.0.0.1",
+        port = 5005,
+    },
+    {
         name = "hprof (pick path)",
         request = "launch",
         type = "hprof",
@@ -59,23 +66,23 @@ local config = require('asx.lsp').mk_config({
             maxConcurrentBuilds = 1,
             signatureHelp = { enabled = true },
             contentProvider = { preferred = 'fernflower' },
-            saveActions = {
-                organizeImports = true,
-            },
             completion = {
                 favoriteStaticMembers = {
-                    "io.crate.testing.Asserts.assertThat",
-                    "org.assertj.core.api.Assertions.assertThat",
-                    "org.assertj.core.api.Assertions.assertThatThrownBy",
-                    "org.assertj.core.api.Assertions.assertThatExceptionOfType",
-                    "org.assertj.core.api.Assertions.catchThrowable",
-                    "org.hamcrest.MatcherAssert.assertThat",
-                    "org.hamcrest.Matchers.*",
-                    "org.hamcrest.CoreMatchers.*",
-                    "org.junit.jupiter.api.Assertions.*",
-                    "java.util.Objects.requireNonNull",
-                    "java.util.Objects.requireNonNullElse",
-                    "org.mockito.Mockito.*",
+                    'org.hamcrest.MatcherAssert.assertThat',
+                    'org.hamcrest.Matchers.*',
+                    'org.hamcrest.CoreMatchers.*',
+                    'java.util.Objects.requireNonNull',
+                    'java.util.Objects.requireNonNullElse',
+                    'org.mockito.Mockito.*',
+                    'org.mockito.ArgumentMatchers.*',
+                    'org.mockito.Answers.*',
+                    'org.junit.Assert.*',
+                    'org.junit.Assume.*',
+                    'org.junit.jupiter.api.Assertions.*',
+                    'org.junit.jupiter.api.Assumptions.*',
+                    'org.junit.jupiter.api.DynamicContainer.*',
+                    'org.junit.jupiter.api.DynamicTest.*',
+                    'org.assertj.core.api.Assertions.*',
                 },
                 filteredTypes = {
                     "com.sun.*",
@@ -182,6 +189,13 @@ config.on_attach = function(client, bufnr)
     api.nvim_buf_create_user_command(bufnr, "A", function()
         require("jdtls.tests").goto_subjects()
     end, {})
+    api.nvim_create_user_command(
+        "RelativeCodeFormat",
+        function()
+            vim.cmd("FormatCode")
+        end,
+        {}
+    )
 
     local triggers = vim.tbl_get(client.server_capabilities, "completionProvider", "triggerCharacters")
     if triggers then
@@ -201,10 +215,12 @@ config.on_attach = function(client, bufnr)
 
     local opts = { silent = true, buffer = bufnr }
     local set = vim.keymap.set
+
+
+    -- debug / test
     set("n", "<leader>dsc", with_compile(function()
         dap.continue()
     end), opts)
-    set('n', "<A-o>", jdtls.organize_imports, opts)
     set('n', "<leader>df", with_compile(function()
         jdtls.test_class({
             config_overrides = {
@@ -226,12 +242,9 @@ config.on_attach = function(client, bufnr)
         })
     end), opts)
     set('n', "<leader>dN", with_compile(test_with_profile(jdtls.test_nearest_method)), opts)
-
-    vim.keymap.set('n', "crv", jdtls.extract_variable_all, opts)
-    vim.keymap.set('v', "crv", [[<ESC><CMD>lua require('jdtls').extract_variable_all(true)<CR>]], opts)
-    vim.keymap.set('v', 'crm', [[<ESC><CMD>lua require('jdtls').extract_method(true)<CR>]], opts)
-    vim.keymap.set('n', "crc", jdtls.extract_constant, opts)
-    vim.keymap.set("n", "<leader>ds", function()
+    set('n', '<leader>dj', require('jdtls.tests').goto_subjects, opts)
+    set('n', '<leader>dg', require('jdtls.tests').generate, opts)
+    set("n", "<leader>dss", function()
         if dap.session() then
             local widgets = require("dap.ui.widgets")
             widgets.centered_float(widgets.scopes)
@@ -240,6 +253,14 @@ config.on_attach = function(client, bufnr)
             require("jdtls.dap").pick_test()
         end
     end, opts)
+
+    -- basic keymaps
+    set('n', "<leader>co", jdtls.organize_imports, opts)
+    set('n', "crv", jdtls.extract_variable_all, opts)
+    set('v', "crv", [[<ESC><CMD>lua require('jdtls').extract_variable_all(true)<CR>]], opts)
+    set('v', 'crm', [[<ESC><CMD>lua require('jdtls').extract_method(true)<CR>]], opts)
+    set('v', 'crc', [[<ESC><CMD>lua require('jdtls').extract_constant(true)<CR>]], opts)
+    set('n', "crc", jdtls.extract_constant, opts)
 end
 
 
