@@ -61,39 +61,40 @@ end
 function M.setup()
     vim.lsp.handlers['textDocument/hover'] = vim.lsp.with(vim.lsp.handlers.hover, { border = 'single' })
     vim.lsp.handlers['textDocument/signatureHelp'] = vim.lsp.with(vim.lsp.handlers.signature_help, { border = 'single' })
-    local servers = {
-        { 'html',       { 'vscode-html-language-server', '--stdio' } },
-        { 'htmldjango', { 'vscode-html-language-server', '--stdio' } },
-        { 'json',       { 'vscode-json-language-server', '--stdio' } },
-        { 'css',        { 'vscode-css-language-server', '--stdio' } },
-        { 'c',          'clangd',                                    { '.git' } },
-        { 'cpp',        'clangd',                                    { '.git' } },
-        { 'sh',         { 'bash-language-server', 'start' } },
-        { 'rust',       'rust-analyzer',                             { 'Cargo.toml', '.git' } },
-        { 'tex',        'texlab',                                    { '.git' } },
-        { 'zig',        'zls',                                       { 'build.zig', '.git' } },
-        { 'javascript', { 'typescript-language-server', '--stdio' }, { "package.json", ".git" } },
-        { 'typescript', { 'typescript-language-server', '--stdio' }, { "package.json", ".git" } },
-    }
+    --local servers = {
+    --{ 'html',       { 'vscode-html-language-server', '--stdio' } },
+    --{ 'htmldjango', { 'vscode-html-language-server', '--stdio' } },
+    --{ 'json',       { 'vscode-json-language-server', '--stdio' } },
+    --{ 'css',        { 'vscode-css-language-server', '--stdio' } },
+    --{ 'c',          'clangd',                                    { '.git' } },
+    --{ 'cpp',        'clangd',                                    { '.git' } },
+    --{ 'sh',         { 'bash-language-server', 'start' } },
+    --{ 'rust',       'rust-analyzer',                             { 'Cargo.toml', '.git' } },
+    --{ 'tex',        'texlab',                                    { '.git' } },
+    --{ 'zig',        'zls',                                       { 'build.zig', '.git' } },
+    --{ 'javascript', { 'typescript-language-server', '--stdio' }, { "package.json", ".git" } },
+    --{ 'typescript', { 'typescript-language-server', '--stdio' }, { "package.json", ".git" } },
+    --}
     local lsp_group = api.nvim_create_augroup('lsp', {})
-    for _, server in pairs(servers) do
-        api.nvim_create_autocmd('FileType', {
-            pattern = server[1],
-            group = lsp_group,
-            callback = function(args)
-                local cmd = server[2]
-                local config = M.mk_config({
-                    name = type(cmd) == "table" and cmd[1] or cmd,
-                    cmd = type(cmd) == "table" and cmd or { cmd },
-                })
-                local markers = server[3]
-                if markers then
-                    config.root_dir = vim.fs.root(args.file, markers)
-                end
-                vim.lsp.start(config)
-            end,
-        })
-    end
+    -- TODO: maybe we'll migrate all lsps to this too someday
+    --for _, server in pairs(servers) do
+    --api.nvim_create_autocmd('FileType', {
+    --pattern = server[1],
+    --group = lsp_group,
+    --callback = function(args)
+    --local cmd = server[2]
+    --local config = M.mk_config({
+    --name = type(cmd) == "table" and cmd[1] or cmd,
+    --cmd = type(cmd) == "table" and cmd or { cmd },
+    --})
+    --local markers = server[3]
+    --if markers then
+    --config.root_dir = vim.fs.root(args.file, markers)
+    --end
+    --vim.lsp.start(config)
+    --end,
+    --})
+    --end
     if vim.fn.exists('##LspAttach') ~= 1 then
         return
     end
@@ -182,7 +183,7 @@ function M.setup()
             vim.keymap.set("n", "]d", vim.diagnostic.goto_prev, opts)
             vim.keymap.set('n', '<leader>D', vim.lsp.buf.type_definition, opts)
             vim.keymap.set("i", "<C-h>", vim.lsp.buf.signature_help, opts)
-            vim.keymap.set("n", "<leader>f", vim.lsp.buf.format, opts)
+            vim.keymap.set("n", "<leader>f", vim.cmd.RelativeCodeFormat, opts)
 
             for _, mappings in pairs(key_mappings) do
                 local capability, mode, lhs, rhs = unpack(mappings)
@@ -258,6 +259,11 @@ function M.setup()
                 return vim.tbl_map(function(c) return c.name end, get_clients())
             end
         }
+    )
+    api.nvim_create_user_command(
+        "RelativeCodeFormat",
+        vim.lsp.buf.format,
+        {}
     )
 end
 
