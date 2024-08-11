@@ -66,12 +66,12 @@ function M.setup()
         { 'htmldjango', { 'vscode-html-language-server', '--stdio' } },
         { 'json',       { 'vscode-json-language-server', '--stdio' } },
         { 'css',        { 'vscode-css-language-server', '--stdio' } },
-        { 'c',          'clangd',                                  { '.git' } },
-        { 'cpp',        'clangd',                                  { '.git' } },
+        { 'c',          'clangd',                                    { '.git' } },
+        { 'cpp',        'clangd',                                    { '.git' } },
         { 'sh',         { 'bash-language-server', 'start' } },
-        { 'rust',       'rust-analyzer',                           { 'Cargo.toml', '.git' } },
-        { 'tex',        'texlab',                                  { '.git' } },
-        { 'zig',        'zls',                                     { 'build.zig', '.git' } },
+        { 'rust',       'rust-analyzer',                             { 'Cargo.toml', '.git' } },
+        { 'tex',        'texlab',                                    { '.git' } },
+        { 'zig',        'zls',                                       { 'build.zig', '.git' } },
         { 'javascript', { 'typescript-language-server', '--stdio' }, { "package.json", ".git" } },
         { 'typescript', { 'typescript-language-server', '--stdio' }, { "package.json", ".git" } },
     }
@@ -126,11 +126,12 @@ function M.setup()
                         vim.lsp.buf.references({ includeDeclaration = false })
                     end
                 },
-                { "implementationProvider", "n", "gD",         vim.lsp.buf.implementation },
-                { "signatureHelpProvider",  "i", "<c-space>",  vim.lsp.buf.signature_help },
-                { "codeLensProvider",       "n", "<leader>cr", function() vim.lsp.codelens.refresh({ bufnr = 0 }) end },
-                { "codeLensProvider",       "n", "<leader>ce", vim.lsp.codelens.run },
-                { "codeLensProvider", "n", "<leader>ca",
+                { "implementationProvider", "n", "gD",          vim.lsp.buf.declaration },
+                { "implementationProvider", "n", "gi",          vim.lsp.buf.implementation },
+                { "signatureHelpProvider",  "i", "<c-space>",   vim.lsp.buf.signature_help },
+                { "codeLensProvider",       "n", "<leader>clr", function() vim.lsp.codelens.refresh({ bufnr = 0 }) end },
+                { "codeLensProvider",       "n", "<leader>cle", vim.lsp.codelens.run },
+                { "codeLensProvider", "n", "<leader>cla",
                     function()
                         vim.lsp.codelens.refresh({ bufnr = 0 })
                         local bufnr = api.nvim_get_current_buf()
@@ -143,7 +144,7 @@ function M.setup()
                         })
                     end
                 },
-                { "codeLensProvider", "n", "<leader>cc",
+                { "codeLensProvider", "n", "<leader>clc",
                     function()
                         local bufnr = api.nvim_get_current_buf()
                         if vim.lsp.codelens.clear then
@@ -155,14 +156,14 @@ function M.setup()
                 },
             }
 
-            keymap.set({ "n", "v" }, "<a-CR>", vim.lsp.buf.code_action, { buffer = args.buf })
-            keymap.set("n", "<leader>r", "<Cmd>lua vim.lsp.buf.code_action { context = { only = {'refactor'} }}<CR>",
-                { buffer = args.buf })
-            keymap.set("v", "<leader>r", "<Cmd>lua vim.lsp.buf.code_action { context = { only = {'refactor'}}}<CR>",
+            keymap.set({ "n", "v" }, "<leader>vca", vim.lsp.buf.code_action, { buffer = args.buf })
+            keymap.set({ "n", "v" }, "<leader>vrf",
+                "<Cmd>lua vim.lsp.buf.code_action { context = { only = {'refactor'} }}<CR>",
                 { buffer = args.buf })
 
             local client = assert(vim.lsp.get_client_by_id(args.data.client_id))
-            keymap.set("n", "crn", "<Cmd>lua vim.lsp.buf.rename(vim.fn.input('New Name: '))<CR>", { buffer = args.buf })
+            keymap.set("n", "<leader>vrn", "<Cmd>lua vim.lsp.buf.rename(vim.fn.input('New Name: '))<CR>",
+                { buffer = args.buf })
             keymap.set("i", "<c-n>", function()
                 if vim.lsp.completion then
                     vim.lsp.completion.trigger()
@@ -170,9 +171,18 @@ function M.setup()
                     --require("lsp_compl").trigger_completion()
                 end
             end, { buffer = args.buffer })
-            --keymap.set('i', '<CR>', function()
-                --return require('lsp_compl').accept_pum() and '<c-y>' or '<CR>'
-            --end, { expr = true, buffer = args.buffer })
+
+            local opts = { buffer = args.buf }
+
+            -- todo impl capabilities
+            vim.keymap.set("n", "K", vim.lsp.buf.hover, opts)
+            vim.keymap.set("n", "<leader>vws", vim.lsp.buf.workspace_symbol, opts)
+            vim.keymap.set("n", "<leader>vd", vim.diagnostic.open_float, opts)
+            vim.keymap.set("n", "[d", vim.diagnostic.goto_next, opts)
+            vim.keymap.set("n", "]d", vim.diagnostic.goto_prev, opts)
+            vim.keymap.set('n', '<leader>D', vim.lsp.buf.type_definition, opts)
+            vim.keymap.set("i", "<C-h>", vim.lsp.buf.signature_help, opts)
+            vim.keymap.set("n", "<leader>f", vim.lsp.buf.format, opts)
 
             for _, mappings in pairs(key_mappings) do
                 local capability, mode, lhs, rhs = unpack(mappings)
