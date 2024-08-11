@@ -6,38 +6,39 @@ local jdtls_install = require('mason-registry')
 
 local dap = require("dap")
 ---@type ExecutableAdapter
---dap.adapters.hprof = {
---type = "executable",
---command = os.getenv("GRAALVM_HOME") .. "/bin/java",
---args = {
----- "-agentlib:jdwp=transport=dt_socket,server=y,suspend=y,address=5005",
---"-Dpolyglot.engine.WarnInterpreterOnly=false",
---"-jar",
---vim.fn.expand("~/dev/mfussenegger/hprofdap/target/hprofdap-0.1.0-jar-with-dependencies.jar"),
---}
---}
---dap.configurations.java = {
---{
---name = "hprof (pick path)",
---request = "launch",
---type = "hprof",
---filepath = function()
---return require("dap.utils").pick_file({
---executables = false,
---filter = "%.hprof$"
---})
---end,
---},
---{
---name = "hprof (prompt path)",
---request = "launch",
---type = "hprof",
---filepath = function()
---local path = vim.fn.input("hprof path: ", "", "file")
---return path and vim.fn.fnamemodify(path, ":p") or dap.ABORT
---end,
---},
---}
+dap.adapters.hprof = {
+    type = "executable",
+    --command = os.getenv("GRAALVM_HOME") .. "/bin/java",
+    command = "java",
+    args = {
+        -- "-agentlib:jdwp=transport=dt_socket,server=y,suspend=y,address=5005",
+        "-Dpolyglot.engine.WarnInterpreterOnly=false",
+        --"-jar",
+        --vim.fn.expand("~/dev/mfussenegger/hprofdap/target/hprofdap-0.1.0-jar-with-dependencies.jar"),
+    }
+}
+dap.configurations.java = {
+    {
+        name = "hprof (pick path)",
+        request = "launch",
+        type = "hprof",
+        filepath = function()
+            return require("dap.utils").pick_file({
+                executables = false,
+                filter = "%.hprof$"
+            })
+        end,
+    },
+    {
+        name = "hprof (prompt path)",
+        request = "launch",
+        type = "hprof",
+        filepath = function()
+            local path = vim.fn.input("hprof path: ", "", "file")
+            return path and vim.fn.fnamemodify(path, ":p") or dap.ABORT
+        end,
+    },
+}
 
 
 
@@ -200,7 +201,7 @@ config.on_attach = function(client, bufnr)
 
     local opts = { silent = true, buffer = bufnr }
     local set = vim.keymap.set
-    set("n", "<F5>", with_compile(function()
+    set("n", "<leader>dsc", with_compile(function()
         dap.continue()
     end), opts)
     set('n', "<A-o>", jdtls.organize_imports, opts)
@@ -258,35 +259,17 @@ local jar_patterns = {
     java_test_path .. '/*.jar',
     --'/dev/testforstephen/vscode-pde/server/*.jar'
 }
--- npm install broke for me: https://github.com/npm/cli/issues/2508
--- So gather the required jars manually; this is based on the gulpfile.js in the vscode-java-test repo
-local plugin_path =
-    java_test_path .. '/'
-local bundle_list = vim.tbl_map(
-    function(x) return require('jdtls.path').join(plugin_path, x) end,
-    {
-        'junit-jupiter-*.jar',
-        'junit-platform-*.jar',
-        'junit-vintage-engine_*.jar',
-        'org.opentest4j*.jar',
-        'org.apiguardian.api_*.jar',
-        'org.eclipse.jdt.junit4.runtime_*.jar',
-        'org.eclipse.jdt.junit5.runtime_*.jar',
-        'org.opentest4j_*.jar',
-        'org.jacoco.*.jar',
-        'org.objectweb.asm*.jar'
-    }
-)
-vim.list_extend(jar_patterns, bundle_list)
+
 local bundles = {}
 for _, jar_pattern in ipairs(jar_patterns) do
-    for _, bundle in ipairs(vim.split(vim.fn.glob(home .. jar_pattern), '\n')) do
+    for _, bundle in ipairs(vim.split(vim.fn.glob(jar_pattern), '\n')) do
         if not vim.endswith(bundle, 'com.microsoft.java.test.runner-jar-with-dependencies.jar')
             and not vim.endswith(bundle, 'com.microsoft.java.test.runner.jar') then
             table.insert(bundles, bundle)
         end
     end
 end
+
 local extendedClientCapabilities = jdtls.extendedClientCapabilities;
 extendedClientCapabilities.onCompletionItemSelectedCommand = "editor.action.triggerParameterHints"
 config.init_options = {
