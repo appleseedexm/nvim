@@ -265,6 +265,44 @@ function M.setup()
         vim.lsp.buf.format,
         {}
     )
+
+    local cmp = require('cmp')
+    local cmp_format = lsp.cmp_format()
+    local cmp_select = { behavior = cmp.SelectBehavior.Select }
+
+    cmp.setup({
+        formatting = cmp_format,
+        mapping = cmp.mapping.preset.insert({
+            ['<C-p>'] = cmp.mapping.select_prev_item(cmp_select),
+            ['<C-n>'] = cmp.mapping.select_next_item(cmp_select),
+            ['<C-y>'] = cmp.mapping.confirm({ select = true }),
+            ['<C-Space>'] = cmp.mapping.complete(),
+            ['<Tab>'] = nil,
+            ['<S-Tab>'] = nil,
+        })
+    })
+
+    --cmp_mappings['<Tab>'] = nil
+    --cmp_mappings['<S-Tab>'] = nil
+
+    --lsp.setup_nvim_cmp({
+    --mapping = cmp_mappings
+    --})
+
+    lsp.set_preferences({
+        suggest_lsp_servers = true,
+    })
+
+    lsp.set_sign_icons({
+        error = 'E',
+        warn = 'W',
+        hint = 'H',
+        info = 'I'
+    })
+
+    vim.diagnostic.config({
+        virtual_text = true
+    })
 end
 
 local function mk_tag_item(name, range, uri)

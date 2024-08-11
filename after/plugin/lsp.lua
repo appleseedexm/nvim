@@ -2,17 +2,6 @@ local lsp = require("lsp-zero")
 local mason = require("mason")
 local masonlspconfig = require("mason-lspconfig")
 
-require('asx.lsp').setup()
-
-local function organize_imports()
-    local params = {
-        command = "_typescript.organizeImports",
-        arguments = { vim.api.nvim_buf_get_name(0) },
-        title = ""
-    }
-    vim.lsp.buf.execute_command(params)
-end
-
 local angularls_setup = function()
     require('lspconfig').angularls.setup({
         root_dir = require('lspconfig').util.root_pattern('angular.json', 'project.json'),
@@ -23,7 +12,14 @@ local angularls_setup = function()
         },
         commands = {
             OrganizeImports = {
-                organize_imports,
+                function()
+                    local params = {
+                        command = "_typescript.organizeImports",
+                        arguments = { vim.api.nvim_buf_get_name(0) },
+                        title = ""
+                    }
+                    vim.lsp.buf.execute_command(params)
+                end,
                 description = "Organize Imports"
             }
         }
@@ -147,42 +143,4 @@ masonlspconfig.setup({
         golangci_lint_ls = golang_setup,
         kotlin_language_server = lsp.noop,
     }
-})
-
-local cmp = require('cmp')
-local cmp_format = lsp.cmp_format()
-local cmp_select = { behavior = cmp.SelectBehavior.Select }
-
-cmp.setup({
-    formatting = cmp_format,
-    mapping = cmp.mapping.preset.insert({
-        ['<C-p>'] = cmp.mapping.select_prev_item(cmp_select),
-        ['<C-n>'] = cmp.mapping.select_next_item(cmp_select),
-        ['<C-y>'] = cmp.mapping.confirm({ select = true }),
-        ['<C-Space>'] = cmp.mapping.complete(),
-        ['<Tab>'] = nil,
-        ['<S-Tab>'] = nil,
-    })
-})
-
---cmp_mappings['<Tab>'] = nil
---cmp_mappings['<S-Tab>'] = nil
-
---lsp.setup_nvim_cmp({
---mapping = cmp_mappings
---})
-
-lsp.set_preferences({
-    suggest_lsp_servers = true,
-})
-
-lsp.set_sign_icons({
-    error = 'E',
-    warn = 'W',
-    hint = 'H',
-    info = 'I'
-})
-
-vim.diagnostic.config({
-    virtual_text = true
 })
