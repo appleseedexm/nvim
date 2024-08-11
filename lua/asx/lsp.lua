@@ -129,7 +129,7 @@ function M.setup()
                 },
                 { "implementationProvider", "n", "gD",          vim.lsp.buf.declaration },
                 { "implementationProvider", "n", "gi",          vim.lsp.buf.implementation },
-                { "signatureHelpProvider",  "i", "<c-space>",   vim.lsp.buf.signature_help },
+                { "signatureHelpProvider",  "i", "<C-h>",   vim.lsp.buf.signature_help },
                 { "codeLensProvider",       "n", "<leader>clr", function() vim.lsp.codelens.refresh({ bufnr = 0 }) end },
                 { "codeLensProvider",       "n", "<leader>cle", vim.lsp.codelens.run },
                 { "codeLensProvider", "n", "<leader>cla",
@@ -161,8 +161,6 @@ function M.setup()
             keymap.set({ "n", "v" }, "<leader>vrf",
                 "<Cmd>lua vim.lsp.buf.code_action { context = { only = {'refactor'} }}<CR>",
                 { buffer = args.buf })
-
-            local client = assert(vim.lsp.get_client_by_id(args.data.client_id))
             keymap.set("n", "<leader>vrn", "<Cmd>lua vim.lsp.buf.rename(vim.fn.input('New Name: '))<CR>",
                 { buffer = args.buf })
             keymap.set("i", "<c-n>", function()
@@ -182,9 +180,9 @@ function M.setup()
             vim.keymap.set("n", "[d", vim.diagnostic.goto_next, opts)
             vim.keymap.set("n", "]d", vim.diagnostic.goto_prev, opts)
             vim.keymap.set('n', '<leader>D', vim.lsp.buf.type_definition, opts)
-            vim.keymap.set("i", "<C-h>", vim.lsp.buf.signature_help, opts)
             vim.keymap.set("n", "<leader>f", vim.cmd.RelativeCodeFormat, opts)
 
+            local client = assert(vim.lsp.get_client_by_id(args.data.client_id))
             for _, mappings in pairs(key_mappings) do
                 local capability, mode, lhs, rhs = unpack(mappings)
                 if client.server_capabilities[capability] then
@@ -267,7 +265,8 @@ function M.setup()
     )
 
     local cmp = require('cmp')
-    local cmp_format = lsp.cmp_format()
+    local lsp_zero = require('lsp-zero')
+    local cmp_format = lsp_zero.cmp_format()
     local cmp_select = { behavior = cmp.SelectBehavior.Select }
 
     cmp.setup({
@@ -289,11 +288,11 @@ function M.setup()
     --mapping = cmp_mappings
     --})
 
-    lsp.set_preferences({
+    lsp_zero.set_preferences({
         suggest_lsp_servers = true,
     })
 
-    lsp.set_sign_icons({
+    lsp_zero.set_sign_icons({
         error = 'E',
         warn = 'W',
         hint = 'H',
