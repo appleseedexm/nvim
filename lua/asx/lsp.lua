@@ -127,6 +127,7 @@ function M.setup()
                         vim.lsp.buf.references({ includeDeclaration = false })
                     end
                 },
+                { "implementationProvider", "n", "gd",          vim.lsp.buf.definition },
                 { "implementationProvider", "n", "gD",          vim.lsp.buf.declaration },
                 { "implementationProvider", "n", "gi",          vim.lsp.buf.implementation },
                 { "signatureHelpProvider",  "i", "<C-h>",   vim.lsp.buf.signature_help },
