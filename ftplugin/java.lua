@@ -55,7 +55,7 @@ if not root_dir then
     return
 end
 local home = os.getenv('HOME')
-local workspace_folder = home .. "/.local/share/eclipse/" .. vim.fn.fnamemodify(root_dir, ":p:h:t")
+local workspace_folder = home .. "/.local/share/jdtls/" .. vim.fn.fnamemodify(root_dir, ":p:h:t")
 local jdtls = require('jdtls')
 --jdtls.jol_path = os.getenv('HOME') .. '/apps/jol.jar'
 local config = require('asx.lsp').mk_config({
