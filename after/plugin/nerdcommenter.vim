@@ -4,4 +4,6 @@ let g:NERDCustomDelimiters = {
             \ }
 
 nnoremap <silent> <leader>ca <nop>
+nnoremap <silent> <leader>clc <nop>
+nnoremap <silent> <leader>cla <nop>
 
