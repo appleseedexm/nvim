@@ -130,6 +130,63 @@ local kotlin_setup = function()
     })
 end
 
+local css_setup = function()
+    local lspconfig = require('lspconfig')
+lspconfig.cssls.setup({
+        capabilities = lsp.capabilities,
+        cmd = { 'vscode-css-language-server', '--stdio' },
+        filetypes = { 'css', 'scss', 'less', 'sass' },
+        root_dir = lspconfig.util.root_pattern('package.json', 'tsconfig.json', '.git'),
+        init_options = {
+            provideFormatter = true,
+            provideHover = true,
+            provideCompletionItem = true,
+            provideCompletionItemResolve = true,
+            provideDocumentFormattingEdits = true,
+            provideDocumentRangeFormattingEdits = true,
+            provideRenameEdits = true,
+            provideSignatureHelp = true,
+        },
+        settings = {
+            css = {
+                format = {
+                    enabled = true,
+                    tabSize = 4,
+                    newlineBetweenRules = true,
+                    spaceAroundSelectorSeparator = true,
+                    spaceAroundComma = true,
+                    trimTrailingWhitespace = true,
+                    insertBraces = true,
+                    alwaysUseSingleQuotes = false,
+                    quoteProps = 'as-needed',
+                    cssLiteral = 'preserve',
+                },
+                validate = true,
+                lint = {
+                    compatibleVendorPrefixes = 'ignore',
+                    vendorPrefix = 'warning',
+                    duplicateProperties = 'warning',
+                    emptyRules = 'warning',
+                    importStatement = 'warning',
+                    boxModel = 'warning',
+                    universalSelector = 'warning',
+                    zeroUnits = 'warning',
+                    fontFaceProperties = 'warning',
+                    hexColorLength = 'warning',
+                    argumentsInColorFunction = 'warning',
+                    unknownProperties = 'warning',
+                    ieHack = 'warning',
+                    unknownVendorSpecificProperties = 'warning',
+                    propertyIgnoredDueToDisplay = 'warning',
+                    important = 'warning',
+                    float = 'warning',
+                    idSelector = 'warning',
+                },
+            },
+        }
+    })
+end
+
 mason.setup({})
 masonlspconfig.setup({
     ensure_installed = {},
@@ -142,5 +199,6 @@ masonlspconfig.setup({
         lemminx = lemminx_setup,
         golangci_lint_ls = golang_setup,
         kotlin_language_server = lsp.noop,
+        cssls = css_setup
     }
 })
