@@ -261,7 +261,9 @@ function M.setup()
     )
     api.nvim_create_user_command(
         "RelativeCodeFormat",
-        vim.lsp.buf.format,
+        function()
+            vim.lsp.buf.format({ async = true })
+        end,
         {}
     )
 
