@@ -30,9 +30,8 @@ vim.keymap.set('n', '<leader>tww', builtin.lsp_workspace_symbols, {})
 vim.keymap.set('n', '<leader>trf', builtin.lsp_references, {})
 vim.keymap.set('n', '<leader>td', builtin.lsp_type_definitions, {})
 vim.keymap.set('n', '<leader>trs', builtin.resume, {})
-vim.keymap.set("n", "<leader>tgc", require("extensions.telescope-diff").git_bcommits)
-vim.keymap.set("n", "<leader>tgs", require("extensions.telescope-diff").git_status)
-
+vim.keymap.set("n", "<leader>tgc", builtin.git_bcommits, {})
+vim.keymap.set("n", "<leader>tgs", builtin.git_status, {})
 
 local pickers = {
 
