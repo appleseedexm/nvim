@@ -1,8 +1,25 @@
 local telescope = require('telescope')
 
 local builtin = require('telescope.builtin')
+
+local function is_workspace_git_repo()
+    local rootFolder = vim.fn.getcwd();
+    return rootFolder:match(".git")
+end
+
+if is_workspace_git_repo() then
+    vim.keymap.set('n', '<C-p>', builtin.git_files, {})
+end
 vim.keymap.set('n', '<leader>tf', builtin.find_files, {})
-vim.keymap.set('n', '<C-p>', builtin.git_files, {})
+vim.keymap.set('n', '<C-p>',
+    function()
+        if is_workspace_git_repo() then
+            builtin.git_files()
+        else
+            builtin.find_files()
+        end
+    end,
+    {})
 vim.keymap.set('n', '<leader>ts', function()
     builtin.grep_string({ search = vim.fn.input("Grep > ") })
 end)
