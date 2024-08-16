@@ -3,8 +3,7 @@ local telescope = require('telescope')
 local builtin = require('telescope.builtin')
 
 local function is_workspace_git_repo()
-    local rootFolder = vim.fn.getcwd();
-    return rootFolder:match(".git")
+    return vim.fn.isdirectory(vim.fn.getcwd() .. "/.git") == 1
 end
 
 if is_workspace_git_repo() then
