@@ -17,3 +17,8 @@ vim.api.nvim_create_autocmd('FileType', {
         vim.api.nvim_command([[autocmd FileType dbout setlocal nofoldenable]])
     end
 })
+
+vim.keymap.set('n', '<leader>bod', function()
+    vim.cmd('tabnew')
+    vim.cmd('DBUI')
+end, {})
