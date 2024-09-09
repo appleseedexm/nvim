@@ -7,6 +7,7 @@
   "golangci-lint": "v1.59.1",
   "golangci-lint-langserver": "v0.0.9",
   "gopls": "v0.16.1",
+  "html-lsp": "4.10.0",
   "java-debug-adapter": "0.58.0",
   "java-test": "0.41.1",
   "jdtls": "v1.37.0",

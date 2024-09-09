@@ -8,6 +8,14 @@ local angularls_setup = function()
         server = {
             on_attach = function(client, bufnr)
                 vim.keymap.set('n', 'co', '<cmd>OrganizeImports<cr>', { buffer = bufnr })
+                vim.api.nvim_create_user_command(
+                    "RelativeCodeFormat",
+                    function()
+                        vim.cmd("EslintFixAll")
+                        vim.cmd("FormatCode")
+                    end,
+                    {}
+                )
             end
         },
         commands = {
@@ -22,7 +30,7 @@ local angularls_setup = function()
                 end,
                 description = "Organize Imports"
             }
-        }
+        },
     })
 end
 
@@ -132,7 +140,7 @@ end
 
 local css_setup = function()
     local lspconfig = require('lspconfig')
-lspconfig.cssls.setup({
+    lspconfig.cssls.setup({
         capabilities = lsp.capabilities,
         cmd = { 'vscode-css-language-server', '--stdio' },
         filetypes = { 'css', 'scss', 'less', 'sass' },
@@ -187,6 +195,54 @@ lspconfig.cssls.setup({
     })
 end
 
+local html_setup = function()
+    local lspconfig = require('lspconfig')
+    lspconfig.html.setup({
+        server = {
+            on_attach = function(client, bufnr)
+                print("loaded html")
+                vim.api.nvim_create_user_command(
+                    "RelativeCodeFormat",
+                    function()
+                        print("running eslint fix all")
+                        vim.cmd("FormatCode")
+                    end,
+                    {}
+                )
+            end
+        },
+        capabilities = lsp.capabilities,
+        cmd = { 'vscode-html-language-server', '--stdio' },
+        filetypes = { 'html', 'htmldjango', 'htmljinja', 'svelte', 'vue', 'windi' },
+        root_dir = lspconfig.util.root_pattern('package.json', 'tsconfig.json', '.git'),
+        init_options = {
+            provideFormatter = true,
+            provideHover = true,
+            provideCompletionItem = true,
+            provideCompletionItemResolve = true,
+            provideDocumentFormattingEdits = true,
+            provideDocumentRangeFormattingEdits = true,
+            provideRenameEdits = true,
+            provideSignatureHelp = true,
+            emmetCompletions = true,
+        },
+        settings = {
+            html = {
+                format = {
+                    enabled = false,
+                },
+                validate = {
+                    scripts = true,
+                    styles = true,
+                },
+                suggest = {
+                    html5 = true,
+                }
+            }
+        },
+    })
+end
+
 mason.setup({})
 masonlspconfig.setup({
     ensure_installed = {},
@@ -199,6 +255,7 @@ masonlspconfig.setup({
         lemminx = lemminx_setup,
         golangci_lint_ls = golang_setup,
         kotlin_language_server = lsp.noop,
-        cssls = css_setup
+        cssls = css_setup,
+        html = html_setup,
     }
 })
