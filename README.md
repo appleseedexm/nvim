@@ -31,3 +31,7 @@ These will throw an error if not found, but probably only need configuratiom or 
 ## Manual Steps
 
 `telescope-fzf-native.nvim` needs a manual `make` in the plugin folder (not sure if a setup bug or a plugin bug)
+
+## TODO
+
+- [ ] Replace either glaive or conform, doesnt need both
