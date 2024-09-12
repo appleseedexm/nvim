@@ -9,7 +9,7 @@ return function(args, markers)
     return {
         cmd = cmd,
         name = "ngserver",
-        root_dir = require('lspconfig').util.root_pattern('angular.json', 'project.json'),
+        root_dir = require('lspconfig').util.root_pattern(markers),
         server = {
             on_attach = function(client, bufnr)
                 vim.keymap.set('n', 'co', '<cmd>OrganizeImports<cr>', { buffer = bufnr })
