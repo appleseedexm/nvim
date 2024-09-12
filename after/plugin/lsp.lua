@@ -239,6 +239,33 @@ local html_setup = function()
     })
 end
 
+local function pylsp_setup()
+    local pylsp = require("lspconfig").pylsp
+    pylsp.setup({
+        settings = {
+            pylsp = {
+                plugins = {
+                    pycodestyle = {
+                        enabled = true,
+                    },
+                    pyflakes = {
+                        enabled = true,
+                    },
+                    rope_completion = {
+                        enabled = true,
+                    },
+                },
+            }
+        },
+        setup = {
+            function(client)
+                client.server_capabilities.documentFormattingProvider = false
+                client.server_capabilities.documentRangeFormattingProvider = false
+            end
+        }
+    })
+end
+
 mason.setup({})
 masonlspconfig.setup({
     ensure_installed = {},
@@ -253,5 +280,6 @@ masonlspconfig.setup({
         kotlin_language_server = lsp.noop,
         cssls = css_setup,
         html = lsp.noop,
+        pylsp = pylsp_setup,
     }
 })
