@@ -66,7 +66,7 @@ function M.setup()
 
     end
     local servers = {
-        { 'html', require('asx.lspconfigs.html') },
+        { 'html',                                                                       require('asx.lspconfigs.html') },
         --{ 'htmldjango', { 'vscode-html-language-server', '--stdio' } },
         --{ 'json',       { 'vscode-json-language-server', '--stdio' } },
         --{ 'css',        { 'vscode-css-language-server', '--stdio' } },
@@ -85,21 +85,7 @@ function M.setup()
         --cmd:             ngserver --stdio --tsProbeLocations /home/asx/.local/share/nvim/mason/packages/angular-language-server/node_modules,/home/asx/code/cv/carvo-web-frontend/libs/carvo-web-frontend/customer/feature-detail/node_modules --ngProbeLocations /home/asx/.local/share/nvim/mason/packages/angular-language-server/node_modules/@angular/language-server/node_modules,/home/asx/code/cv/carvo-web-frontend/libs/carvo-web-frontend/customer/feature-detail/node_modules
 
 
-        --{ { "typescript", "html", "typescriptreact", "typescript.tsx", "htmlangular" },
-        --function(args, markers)
-        --local root_dir = vim.fs.root(args.file, markers)
-        --if root_dir then
-        --return { 'ngserver',
-        --"--stdio",
-        --"--tsProbeLocations",
-        --root_dir .. "/node_modules/",
-        --"--ngProbeLocations",
-        --root_dir .. "/node_modules/" }
-        --end
-        --end
-        --,
-        --{ 'project.json', '.git' },
-        --},
+        { { "typescript", "html", "typescriptreact", "typescript.tsx", "htmlangular" }, require('asx.lspconfigs.angular'), { 'project.json', '.git' }, },
     }
     local lsp_group = api.nvim_create_augroup('lsp', {})
     for _, server in pairs(servers) do
