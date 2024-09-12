@@ -252,6 +252,6 @@ masonlspconfig.setup({
         golangci_lint_ls = golang_setup,
         kotlin_language_server = lsp.noop,
         cssls = css_setup,
-        html = html_setup,
+        html = lsp.noop,
     }
 })

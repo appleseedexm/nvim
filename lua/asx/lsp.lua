@@ -61,40 +61,71 @@ end
 function M.setup()
     vim.lsp.handlers['textDocument/hover'] = vim.lsp.with(vim.lsp.handlers.hover, { border = 'single' })
     vim.lsp.handlers['textDocument/signatureHelp'] = vim.lsp.with(vim.lsp.handlers.signature_help, { border = 'single' })
-    --local servers = {
-    --{ 'html',       { 'vscode-html-language-server', '--stdio' } },
-    --{ 'htmldjango', { 'vscode-html-language-server', '--stdio' } },
-    --{ 'json',       { 'vscode-json-language-server', '--stdio' } },
-    --{ 'css',        { 'vscode-css-language-server', '--stdio' } },
-    --{ 'c',          'clangd',                                    { '.git' } },
-    --{ 'cpp',        'clangd',                                    { '.git' } },
-    --{ 'sh',         { 'bash-language-server', 'start' } },
-    --{ 'rust',       'rust-analyzer',                             { 'Cargo.toml', '.git' } },
-    --{ 'tex',        'texlab',                                    { '.git' } },
-    --{ 'zig',        'zls',                                       { 'build.zig', '.git' } },
-    --{ 'javascript', { 'typescript-language-server', '--stdio' }, { "package.json", ".git" } },
-    --{ 'typescript', { 'typescript-language-server', '--stdio' }, { "package.json", ".git" } },
-    --}
+
+    local function get_root_dir(file)
+
+    end
+    local servers = {
+        { 'html', require('asx.lspconfigs.html') },
+        --{ 'htmldjango', { 'vscode-html-language-server', '--stdio' } },
+        --{ 'json',       { 'vscode-json-language-server', '--stdio' } },
+        --{ 'css',        { 'vscode-css-language-server', '--stdio' } },
+        --{ 'c',          'clangd',                                    { '.git' } },
+        --{ 'cpp',        'clangd',                                    { '.git' } },
+        --{ 'sh',         { 'bash-language-server', 'start' } },
+        --{ 'rust',       'rust-analyzer',                             { 'Cargo.toml', '.git' } },
+        --{ 'tex',        'texlab',                                    { '.git' } },
+        --{ 'zig',        'zls',                                       { 'build.zig', '.git' } },
+        --{ 'javascript', { 'typescript-language-server', '--stdio' }, { ".git", "package.json" } },
+        --{ 'typescript', { 'typescript-language-server', '--stdio' }, { ".git", "package.json" } },
+
+
+
+        --root directory:  /home/asx/code/cv/carvo-web-frontend/libs/carvo-web-frontend/customer/feature-detail
+        --cmd:             ngserver --stdio --tsProbeLocations /home/asx/.local/share/nvim/mason/packages/angular-language-server/node_modules,/home/asx/code/cv/carvo-web-frontend/libs/carvo-web-frontend/customer/feature-detail/node_modules --ngProbeLocations /home/asx/.local/share/nvim/mason/packages/angular-language-server/node_modules/@angular/language-server/node_modules,/home/asx/code/cv/carvo-web-frontend/libs/carvo-web-frontend/customer/feature-detail/node_modules
+
+
+        --{ { "typescript", "html", "typescriptreact", "typescript.tsx", "htmlangular" },
+        --function(args, markers)
+        --local root_dir = vim.fs.root(args.file, markers)
+        --if root_dir then
+        --return { 'ngserver',
+        --"--stdio",
+        --"--tsProbeLocations",
+        --root_dir .. "/node_modules/",
+        --"--ngProbeLocations",
+        --root_dir .. "/node_modules/" }
+        --end
+        --end
+        --,
+        --{ 'project.json', '.git' },
+        --},
+    }
     local lsp_group = api.nvim_create_augroup('lsp', {})
-    -- TODO: maybe we'll migrate all lsps to this too someday
-    --for _, server in pairs(servers) do
-    --api.nvim_create_autocmd('FileType', {
-    --pattern = server[1],
-    --group = lsp_group,
-    --callback = function(args)
-    --local cmd = server[2]
-    --local config = M.mk_config({
-    --name = type(cmd) == "table" and cmd[1] or cmd,
-    --cmd = type(cmd) == "table" and cmd or { cmd },
-    --})
-    --local markers = server[3]
-    --if markers then
-    --config.root_dir = vim.fs.root(args.file, markers)
-    --end
-    --vim.lsp.start(config)
-    --end,
-    --})
-    --end
+    for _, server in pairs(servers) do
+        api.nvim_create_autocmd('FileType', {
+            pattern = server[1],
+            group = lsp_group,
+            callback = function(args)
+                local cmd = type(server[2]) == "function" and server[2](args, server[3]) or server[2]
+                local custom_cfg = type(server[2]) == "function" and server[2](args, server[3]) or server[2]
+                --local cmd = server[2]
+                --
+                local config = M.mk_config(custom_cfg)
+                --local config = M.mk_config({
+                --name = type(cmd) == "table" and cmd[1] or cmd,
+                --cmd = type(cmd) == "table" and cmd or { cmd },
+                --})
+                local markers = server[3]
+                if markers then
+                    config.root_dir = vim.fs.root(args.file, markers)
+                end
+                --print(vim.inspect(config))
+                print(vim.inspect(config.root_dir))
+                vim.lsp.start(config)
+            end,
+        })
+    end
     if vim.fn.exists('##LspAttach') ~= 1 then
         return
     end
@@ -130,7 +161,7 @@ function M.setup()
                 { "implementationProvider", "n", "gd",          vim.lsp.buf.definition },
                 { "implementationProvider", "n", "gD",          vim.lsp.buf.declaration },
                 { "implementationProvider", "n", "gi",          vim.lsp.buf.implementation },
-                { "signatureHelpProvider",  "i", "<C-h>",   vim.lsp.buf.signature_help },
+                { "signatureHelpProvider",  "i", "<C-h>",       vim.lsp.buf.signature_help },
                 { "codeLensProvider",       "n", "<leader>clr", function() vim.lsp.codelens.refresh({ bufnr = 0 }) end },
                 { "codeLensProvider",       "n", "<leader>cle", vim.lsp.codelens.run },
                 { "codeLensProvider", "n", "<leader>cla",
@@ -262,6 +293,7 @@ function M.setup()
     api.nvim_create_user_command(
         "RelativeCodeFormat",
         function()
+            print("runn default")
             vim.lsp.buf.format({ async = true })
         end,
         {}
