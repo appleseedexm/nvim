@@ -198,19 +198,15 @@ end
 local html_setup = function()
     local lspconfig = require('lspconfig')
     lspconfig.html.setup({
-        server = {
-            on_attach = function(client, bufnr)
-                print("loaded html")
-                vim.api.nvim_create_user_command(
-                    "RelativeCodeFormat",
-                    function()
-                        print("running eslint fix all")
-                        vim.cmd("FormatCode")
-                    end,
-                    {}
-                )
-            end
-        },
+        on_attach = function(client, bufnr)
+            vim.api.nvim_create_user_command(
+                "RelativeCodeFormat",
+                function()
+                    vim.cmd("FormatCode")
+                end,
+                {}
+            )
+        end,
         capabilities = lsp.capabilities,
         cmd = { 'vscode-html-language-server', '--stdio' },
         filetypes = { 'html', 'htmldjango', 'htmljinja', 'svelte', 'vue', 'windi' },
