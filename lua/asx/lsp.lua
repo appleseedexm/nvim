@@ -290,6 +290,7 @@ function M.setup()
     local cmp_format = lsp_zero.cmp_format()
     local cmp_select = { behavior = cmp.SelectBehavior.Select }
 
+    -- log cmp
     cmp.setup({
         formatting = cmp_format,
         mapping = cmp.mapping.preset.insert({
@@ -299,7 +300,11 @@ function M.setup()
             ['<C-Space>'] = cmp.mapping.complete(),
             ['<Tab>'] = nil,
             ['<S-Tab>'] = nil,
-        })
+        }),
+        sources = {
+            { name = 'nvim_lsp'},
+            { name = 'supermaven' }
+        }
     })
 
     --cmp_mappings['<Tab>'] = nil
