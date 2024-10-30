@@ -13,5 +13,8 @@ require("supermaven-nvim").setup({
     }
 })
 
-vim.g.SUPERMAVEN_DISABLED = 1 -- doesnt work with my config
 vim.keymap.set("n", "<leader>sm", "<cmd>SupermavenToggle<cr>", { desc = " Toggle Supermaven" })
+
+local api = require("supermaven-nvim.api")
+api.stop() -- stops supermaven-nvim
+
