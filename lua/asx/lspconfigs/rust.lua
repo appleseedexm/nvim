@@ -1,5 +1,3 @@
-local rust_cmds = vim.api.nvim_create_augroup('rust_cmds', { clear = true })
-
 local function rust_dap()
     local extension_path = require('mason-registry')
         .get_package('codelldb')
@@ -33,16 +31,13 @@ local function on_attach(_, bufnr)
     vim.keymap.set("n", "<leader>crr", rt.runnables.runnables, { buffer = bufnr })
 end
 
-local function setup()
-    --setup_dap()
-
-    local rt = require("rust-tools")
-    rt.setup({
+return function(args, markers)
+    return {
+        name = "rust-analyzer",
+        cmd = { 'rust-analyzer' },
         server = {
             on_attach = on_attach,
         },
         dap = rust_dap()
-    })
+    }
 end
-
---setup()

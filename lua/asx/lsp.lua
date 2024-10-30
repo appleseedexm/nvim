@@ -73,18 +73,11 @@ function M.setup()
         --{ 'c',          'clangd',                                    { '.git' } },
         --{ 'cpp',        'clangd',                                    { '.git' } },
         --{ 'sh',         { 'bash-language-server', 'start' } },
-        --{ 'rust',       'rust-analyzer',                             { 'Cargo.toml', '.git' } },
+        { 'rust',                                                                       require('asx.lspconfigs.rust'),    { 'Cargo.toml', '.git' } },
         --{ 'tex',        'texlab',                                    { '.git' } },
         --{ 'zig',        'zls',                                       { 'build.zig', '.git' } },
         --{ 'javascript', { 'typescript-language-server', '--stdio' }, { ".git", "package.json" } },
         --{ 'typescript', { 'typescript-language-server', '--stdio' }, { ".git", "package.json" } },
-
-
-
-        --root directory:  /home/asx/code/cv/carvo-web-frontend/libs/carvo-web-frontend/customer/feature-detail
-        --cmd:             ngserver --stdio --tsProbeLocations /home/asx/.local/share/nvim/mason/packages/angular-language-server/node_modules,/home/asx/code/cv/carvo-web-frontend/libs/carvo-web-frontend/customer/feature-detail/node_modules --ngProbeLocations /home/asx/.local/share/nvim/mason/packages/angular-language-server/node_modules/@angular/language-server/node_modules,/home/asx/code/cv/carvo-web-frontend/libs/carvo-web-frontend/customer/feature-detail/node_modules
-
-
         { { "typescript", "html", "typescriptreact", "typescript.tsx", "htmlangular" }, require('asx.lspconfigs.angular'), { 'project.json', '.git' }, },
     }
     local lsp_group = api.nvim_create_augroup('lsp', {})
