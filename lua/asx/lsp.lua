@@ -86,7 +86,6 @@ function M.setup()
             pattern = server[1],
             group = lsp_group,
             callback = function(args)
-                local cmd = type(server[2]) == "function" and server[2](args, server[3]) or server[2]
                 local custom_cfg = type(server[2]) == "function" and server[2](args, server[3]) or server[2]
                 --local cmd = server[2]
                 --
@@ -272,7 +271,6 @@ function M.setup()
     api.nvim_create_user_command(
         "RelativeCodeFormat",
         function()
-            print("runn default")
             vim.lsp.buf.format({ async = true })
         end,
         {}
