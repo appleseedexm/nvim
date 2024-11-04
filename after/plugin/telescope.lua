@@ -6,10 +6,7 @@ local function is_workspace_git_repo()
     return vim.fn.isdirectory(vim.fn.getcwd() .. "/.git") == 1
 end
 
-if is_workspace_git_repo() then
-    vim.keymap.set('n', '<C-p>', builtin.git_files, {})
-end
-vim.keymap.set('n', '<leader>tf', builtin.find_files, {})
+vim.keymap.set('n', '<leader>tf', function() builtin.find_files({ no_ignore = true, hidden = true }) end, {})
 vim.keymap.set('n', '<C-p>',
     function()
         if is_workspace_git_repo() then
