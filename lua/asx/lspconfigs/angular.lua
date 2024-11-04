@@ -1,5 +1,4 @@
 return function(args, markers)
-
     local cmd = require('lspconfig').angularls.document_config.default_config.cmd
     return {
         cmd = cmd,
@@ -9,6 +8,7 @@ return function(args, markers)
         name = "ngserver",
         root_dir = require('lspconfig').util.root_pattern(markers),
         on_attach = function(client, bufnr)
+            -- all of this should go into the TS config instead
             vim.api.nvim_create_user_command(
                 "RelativeCodeFormat",
                 function()
@@ -28,6 +28,12 @@ return function(args, markers)
                         title = ""
                     }
                     vim.lsp.buf.execute_command(params)
+                    vim.lsp.buf.code_action({
+                        apply = true,
+                        context = {
+                            only = { "source.addMissingImports.ts" },
+                        }
+                    })
                 end,
                 {}
             )
