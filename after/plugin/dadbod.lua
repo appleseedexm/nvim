@@ -22,3 +22,6 @@ vim.keymap.set('n', '<leader>bod', function()
     vim.cmd('tabnew')
     vim.cmd('DBUI')
 end, {})
+
+
+vim.api.nvim_command([[autocmd User DBUIOpened setlocal number relativenumber]])
