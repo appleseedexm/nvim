@@ -7,9 +7,10 @@ I use [vim-plug](https://github.com/junegunn/vim-plug) to manage plugins.
 ## Dependencies
 
 - fzf (telescope)
+- ripgrep (telescope)
+- git-delta (telescope)
 - gcc (treesitter)
 - go (gitlab)
-- ripgrep (telescope)
 - universal-ctags (tagbar)
 - nerd fonts (lualine)
 - lazygit (lazygit)
@@ -35,3 +36,4 @@ These will throw an error if not found, but probably only need configuratiom or 
 ## TODO
 
 - [ ] Replace either glaive or conform, doesnt need both
+- [ ] Refactor all LSPs into a single setup
