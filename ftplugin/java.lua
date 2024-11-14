@@ -132,7 +132,7 @@ local config = require('asx.lsp').mk_config({
         '--add-opens', 'java.base/java.util=ALL-UNNAMED',
         '--add-opens', 'java.base/java.lang=ALL-UNNAMED',
         '-jar', vim.fn.glob(jdtls_install .. '/plugins/org.eclipse.equinox.launcher_*.jar'),
-        '-configuration', jdtls_install .. '/config_linux_arm',
+        '-configuration', jdtls_install .. '/config_linux',
         '-data', workspace_folder,
     }
 })
