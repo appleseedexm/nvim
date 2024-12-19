@@ -25,6 +25,7 @@ Plug('iamcco/markdown-preview.nvim', { ['do'] = 'cd app && npx --yes yarn instal
 Plug('gpanders/editorconfig.nvim')
 Plug('epwalsh/obsidian.nvim')
 Plug('alexghergh/nvim-tmux-navigation')
+Plug('tpope/vim-abolish')
 
 -- Themes
 Plug('rose-pine/neovim')
