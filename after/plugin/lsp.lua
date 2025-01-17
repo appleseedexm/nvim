@@ -274,7 +274,7 @@ masonlspconfig.setup({
         jdtls = lsp.noop,
         rust_analyzer = lsp.noop,
         angularls = lsp.noop,
-        lua_ls = lua_ls_setup,
+        lua_ls = lsp.noop,
         ts_ls = lsp.noop,
         lemminx = lemminx_setup,
         golangci_lint_ls = golang_setup,

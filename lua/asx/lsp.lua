@@ -77,6 +77,7 @@ function M.setup()
         --{ 'tex',        'texlab',                                    { '.git' } },
         --{ 'zig',        'zls',                                       { 'build.zig', '.git' } },
 
+        { 'lua',                                                                        require('asx.lspconfigs.lua'),               { ".git", "package.json" } },
         { 'javascript',                                                                 { 'typescript-language-server', '--stdio' }, { ".git", "package.json" } },
         { 'typescript',                                                                 { 'typescript-language-server', '--stdio' }, { ".git", "package.json" } },
         { { "typescript", "html", "typescriptreact", "typescript.tsx", "htmlangular" }, require('asx.lspconfigs.angular'),           { 'project.json', '.git' }, },
