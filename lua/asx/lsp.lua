@@ -68,8 +68,9 @@ function M.setup()
     local servers = {
         { 'html',                                                                       require('asx.lspconfigs.html') },
         --{ 'htmldjango', { 'vscode-html-language-server', '--stdio' } },
-        --{ 'json',       { 'vscode-json-language-server', '--stdio' } },
-        --{ 'css',        { 'vscode-css-language-server', '--stdio' } },
+        { 'json',                                                                       { 'vscode-json-language-server', '--stdio' } },
+        { 'css',                                                                        { 'vscode-css-language-server', '--stdio' } },
+        { 'scss',                                                                       { 'vscode-css-language-server', '--stdio' } },
         --{ 'c',          'clangd',                                    { '.git' } },
         --{ 'cpp',        'clangd',                                    { '.git' } },
         --{ 'sh',         { 'bash-language-server', 'start' } },

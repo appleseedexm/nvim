@@ -279,7 +279,8 @@ masonlspconfig.setup({
         lemminx = lemminx_setup,
         golangci_lint_ls = golang_setup,
         kotlin_language_server = lsp.noop,
-        cssls = css_setup,
+        cssls = lsp.noop,
+        jsonls = lsp.noop,
         html = lsp.noop,
         pylsp = pylsp_setup,
     }
