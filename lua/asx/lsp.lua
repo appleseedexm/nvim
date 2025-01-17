@@ -73,12 +73,13 @@ function M.setup()
         --{ 'c',          'clangd',                                    { '.git' } },
         --{ 'cpp',        'clangd',                                    { '.git' } },
         --{ 'sh',         { 'bash-language-server', 'start' } },
-        { 'rust',                                                                       require('asx.lspconfigs.rust'),    { 'Cargo.toml', '.git' } },
+        { 'rust',                                                                       require('asx.lspconfigs.rust'),              { 'Cargo.toml', '.git' } },
         --{ 'tex',        'texlab',                                    { '.git' } },
         --{ 'zig',        'zls',                                       { 'build.zig', '.git' } },
-        --{ 'javascript', { 'typescript-language-server', '--stdio' }, { ".git", "package.json" } },
-        --{ 'typescript', { 'typescript-language-server', '--stdio' }, { ".git", "package.json" } },
-        { { "typescript", "html", "typescriptreact", "typescript.tsx", "htmlangular" }, require('asx.lspconfigs.angular'), { 'project.json', '.git' }, },
+
+        { 'javascript',                                                                 { 'typescript-language-server', '--stdio' }, { ".git", "package.json" } },
+        { 'typescript',                                                                 { 'typescript-language-server', '--stdio' }, { ".git", "package.json" } },
+        { { "typescript", "html", "typescriptreact", "typescript.tsx", "htmlangular" }, require('asx.lspconfigs.angular'),           { 'project.json', '.git' }, },
     }
     local lsp_group = api.nvim_create_augroup('lsp', {})
     for _, server in pairs(servers) do
@@ -86,7 +87,9 @@ function M.setup()
             pattern = server[1],
             group = lsp_group,
             callback = function(args)
-                local custom_cfg = type(server[2]) == "function" and server[2](args, server[3]) or server[2]
+                local custom_cfg = type(server[2]) == "function" and server[2](args, server[3]) or
+                    { cmd = server[2] }
+                custom_cfg.name = custom_cfg.name == nil and server[1] or custom_cfg.name
                 --local cmd = server[2]
                 --
                 local config = M.mk_config(custom_cfg)
@@ -293,7 +296,7 @@ function M.setup()
             ['<S-Tab>'] = nil,
         }),
         sources = {
-            { name = 'nvim_lsp'},
+            { name = 'nvim_lsp' },
             { name = 'supermaven' }
         }
     })
