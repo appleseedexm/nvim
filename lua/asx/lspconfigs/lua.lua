@@ -26,5 +26,4 @@ return function(args, markers)
             }
         }
     }
-    --)
 end

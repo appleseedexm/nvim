@@ -78,6 +78,7 @@ function M.setup()
         --{ 'tex',        'texlab',                                    { '.git' } },
         --{ 'zig',        'zls',                                       { 'build.zig', '.git' } },
 
+        { 'python',                                                                     require('asx.lspconfigs.python'),            { ".git", "package.json" } },
         { 'lua',                                                                        require('asx.lspconfigs.lua'),               { ".git", "package.json" } },
         { 'javascript',                                                                 { 'typescript-language-server', '--stdio' }, { ".git", "package.json" } },
         { 'typescript',                                                                 { 'typescript-language-server', '--stdio' }, { ".git", "package.json" } },
@@ -104,7 +105,6 @@ function M.setup()
                     config.root_dir = vim.fs.root(args.file, markers)
                 end
                 --print(vim.inspect(config))
-                print(vim.inspect(config.root_dir))
                 vim.lsp.start(config)
             end,
         })

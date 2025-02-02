@@ -282,6 +282,6 @@ masonlspconfig.setup({
         cssls = lsp.noop,
         jsonls = lsp.noop,
         html = lsp.noop,
-        pylsp = pylsp_setup,
+        pylsp = lsp.noop,
     }
 })
