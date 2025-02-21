@@ -76,7 +76,6 @@ local config = require('asx.lsp').mk_config({
                     'org.mockito.Mockito.*',
                     'org.mockito.ArgumentMatchers.*',
                     'org.mockito.Answers.*',
-                    'org.junit.Assert.*',
                     'org.junit.Assume.*',
                     'org.junit.jupiter.api.Assertions.*',
                     'org.junit.jupiter.api.Assumptions.*',
