@@ -12,7 +12,7 @@ I use [vim-plug](https://github.com/junegunn/vim-plug) to manage plugins.
 - gcc (treesitter)
 - go (gitlab)
 - universal-ctags (tagbar)
-- nerd fonts (lualine)
+- nerd-fonts (lualine)
 - lazygit (lazygit)
 
 ## Soft Dependencies
@@ -20,6 +20,7 @@ I use [vim-plug](https://github.com/junegunn/vim-plug) to manage plugins.
 These will throw an error if not found, but probably only need configuratiom or plugin removal
 - JDKs (jdtls)
 - Obsidian (obsidian)
+- luarocks (luaformatter)
 
 ## LSPs
 
@@ -27,6 +28,10 @@ These will throw an error if not found, but probably only need configuratiom or 
 - Java
 - Go
 - JS / TS
+- Python
+- HTML / CSS
+- JSON
+- Lua
 - Angular
 
 ## Manual Steps
