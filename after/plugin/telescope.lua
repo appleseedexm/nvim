@@ -47,7 +47,7 @@ vim.keymap.set('n', '<C-p>',
     end,
     {})
 vim.keymap.set('n', '<leader>ts', function()
-    builtin.grep_string({ search = vim.fn.input("Grep > ") })
+    builtin.grep_string({ search = vim.fn.input("Grep > "), additional_args = { '-i.' } })
 end)
 vim.keymap.set('n', '<leader>th', builtin.help_tags, {})
 vim.keymap.set('n', '<leader>tb', builtin.buffers, {})
