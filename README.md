@@ -9,6 +9,7 @@ I use [vim-plug](https://github.com/junegunn/vim-plug) to manage plugins.
 - fzf (telescope)
 - ripgrep (telescope)
 - git-delta (telescope)
+- fd (telescope)
 - gcc (treesitter)
 - go (gitlab)
 - universal-ctags (tagbar)
