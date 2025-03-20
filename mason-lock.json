@@ -4,6 +4,7 @@
   "css-lsp": "4.10.0",
   "delve": "v1.23.1",
   "eslint-lsp": "4.10.0",
+  "gitlab-ci-ls": "1.0.2",
   "golangci-lint": "v1.61.0",
   "golangci-lint-langserver": "v0.0.9",
   "gopls": "v0.16.2",
