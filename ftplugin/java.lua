@@ -118,7 +118,8 @@ local config = require('asx.lsp').mk_config({
                         path = vim.fn.expand('~/.sdkman/candidates/java/21.0.2-open'),
                     },
                 }
-            }
+            },
+            symbols = { includeSourceMethodDeclarations = true },
         }
     },
     cmd = {
