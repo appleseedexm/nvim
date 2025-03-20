@@ -111,7 +111,11 @@ local config = require('asx.lsp').mk_config({
                 runtimes = {
                     {
                         name = 'JavaSE-17',
-                        path = vim.fn.expand('~/.sdkman/candidates/java/17.0.11-ms'),
+                        path = vim.fn.expand('~/.sdkman/candidates/java/17.0.14-tem'),
+                    },
+                    {
+                        name = 'JavaSE-21',
+                        path = vim.fn.expand('~/.sdkman/candidates/java/21.0.2-open'),
                     },
                 }
             }
