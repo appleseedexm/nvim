@@ -22,6 +22,7 @@ These will throw an error if not found, but probably only need configuratiom or 
 - JDKs (jdtls)
 - Obsidian (obsidian)
 - luarocks (luaformatter)
+- inotify-tools (improved file-watcher backend)
 
 ## LSPs
 
