@@ -276,7 +276,7 @@ masonlspconfig.setup({
         angularls = lsp.noop,
         lua_ls = lsp.noop,
         ts_ls = lsp.noop,
-        lemminx = lemminx_setup,
+        lemminx = lsp.noop,
         golangci_lint_ls = golang_setup,
         kotlin_language_server = lsp.noop,
         cssls = lsp.noop,
