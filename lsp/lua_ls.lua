@@ -1,10 +1,5 @@
-local cmd = require('mason-registry')
-    .get_package('lua-language-server')
-    :get_install_path()
-    .. "/lua-language-server"
-
 return {
-    cmd = { cmd },
+    cmd = { 'lua-language-server' },
     root_markers = { '.git', '.luarc.json' },
     filetypes = { 'lua' },
     settings = {
