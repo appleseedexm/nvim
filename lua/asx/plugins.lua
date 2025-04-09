@@ -43,6 +43,7 @@ Plug('nvim-treesitter/nvim-treesitter-textobjects')
 Plug('preservim/nerdcommenter')
 Plug('mfussenegger/nvim-lint')
 Plug('stevearc/conform.nvim')
+Plug('folke/lazydev.nvim')
 
 -- SQL
 Plug('tpope/vim-dadbod', { lazy = true })
