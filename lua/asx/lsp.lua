@@ -361,6 +361,6 @@ function M.symbol_tagfunc(pattern, flags)
     return results
 end
 
-vim.lsp.enable({ 'lua_ls' })
+vim.lsp.enable({ 'lua_ls', 'lemminx' })
 
 return M
