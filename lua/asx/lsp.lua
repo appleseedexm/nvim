@@ -42,6 +42,11 @@ function M.mk_config(config)
                 end
                 client.server_capabilities.completionProvider.triggerCharacters = vim.iter(triggers):totable()
             end
+            if vim.lsp.completion then
+                --vim.lsp.completion.enable(true, client.id, bufnr, { autotrigger = true })
+            else
+                --lsp_compl.attach(client, bufnr)
+            end
         end,
         init_options = vim.empty_dict(),
         settings = vim.empty_dict(),
@@ -74,7 +79,7 @@ function M.setup()
         --{ 'zig',        'zls',                                       { 'build.zig', '.git' } },
 
         { 'python',                                                                     require('asx.lspconfigs.python'),            { ".git", "package.json" } },
-        { 'lua',                                                                        require('asx.lspconfigs.lua'),               { ".git", "package.json" } },
+        --{ 'lua',                                                                        require('asx.lspconfigs.lua'),               { ".git", "package.json" } },
         { 'javascript',                                                                 { 'typescript-language-server', '--stdio' }, { ".git", "package.json" } },
         { 'typescript',                                                                 { 'typescript-language-server', '--stdio' }, { ".git", "package.json" } },
         { { "typescript", "html", "typescriptreact", "typescript.tsx", "htmlangular" }, require('asx.lspconfigs.angular'),           { 'project.json', '.git' }, },
@@ -355,5 +360,7 @@ function M.symbol_tagfunc(pattern, flags)
     vim.wait(1500, function() return num_clients == 0 end)
     return results
 end
+
+vim.lsp.enable({ 'lua_ls' })
 
 return M
