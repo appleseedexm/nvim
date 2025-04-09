@@ -1,10 +1,5 @@
-local cmd = require('mason-registry')
-    .get_package('lemminx')
-    :get_install_path()
-    .. "/lemminx-linux"
-
 return {
-    cmd = { cmd },
+    cmd = { "lemminx" },
     root_markers = {},
     filetypes = { 'xml' },
     settings = {

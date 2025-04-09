@@ -361,6 +361,10 @@ function M.symbol_tagfunc(pattern, flags)
     return results
 end
 
-vim.lsp.enable({ 'lua_ls', 'lemminx', 'gopls', 'golangci_lint_ls' })
+function M.enable()
+    local mason = require("mason")
+    mason.setup({})
+    vim.lsp.enable({ 'lua_ls', 'lemminx', 'gopls', 'golangci_lint_ls' })
+end
 
 return M
