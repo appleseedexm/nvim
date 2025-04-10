@@ -177,6 +177,8 @@ function M.setup()
                 })
             end
 
+            vim.lsp.completion.enable(false, client.id, args.buf, { autotrigger = true })
+
             local triggers = vim.tbl_get(client.server_capabilities, "completionProvider", "triggerCharacters")
             if triggers then
                 for _, char in ipairs({ "a", "e", "i", "o", "u" }) do
@@ -211,13 +213,8 @@ function M.setup()
     )
 
     local cmp = require('cmp')
-    local lsp_zero = require('lsp-zero')
-    local cmp_format = lsp_zero.cmp_format({})
     local cmp_select = { behavior = cmp.SelectBehavior.Select }
-
-    -- log cmp
     cmp.setup({
-        formatting = cmp_format,
         mapping = cmp.mapping.preset.insert({
             ['<C-p>'] = cmp.mapping.select_prev_item(cmp_select),
             ['<C-n>'] = cmp.mapping.select_next_item(cmp_select),
@@ -230,24 +227,6 @@ function M.setup()
             { name = 'nvim_lsp' },
             { name = 'supermaven' }
         }
-    })
-
-    --cmp_mappings['<Tab>'] = nil
-    --cmp_mappings['<S-Tab>'] = nil
-
-    --lsp.setup_nvim_cmp({
-    --mapping = cmp_mappings
-    --})
-
-    lsp_zero.set_preferences({
-        suggest_lsp_servers = true,
-    })
-
-    lsp_zero.set_sign_icons({
-        error = 'E',
-        warn = 'W',
-        hint = 'H',
-        info = 'I'
     })
 
     vim.diagnostic.config({
