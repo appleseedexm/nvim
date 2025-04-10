@@ -1,4 +1,4 @@
-return {
+return require('asx.lsp').mk_config({
     cmd = { "lemminx" },
     root_markers = {},
     filetypes = { 'xml' },
@@ -9,4 +9,4 @@ return {
             }
         }
     }
-}
+})

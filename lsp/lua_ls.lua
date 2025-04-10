@@ -1,4 +1,4 @@
-return {
+return require('asx.lsp').mk_config({
     cmd = { 'lua-language-server' },
     root_markers = { '.git', '.luarc.json' },
     filetypes = { 'lua' },
@@ -30,4 +30,4 @@ return {
             }
         }
     }
-}
+})
