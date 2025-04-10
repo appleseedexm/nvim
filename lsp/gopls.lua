@@ -1,36 +1,5 @@
 local dap = require 'dap'
 
---if not configs.golangcilsp then
---configs.golangcilsp = {
---default_config = {
---cmd = { 'golangci-lint-langserver' },
---root_dir = lspconfig.util.root_pattern('.git', 'go.mod'),
---init_options = {
---command = { "golangci-lint", "run", "--enable-all", "--disable", "lll", "--out-format", "json", "--issues-exit-code=1" },
---}
---},
---}
---end
---lspconfig.golangci_lint_ls.setup {
---filetypes = { 'go', 'gomod' },
---}
-
--- gopls
---lspconfig.gopls.setup {
---cmd = { "gopls" },
---filetypes = { "go", "gomod", "gowork", "gotmpl" },
---root_dir = lspconfig.util.root_pattern("go.work", "go.mod", ".git"),
---settings = {
---gopls = {
---completeUnimported = true,
---usePlaceholders = true,
---analyses = {
---unusedparams = true,
---},
---},
---},
---}
-
 -- DAP
 dap.adapters.delve = {
     type = 'server',
@@ -69,7 +38,7 @@ dap.configurations.go = {
 
 local root_dir = vim.fs.root(0, { '.git', 'go.mod' })
 
-return {
+return require('asx.lsp').mk_config({
     cmd = { "gopls" },
     filetypes = { "go", "gomod", "gowork", "gotmpl" },
     root_dir = root_dir,
@@ -82,4 +51,5 @@ return {
             },
         },
     }
-}
+})
+
