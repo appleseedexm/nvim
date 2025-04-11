@@ -29,60 +29,11 @@ function M.mk_config(config)
 end
 
 function M.setup()
-    local float_opts = { border = 'single' }  --- @type  vim.lsp.buf.hover.Opts
+    local float_opts = { border = 'single' } --- @type  vim.lsp.buf.hover.Opts
     vim.lsp.handlers['textDocument/hover'] = vim.lsp.buf.hover(float_opts)
     vim.lsp.handlers['textDocument/signatureHelp'] = vim.lsp.buf.signature_help(float_opts)
 
     local lsp_group = api.nvim_create_augroup('lsp_augroup', {})
-
-    local servers = {
-        --{ 'html',                                                                       require('asx.lspconfigs.html') },
-        --{ 'htmldjango', { 'vscode-html-language-server', '--stdio' } },
-        { 'json',   { 'vscode-json-language-server', '--stdio' } },
-        --{ 'css',                                                                        { 'vscode-css-language-server', '--stdio' } },
-        --{ 'scss',                                                                       { 'vscode-css-language-server', '--stdio' } },
-        --{ 'c',          'clangd',                                    { '.git' } },
-        --{ 'cpp',        'clangd',                                    { '.git' } },
-        --{ 'sh',         { 'bash-language-server', 'start' } },
-        { 'rust',   require('asx.lspconfigs.rust'),              { 'Cargo.toml', '.git' } },
-        --{ 'tex',        'texlab',                                    { '.git' } },
-        --{ 'zig',        'zls',                                       { 'build.zig', '.git' } },
-
-        { 'python', require('asx.lspconfigs.python'),            { ".git", "package.json" } },
-        --{ 'lua',                                                                        require('asx.lspconfigs.lua'),               { ".git", "package.json" } },
-        --{ 'javascript',                                                                 { 'typescript-language-server', '--stdio' }, { ".git", "package.json" } },
-        --{ 'typescript',                                                                 { 'typescript-language-server', '--stdio' }, { ".git", "package.json" } },
-        --{ { "typescript", "html", "typescriptreact", "typescript.tsx", "htmlangular" }, require('asx.lspconfigs.angular'),           { 'project.json', '.git' }, },
-    }
-    --for _, server in pairs(servers) do
-    --api.nvim_create_autocmd('FileType', {
-    --pattern = server[1],
-    --group = lsp_group,
-    --callback = function(args)
-    --local custom_cfg = type(server[2]) == "function" and server[2](args, server[3]) or
-    --{ cmd = server[2] }
-    --custom_cfg.name = custom_cfg.name == nil and server[1] or custom_cfg.name
-    ----local cmd = server[2]
-    ----
-    --local config = M.mk_config(custom_cfg)
-    ----local config = M.mk_config({
-    ----name = type(cmd) == "table" and cmd[1] or cmd,
-    ----cmd = type(cmd) == "table" and cmd or { cmd },
-    ----})
-    --local markers = server[3]
-    --if markers then
-    --config.root_dir = vim.fs.root(args.file, markers)
-    --end
-    ----print(vim.inspect(config))
-    --vim.lsp.start(config)
-    --end,
-    --})
-    --end
-    --
-
-
-
-
     local keymap = vim.keymap
 
     local timer = vim.uv.new_timer()
@@ -273,7 +224,19 @@ end
 function M.enable()
     local mason = require("mason")
     mason.setup()
-    vim.lsp.enable({ 'lua_ls', 'lemminx', 'gopls', 'golangci_lint_ls', 'angular_ls', 'css_ls', 'typescript_ls', 'html_ls' })
+    vim.lsp.enable({
+        'lua_ls',
+        'lemminx',
+        'gopls',
+        'golangci_lint_ls',
+        'angular_ls',
+        'css_ls',
+        'typescript_ls',
+        'html_ls',
+        'python_ls',
+        'rust-analyzer',
+        'json_ls'
+    })
     M.setup()
 end
 
