@@ -29,8 +29,9 @@ function M.mk_config(config)
 end
 
 function M.setup()
-    vim.lsp.buf.hover({ border = 'single' })
-    vim.lsp.buf.signature_help({ border = 'single' })
+    local float_opts = { border = 'single'  } --- @type  vim.lsp.buf.hover.Opts
+    vim.lsp.handlers['textDocument/hover'] = vim.lsp.buf.hover(float_opts)
+    vim.lsp.handlers['textDocument/signatureHelp'] = vim.lsp.buf.signature_help(float_opts)
 
     local lsp_group = api.nvim_create_augroup('lsp_augroup', {})
 
@@ -271,7 +272,7 @@ end
 
 function M.enable()
     local mason = require("mason")
-    mason.setup({})
+    mason.setup()
     vim.lsp.enable({ 'lua_ls', 'lemminx', 'gopls', 'golangci_lint_ls' })
     M.setup()
 end
