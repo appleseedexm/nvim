@@ -42,11 +42,6 @@ function M.mk_config(config)
                 end
                 client.server_capabilities.completionProvider.triggerCharacters = vim.iter(triggers):totable()
             end
-            if vim.lsp.completion then
-                vim.lsp.completion.enable(true, client.id, bufnr, { autotrigger = true })
-            else
-                --lsp_compl.attach(client, bufnr)
-            end
         end,
         init_options = vim.empty_dict(),
         settings = vim.empty_dict(),
