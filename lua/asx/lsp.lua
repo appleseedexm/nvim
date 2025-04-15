@@ -29,6 +29,7 @@ function M.mk_config(config)
 end
 
 function M.setup()
+    -- todo this does not work
     local float_opts = { border = 'single' } --- @type  vim.lsp.buf.hover.Opts
     vim.lsp.handlers['textDocument/hover'] = vim.lsp.buf.hover(float_opts)
     vim.lsp.handlers['textDocument/signatureHelp'] = vim.lsp.buf.signature_help(float_opts)
@@ -67,8 +68,8 @@ function M.setup()
             keymap.set("n", "gd", vim.lsp.buf.definition)
             keymap.set("n", "gD", vim.lsp.buf.declaration)
             keymap.set("n", "gi", vim.lsp.buf.implementation)
-            keymap.set("n", "K", vim.lsp.buf.hover, opts)
-            keymap.set("i", "<C-h>", vim.lsp.buf.signature_help)
+            keymap.set("n", "K", function() vim.lsp.buf.hover(float_opts) end, opts)
+            keymap.set("i", "<C-h>", function() vim.lsp.buf.signature_help(float_opts) end, opts)
             keymap.set("n", "<leader>vws", vim.lsp.buf.workspace_symbol, opts)
             keymap.set("n", "<leader>vd", vim.diagnostic.open_float, opts)
             keymap.set("n", "[d", vim.diagnostic.get_next, opts)
