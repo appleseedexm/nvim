@@ -29,11 +29,6 @@ function M.mk_config(config)
 end
 
 function M.setup()
-    -- todo this does not work
-    local float_opts = { border = 'single' } --- @type  vim.lsp.buf.hover.Opts
-    vim.lsp.handlers['textDocument/hover'] = vim.lsp.buf.hover(float_opts)
-    vim.lsp.handlers['textDocument/signatureHelp'] = vim.lsp.buf.signature_help(float_opts)
-
     local lsp_group = api.nvim_create_augroup('lsp_augroup', {})
     local keymap = vim.keymap
 
@@ -63,6 +58,7 @@ function M.setup()
         callback = function(args)
             local client = assert(vim.lsp.get_client_by_id(args.data.client_id))
             local opts = { buffer = args.buf }
+            local float_opts = { border = 'single' } --- @type  vim.lsp.buf.hover.Opts
 
             keymap.set("n", "gr", function() vim.lsp.buf.references({ includeDeclaration = false }) end)
             keymap.set("n", "gd", vim.lsp.buf.definition)
