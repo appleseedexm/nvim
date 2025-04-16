@@ -10,21 +10,21 @@ Plug('nvim-telescope/telescope.nvim')
 Plug('nvim-telescope/telescope-fzf-native.nvim', { ['do'] = vim.fn['make'] })
 Plug('nvim-tree/nvim-tree.lua')
 Plug('kimabrandt-flx/harpoon', { branch = 'fix_initialization' })
-Plug('stevearc/dressing.nvim')
 Plug('mikavilpas/yazi.nvim')
 
--- Misc
+-- UI
+Plug('stevearc/dressing.nvim')
 Plug('nvim-tree/nvim-web-devicons')
+Plug('MunifTanjim/nui.nvim')
+Plug('nvim-lualine/lualine.nvim')
+
+-- Misc
 Plug('majutsushi/tagbar')
 Plug('kylechui/nvim-surround')
 Plug('mbbill/undotree')
 Plug('folke/zen-mode.nvim')
-Plug('MunifTanjim/nui.nvim')
-Plug('nvim-lualine/lualine.nvim')
 Plug('dahu/vim-fanfingtastic')
 Plug('tpope/vim-repeat')
-Plug('iamcco/markdown-preview.nvim', { ['do'] = 'cd app && npx --yes yarn install' })
-Plug('gpanders/editorconfig.nvim')
 Plug('epwalsh/obsidian.nvim')
 Plug('alexghergh/nvim-tmux-navigation')
 Plug('tpope/vim-abolish')
@@ -36,6 +36,8 @@ Plug('rebelot/kanagawa.nvim')
 Plug('sainnhe/everforest')
 
 -- Code
+Plug('iamcco/markdown-preview.nvim', { ['do'] = 'cd app && npx --yes yarn install' })
+Plug('gpanders/editorconfig.nvim')
 Plug('supermaven-inc/supermaven-nvim')
 Plug('nvim-treesitter/nvim-treesitter', { ['do'] = ':TSUpdate' })
 Plug('nvim-treesitter/nvim-treesitter-context')
@@ -43,6 +45,7 @@ Plug('nvim-treesitter/nvim-treesitter-textobjects')
 Plug('preservim/nerdcommenter')
 Plug('mfussenegger/nvim-lint')
 Plug('stevearc/conform.nvim')
+Plug('folke/lazydev.nvim')
 
 -- SQL
 Plug('tpope/vim-dadbod', { lazy = true })
@@ -57,10 +60,8 @@ Plug('sindrets/diffview.nvim')
 
 -- LSP
 Plug('williamboman/mason.nvim')
-Plug('williamboman/mason-lspconfig.nvim')
 Plug('zapling/mason-lock.nvim')
 Plug('neovim/nvim-lspconfig')
-Plug('VonHeikemen/lsp-zero.nvim', { branch = 'v3.x' })
 
 -- DAP
 Plug('mfussenegger/nvim-dap')

@@ -209,6 +209,7 @@ config.on_attach = function(client, bufnr)
             end
         end
     end
+    vim.lsp.completion.enable(false, client.id, bufnr, { autotrigger = true })
 
     local opts = { silent = true, buffer = bufnr }
     local set = vim.keymap.set
