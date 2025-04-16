@@ -15,6 +15,7 @@ I use [vim-plug](https://github.com/junegunn/vim-plug) to manage plugins.
 - universal-ctags (tagbar)
 - nerd-fonts (lualine)
 - lazygit (lazygit)
+- yazi (yazi.nvim)
 
 ## Soft Dependencies
 

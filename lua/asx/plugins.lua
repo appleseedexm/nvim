@@ -11,6 +11,7 @@ Plug('nvim-telescope/telescope-fzf-native.nvim', { ['do'] = vim.fn['make'] })
 Plug('nvim-tree/nvim-tree.lua')
 Plug('kimabrandt-flx/harpoon', { branch = 'fix_initialization' })
 Plug('stevearc/dressing.nvim')
+Plug('mikavilpas/yazi.nvim')
 
 -- Misc
 Plug('nvim-tree/nvim-web-devicons')
