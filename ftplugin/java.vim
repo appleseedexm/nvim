@@ -1,11 +1,11 @@
-"if filereadable("./gradlew")
-    "let test#java#runner = 'gradletest'
-    "let test#java#gradletest#executable = './gradlew --parallel test'
-    "setlocal makeprg=./gradlew\ --no-daemon\ -q
-"else
-    "setlocal makeprg=gradle\ --no-daemon\ -q
-"endif
+if filereadable("./gradlew")
+    let test#java#runner = 'gradletest'
+    let test#java#gradletest#executable = './gradlew --parallel test'
+    setlocal makeprg=./gradlew\ --no-daemon\ -q
+else
+    setlocal makeprg=gradle\ --no-daemon\ -q
+endif
 
-"setlocal path=.,src/main/java/**,src/test/java/**,src/testFixtures/java/**,**/src/main/java/**,**/src/test/java/**,**/src/testFixtures/java/**
-"setlocal include=^\s*import
-"setlocal includeexpr=substitute(v:fname,'\\.','/','g')
+setlocal path=.,src/main/java/**,src/test/java/**,src/testFixtures/java/**,**/src/main/java/**,**/src/test/java/**,**/src/testFixtures/java/**
+setlocal include=^\s*import
+setlocal includeexpr=substitute(v:fname,'\\.','/','g')
