@@ -119,7 +119,7 @@ require("yazi").setup({
             -- default: grug-far.nvim
         end,
         -- `grealpath` on OSX, (GNU) `realpath` otherwise
-        resolve_relative_path_application = "",
+        resolve_relative_path_application = "realpath",
     },
 
     future_features = {
