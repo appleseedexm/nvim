@@ -1,6 +1,7 @@
 return require('asx.lsp').mk_config({
     on_attach = function(client, bufnr)
-        vim.api.nvim_create_user_command(
+        vim.api.nvim_buf_create_user_command(
+            bufnr,
             "RelativeCodeFormat",
             function()
                 print("FormatCode")
