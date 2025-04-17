@@ -10,7 +10,8 @@ return require('asx.lsp').mk_config({
     root_dir = vim.fs.root(0, markers),
     on_attach = function(client, bufnr)
         -- all of this should go into the TS config instead
-        vim.api.nvim_create_user_command(
+        vim.api.nvim_buf_create_user_command(
+            bufnr,
             "RelativeCodeFormat",
             function()
                 vim.cmd("EslintFixAll")
