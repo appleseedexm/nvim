@@ -47,11 +47,24 @@ end
 local home = os.getenv('HOME')
 local workspace_folder = home .. "/.local/share/jdtls/" .. vim.fn.fnamemodify(root_dir, ":p:h:t")
 local jdtls = require('jdtls')
+local jdk17 = vim.fn.expand('~/.sdkman/candidates/java/17.0.14-tem')
+local jdk21 = vim.fn.expand('~/.sdkman/candidates/java/21.0.2-open')
 --jdtls.jol_path = os.getenv('HOME') .. '/apps/jol.jar'
 local config = require('asx.lsp').mk_config({
     root_dir = root_dir,
     settings = {
         java = {
+            --import = {
+            --gradle = {
+            --enabled = true,
+            --wrapper = {
+            --enabled = true
+            --},
+            --annotationProcessing = {
+            --enabled = true
+            --}
+            --},
+            --},
             autobuild = { enabled = false },
             maxConcurrentBuilds = 1,
             signatureHelp = { enabled = true },
@@ -102,11 +115,12 @@ local config = require('asx.lsp').mk_config({
                 runtimes = {
                     {
                         name = 'JavaSE-17',
-                        path = vim.fn.expand('~/.sdkman/candidates/java/17.0.14-tem'),
+                        path = jdk17,
                     },
                     {
                         name = 'JavaSE-21',
-                        path = vim.fn.expand('~/.sdkman/candidates/java/21.0.2-open'),
+                        path = jdk21,
+                        default = true,
                     },
                 }
             },
@@ -116,8 +130,9 @@ local config = require('asx.lsp').mk_config({
         }
     },
     cmd = {
-        "java",
-        --"-javaagent:" .. jdtls_install .. '/lombok.jar',
+        jdk21 .. "/bin/java",
+        "-javaagent:" .. jdtls_install .. '/lombok.jar',
+        --"-javaagent:" .. home .. '/code/libs/java/lombok.jar',
         --'-agentlib:jdwp=transport=dt_socket,server=y,suspend=y,address=1044',
         '-Declipse.application=org.eclipse.jdt.ls.core.id1',
         '-Dosgi.bundles.defaultStartLevel=4',
