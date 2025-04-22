@@ -125,8 +125,8 @@ local config = require('asx.lsp').mk_config({
         '-Dlog.protocol=true',
         '-Dlog.level=ALL',
         '-Xmx4g',
-        --'-XX:+UseTransparentHugePages',
-        --'-XX:+AlwaysPreTouch',
+        '-XX:+UseTransparentHugePages',
+        '-XX:+AlwaysPreTouch',
         '--add-modules=ALL-SYSTEM',
         '--add-opens', 'java.base/java.util=ALL-UNNAMED',
         '--add-opens', 'java.base/java.lang=ALL-UNNAMED',
@@ -192,7 +192,7 @@ local function test_with_profile(test_fn)
 end
 
 config.on_attach = function(client, bufnr)
-    function compile()
+    local function compile()
         if vim.bo.modified then
             vim.cmd("w")
         end
@@ -280,56 +280,70 @@ config.on_attach = function(client, bufnr)
     set('n', "crc", jdtls.extract_constant, opts)
 end
 
-
-local java_test_path = require('mason-registry')
-    .get_package('java-test')
-    :get_install_path() .. '/extension/server'
-local java_debug_path = require('mason-registry')
-    .get_package('java-debug-adapter')
-    :get_install_path() .. '/extension/server'
-local java_decomp_path = require('mason-registry')
-    .get_package('vscode-java-decompiler')
-    :get_install_path() .. '/server'
-local jar_patterns = {
-    java_debug_path .. '/com.microsoft.java.debug.plugin-*.jar',
-    --java_test_path .. '/*.jar',
-    java_decomp_path .. '/*.jar',
-    '/home/asx/code/vscode-java-test/java-extension/com.microsoft.java.test.plugin/target/*.jar',
-    '/home/asx/code/vscode-java-test/java-extension/com.microsoft.java.test.runner/target/*.jar',
-    '/home/asx/code/vscode-java-test/java-extension/com.microsoft.java.test.runner/lib/*.jar',
-}
-
-local plugin_path =
-'/home/asx/code/vscode-java-test/java-extension/com.microsoft.java.test.plugin.site/target/repository/plugins/'
-local bundle_list = vim.tbl_map(
-    function(x) return require('jdtls.path').join(plugin_path, x) end,
-    {
-        'junit-jupiter-*.jar',
-        'junit-platform-*.jar',
-        'junit-vintage-engine_*.jar',
-        'org.opentest4j*.jar',
-        'org.apiguardian.api_*.jar',
-        'org.eclipse.jdt.junit4.runtime_*.jar',
-        'org.eclipse.jdt.junit5.runtime_*.jar',
-        'org.opentest4j_*.jar',
-        'org.jacoco.*.jar',
-        'org.objectweb.asm*.jar'
+---@param test_use_local boolean
+---@return table
+local function test_jar_patterns(test_use_local)
+    local java_test_path = require('mason-registry')
+        .get_package('java-test')
+        :get_install_path() .. '/extension/server'
+    local java_debug_path = require('mason-registry')
+        .get_package('java-debug-adapter')
+        :get_install_path() .. '/extension/server'
+    local java_decomp_path = require('mason-registry')
+        .get_package('vscode-java-decompiler')
+        :get_install_path() .. '/server'
+    local jar_patterns = {
+        java_debug_path .. '/com.microsoft.java.debug.plugin-*.jar',
+        java_decomp_path .. '/*.jar',
     }
-)
-vim.list_extend(jar_patterns, bundle_list)
+
+    if test_use_local then
+        vim.list_extend(jar_patterns,
+            {
+                home .. '/code/microsoft/vscode-java-test/java-extension/com.microsoft.java.test.plugin/target/*.jar',
+                home .. '/code/microsoft/vscode-java-test/java-extension/com.microsoft.java.test.runner/target/*.jar',
+                home .. '/code/microsoft/vscode-java-test/java-extension/com.microsoft.java.test.runner/lib/*.jar',
+            })
+        local plugin_path =
+            home ..
+            '/code/microsoft/vscode-java-test/java-extension/com.microsoft.java.test.plugin.site/target/repository/plugins/'
+        local bundle_list = vim.tbl_map(
+            function(x) return require('jdtls.path').join(plugin_path, x) end,
+            {
+                'junit-jupiter-*.jar',
+                'junit-platform-*.jar',
+                'junit-vintage-engine_*.jar',
+                'org.opentest4j*.jar',
+                'org.apiguardian.api_*.jar',
+                'org.eclipse.jdt.junit4.runtime_*.jar',
+                'org.eclipse.jdt.junit5.runtime_*.jar',
+                'org.opentest4j_*.jar',
+                'org.jacoco.*.jar',
+                'org.objectweb.asm*.jar'
+            }
+        )
+        vim.list_extend(jar_patterns, bundle_list)
+    else
+        vim.list_extend(jar_patterns, {
+            java_test_path .. '/*.jar',
+        })
+    end
+    return jar_patterns
+end
+
+local jar_patterns = test_jar_patterns(true)
 local bundles = {}
 for _, jar_pattern in ipairs(jar_patterns) do
     for _, bundle in ipairs(vim.split(vim.fn.glob(jar_pattern), '\n')) do
         if not vim.endswith(bundle, 'com.microsoft.java.test.runner-jar-with-dependencies.jar')
             and not vim.endswith(bundle, 'com.microsoft.java.test.runner.jar')
-        --and not vim.endswith(bundle, 'agent.jar')
         then
             table.insert(bundles, bundle)
         end
     end
 end
 
-print(vim.inspect(bundles))
+--print(vim.inspect(bundles))
 
 local extendedClientCapabilities = jdtls.extendedClientCapabilities;
 extendedClientCapabilities.onCompletionItemSelectedCommand = "editor.action.triggerParameterHints"
