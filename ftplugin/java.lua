@@ -1,11 +1,20 @@
+local local_jdtls = false
+local local_java_test = false
+
+local home = os.getenv('HOME')
+local jdk17 = vim.fn.expand('~/.sdkman/candidates/java/17.0.14-tem')
+local jdk21 = vim.fn.expand('~/.sdkman/candidates/java/21.0.2-open')
+local jdk = jdk21
+
 local api = vim.api
-local jdtls_install = require('mason-registry')
+local jdtls_install = local_jdtls and home .. "/Downloads/jdt" or
+    require('mason-registry')
     .get_package('jdtls')
     :get_install_path()
+local lombok = local_jdtls and home .. "/code/libs/java/lombok.jar" or jdtls_install .. "/lombok.jar"
 
-
+-- dap
 local dap = require("dap")
-
 dap.configurations.java = {
     {
         type = 'java',
@@ -36,35 +45,31 @@ dap.configurations.java = {
     },
 }
 
-
-
+-- jdtls 
 local root_markers = { 'gradlew', 'mvnw', '.git' }
 local root_dir = vim.fs.root(0, root_markers) or vim.fs.root(0, { "pom.xml" })
 if not root_dir then
     print("JDTLS: Could not find rootdir")
     return
 end
-local home = os.getenv('HOME')
 local workspace_folder = home .. "/.local/share/jdtls/" .. vim.fn.fnamemodify(root_dir, ":p:h:t")
 local jdtls = require('jdtls')
-local jdk17 = vim.fn.expand('~/.sdkman/candidates/java/17.0.14-tem')
-local jdk21 = vim.fn.expand('~/.sdkman/candidates/java/21.0.2-open')
 --jdtls.jol_path = os.getenv('HOME') .. '/apps/jol.jar'
 local config = require('asx.lsp').mk_config({
     root_dir = root_dir,
     settings = {
         java = {
-            --import = {
-            --gradle = {
-            --enabled = true,
-            --wrapper = {
-            --enabled = true
-            --},
-            --annotationProcessing = {
-            --enabled = true
-            --}
-            --},
-            --},
+            import = {
+                gradle = {
+                    enabled = false,
+                    --wrapper = {
+                    --enabled = true
+                    --},
+                    --annotationProcessing = {
+                    --enabled = true
+                    --}
+                },
+            },
             autobuild = { enabled = false },
             maxConcurrentBuilds = 1,
             signatureHelp = { enabled = true },
@@ -116,11 +121,11 @@ local config = require('asx.lsp').mk_config({
                     {
                         name = 'JavaSE-17',
                         path = jdk17,
+                        default = true,
                     },
                     {
                         name = 'JavaSE-21',
                         path = jdk21,
-                        default = true,
                     },
                 }
             },
@@ -130,8 +135,8 @@ local config = require('asx.lsp').mk_config({
         }
     },
     cmd = {
-        jdk21 .. "/bin/java",
-        "-javaagent:" .. jdtls_install .. '/lombok.jar',
+        jdk .. "/bin/java",
+        "-javaagent:" .. lombok,
         --"-javaagent:" .. home .. '/code/libs/java/lombok.jar',
         --'-agentlib:jdwp=transport=dt_socket,server=y,suspend=y,address=1044',
         '-Declipse.application=org.eclipse.jdt.ls.core.id1',
@@ -216,7 +221,7 @@ config.on_attach = function(client, bufnr)
 
     local function with_compile(fn)
         return function()
-            compile()
+            --compile()
             fn()
         end
     end
@@ -295,12 +300,8 @@ config.on_attach = function(client, bufnr)
     set('n', "crc", jdtls.extract_constant, opts)
 end
 
----@param test_use_local boolean
 ---@return table
-local function test_jar_patterns(test_use_local)
-    local java_test_path = require('mason-registry')
-        .get_package('java-test')
-        :get_install_path() .. '/extension/server'
+local function test_jar_patterns()
     local java_debug_path = require('mason-registry')
         .get_package('java-debug-adapter')
         :get_install_path() .. '/extension/server'
@@ -312,12 +313,15 @@ local function test_jar_patterns(test_use_local)
         java_decomp_path .. '/*.jar',
     }
 
-    if test_use_local then
+
+    -- Add java-test
+    if local_java_test then
         vim.list_extend(jar_patterns,
             {
                 home .. '/code/microsoft/vscode-java-test/java-extension/com.microsoft.java.test.plugin/target/*.jar',
                 home .. '/code/microsoft/vscode-java-test/java-extension/com.microsoft.java.test.runner/target/*.jar',
                 home .. '/code/microsoft/vscode-java-test/java-extension/com.microsoft.java.test.runner/lib/*.jar',
+                --home .. '/code/microsoft/vscode-java-test/server/*.jar',
             })
         local plugin_path =
             home ..
@@ -334,11 +338,14 @@ local function test_jar_patterns(test_use_local)
                 'org.eclipse.jdt.junit5.runtime_*.jar',
                 'org.opentest4j_*.jar',
                 'org.jacoco.*.jar',
-                'org.objectweb.asm*.jar'
+                --'org.objectweb.asm*.jar'
             }
         )
         vim.list_extend(jar_patterns, bundle_list)
     else
+        local java_test_path = require('mason-registry')
+            .get_package('java-test')
+            :get_install_path() .. '/extension/server'
         vim.list_extend(jar_patterns, {
             java_test_path .. '/*.jar',
         })
@@ -346,19 +353,21 @@ local function test_jar_patterns(test_use_local)
     return jar_patterns
 end
 
-local jar_patterns = test_jar_patterns(true)
+local jar_patterns = test_jar_patterns()
 local bundles = {}
 for _, jar_pattern in ipairs(jar_patterns) do
+    print("#############################")
     for _, bundle in ipairs(vim.split(vim.fn.glob(jar_pattern), '\n')) do
-        if not vim.endswith(bundle, 'com.microsoft.java.test.runner-jar-with-dependencies.jar')
+        if true
+            and not vim.endswith(bundle, 'com.microsoft.java.test.runner-jar-with-dependencies.jar')
             and not vim.endswith(bundle, 'com.microsoft.java.test.runner.jar')
+            and bundle ~= ""
         then
             table.insert(bundles, bundle)
+            print("bundle: [" .. bundle .. "]")
         end
     end
 end
-
---print(vim.inspect(bundles))
 
 local extendedClientCapabilities = jdtls.extendedClientCapabilities;
 extendedClientCapabilities.onCompletionItemSelectedCommand = "editor.action.triggerParameterHints"
