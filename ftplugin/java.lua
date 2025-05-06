@@ -195,7 +195,7 @@ local function test_with_profile(test_fn)
             local async_profiler_so = home .. "/apps/async-profiler/lib/libasyncProfiler.so"
             local event = 'event=' .. choice
             local vmArgs = "-ea -agentpath:" .. async_profiler_so .. "=start,"
-            vmArgs = vmArgs .. event .. ",collapsed,file=/tmp/traces.txt"
+            vmArgs = vmArgs .. event .. ",collapsed,file=/tmp/jdtls_traces.txt"
             test_fn({
                 config_overrides = {
                     vmArgs = vmArgs,
@@ -203,7 +203,7 @@ local function test_with_profile(test_fn)
                 },
                 after_test = function()
                     vim.cmd.tabnew()
-                    vim.fn.jobstart({ "flamelens", "/tmp/traces.txt" }, { term = true })
+                    vim.fn.jobstart({ "flamelens", "/tmp/jdtls_traces.txt" }, { term = true })
                     vim.cmd.startinsert()
                 end
             })
@@ -262,7 +262,6 @@ config.on_attach = function(client, bufnr)
             "-ea",
             "-XX:+TieredCompilation",
             "-XX:TieredStopAtLevel=1",
-            "--add-modules", "jdk.incubator.vector",
             "--enable-native-access=ALL-UNNAMED",
         }, " "),
     }
@@ -301,7 +300,7 @@ config.on_attach = function(client, bufnr)
 end
 
 ---@return table
-local function test_jar_patterns()
+local function bundle_jar_patterns()
     local java_debug_path = require('mason-registry')
         .get_package('java-debug-adapter')
         :get_install_path() .. '/extension/server'
@@ -353,7 +352,7 @@ local function test_jar_patterns()
     return jar_patterns
 end
 
-local jar_patterns = test_jar_patterns()
+local jar_patterns = bundle_jar_patterns()
 local bundles = {}
 for _, jar_pattern in ipairs(jar_patterns) do
     for _, bundle in ipairs(vim.split(vim.fn.glob(jar_pattern), '\n')) do
