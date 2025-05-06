@@ -13,6 +13,7 @@ local jdtls_install = local_jdtls and home .. "/code/eclipse.jdt.ls/org.eclipse.
     :get_install_path()
 local lombok_ver = "lombok-1.18.38.jar"
 local lombok = local_jdtls and home .. "/code/libs/java/" .. lombok_ver or jdtls_install .. "/lombok.jar"
+local sys_arch = vim.loop.os_uname().machine == "aarch64" and "linux_arm" or "linux"
 
 -- dap
 local dap = require("dap")
@@ -145,7 +146,6 @@ local config = require('asx.lsp').mk_config({
         '-Dlog.protocol=true',
         '-Dlog.level=ALL',
         '-Xmx4g',
-        '-XX:+UseTransparentHugePages',
         '-XX:+AlwaysPreTouch',
         '--add-modules=ALL-SYSTEM',
         '--add-opens', 'java.base/java.util=ALL-UNNAMED',
@@ -153,11 +153,17 @@ local config = require('asx.lsp').mk_config({
     }
 })
 
+if sys_arch == 'linux' then
+    vim.list_extend(config.cmd, {
+        '-XX:+UseTransparentHugePages',
+    })
+end
+
 local launcher = vim.fn.glob(jdtls_install .. '/plugins/org.eclipse.equinox.launcher_*.jar')
 if vim.uv.fs_stat(launcher) then
     vim.list_extend(config.cmd, {
         "-jar", launcher,
-        "-configuration", jdtls_install .. "/config_linux",
+        "-configuration", jdtls_install .. "/config_" .. sys_arch,
         "-data", workspace_folder
     })
 else
