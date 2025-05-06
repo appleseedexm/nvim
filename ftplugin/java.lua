@@ -7,11 +7,12 @@ local jdk21 = vim.fn.expand('~/.sdkman/candidates/java/21.0.2-open')
 local jdk = jdk21
 
 local api = vim.api
-local jdtls_install = local_jdtls and home .. "/Downloads/jdt" or
+local jdtls_install = local_jdtls and home .. "/code/eclipse.jdt.ls/org.eclipse.jdt.ls.product/target/repository" or
     require('mason-registry')
     .get_package('jdtls')
     :get_install_path()
-local lombok = local_jdtls and home .. "/code/libs/java/lombok.jar" or jdtls_install .. "/lombok.jar"
+local lombok_ver = "lombok-1.18.38.jar"
+local lombok = local_jdtls and home .. "/code/libs/java/" .. lombok_ver or jdtls_install .. "/lombok.jar"
 
 -- dap
 local dap = require("dap")
@@ -45,7 +46,7 @@ dap.configurations.java = {
     },
 }
 
--- jdtls 
+-- jdtls
 local root_markers = { 'gradlew', 'mvnw', '.git' }
 local root_dir = vim.fs.root(0, root_markers) or vim.fs.root(0, { "pom.xml" })
 if not root_dir then
@@ -137,7 +138,6 @@ local config = require('asx.lsp').mk_config({
     cmd = {
         jdk .. "/bin/java",
         "-javaagent:" .. lombok,
-        --"-javaagent:" .. home .. '/code/libs/java/lombok.jar',
         --'-agentlib:jdwp=transport=dt_socket,server=y,suspend=y,address=1044',
         '-Declipse.application=org.eclipse.jdt.ls.core.id1',
         '-Dosgi.bundles.defaultStartLevel=4',
@@ -338,7 +338,7 @@ local function test_jar_patterns()
                 'org.eclipse.jdt.junit5.runtime_*.jar',
                 'org.opentest4j_*.jar',
                 'org.jacoco.*.jar',
-                --'org.objectweb.asm*.jar'
+                'org.objectweb.asm*.jar'
             }
         )
         vim.list_extend(jar_patterns, bundle_list)
@@ -356,7 +356,6 @@ end
 local jar_patterns = test_jar_patterns()
 local bundles = {}
 for _, jar_pattern in ipairs(jar_patterns) do
-    print("#############################")
     for _, bundle in ipairs(vim.split(vim.fn.glob(jar_pattern), '\n')) do
         if true
             and not vim.endswith(bundle, 'com.microsoft.java.test.runner-jar-with-dependencies.jar')
@@ -364,7 +363,6 @@ for _, jar_pattern in ipairs(jar_patterns) do
             and bundle ~= ""
         then
             table.insert(bundles, bundle)
-            print("bundle: [" .. bundle .. "]")
         end
     end
 end
