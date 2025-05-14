@@ -366,6 +366,18 @@ config.init_options = {
     bundles = bundles,
     extendedClientCapabilities = extendedClientCapabilities,
 }
+config.capabilities =
+    vim.tbl_deep_extend(
+        "force",
+        config.capabilities,
+        {
+            workspace = {
+                didChangeWatchedFiles = {
+                    dynamicRegistration = false
+                }
+            },
+        }
+    )
 -- mute; having progress reports is enough
 --config.handlers['language/status'] = function() end
 jdtls.start_or_attach(config)
