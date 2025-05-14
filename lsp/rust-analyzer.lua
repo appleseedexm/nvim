@@ -1,7 +1,6 @@
 local function rust_dap()
-    local extension_path = require('mason-registry')
-        .get_package('codelldb')
-        :get_install_path() .. '/extension/'
+    local extension_path =
+        vim.fn.expand("$MASON/packages/codelldb/extension/")
     local codelldb_path = extension_path .. 'adapter/codelldb'
     local liblldb_path = extension_path .. 'lldb/lib/liblldb'
     local this_os = vim.loop.os_uname().sysname;
