@@ -73,7 +73,7 @@ vim.g.everforest_dim_inactive_windows = 1
 vim.g.everforest_ui_contrast = "high"
 
 function ColorMyPencils(color)
-    color = color or "rose-pine"
+    color = color or "kanagawa"
     vim.cmd.colorscheme(color)
 
     --vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
