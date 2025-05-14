@@ -60,17 +60,6 @@ local config = require('asx.lsp').mk_config({
     root_dir = root_dir,
     settings = {
         java = {
-            import = {
-                gradle = {
-                    enabled = false,
-                    --wrapper = {
-                    --enabled = true
-                    --},
-                    --annotationProcessing = {
-                    --enabled = true
-                    --}
-                },
-            },
             autobuild = { enabled = false },
             maxConcurrentBuilds = 1,
             signatureHelp = { enabled = true },
@@ -226,7 +215,7 @@ config.on_attach = function(client, bufnr)
 
     local function with_compile(fn)
         return function()
-            --compile()
+            compile()
             fn()
         end
     end
@@ -252,6 +241,7 @@ config.on_attach = function(client, bufnr)
         "RelativeCodeFormat",
         function()
             vim.cmd("FormatCode")
+            vim.cmd("w")
         end,
         {}
     )
@@ -358,17 +348,17 @@ end
 
 local jar_patterns = bundle_jar_patterns()
 local bundles = {}
---for _, jar_pattern in ipairs(jar_patterns) do
---for _, bundle in ipairs(vim.split(vim.fn.glob(jar_pattern), '\n')) do
---if true
---and not vim.endswith(bundle, 'com.microsoft.java.test.runner-jar-with-dependencies.jar')
---and not vim.endswith(bundle, 'com.microsoft.java.test.runner.jar')
---and bundle ~= ""
---then
---table.insert(bundles, bundle)
---end
---end
---end
+for _, jar_pattern in ipairs(jar_patterns) do
+    for _, bundle in ipairs(vim.split(vim.fn.glob(jar_pattern), '\n')) do
+        if true
+            and not vim.endswith(bundle, 'com.microsoft.java.test.runner-jar-with-dependencies.jar')
+            and not vim.endswith(bundle, 'com.microsoft.java.test.runner.jar')
+            and bundle ~= ""
+        then
+            table.insert(bundles, bundle)
+        end
+    end
+end
 
 local extendedClientCapabilities = jdtls.extendedClientCapabilities;
 extendedClientCapabilities.onCompletionItemSelectedCommand = "editor.action.triggerParameterHints"
