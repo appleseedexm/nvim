@@ -8,9 +8,8 @@ local jdk = jdk21
 
 local api = vim.api
 local jdtls_install = local_jdtls and home .. "/code/eclipse.jdt.ls/org.eclipse.jdt.ls.product/target/repository" or
-    require('mason-registry')
-    .get_package('jdtls')
-    :get_install_path()
+    vim.fn.expand("$MASON/packages/jdtls")
+
 local lombok_ver = "lombok-1.18.38.jar"
 local lombok = local_jdtls and home .. "/code/libs/java/" .. lombok_ver or jdtls_install .. "/lombok.jar"
 local sys_arch = vim.loop.os_uname().machine == "aarch64" and "linux_arm" or "linux"
@@ -307,12 +306,12 @@ end
 
 ---@return table
 local function bundle_jar_patterns()
-    local java_debug_path = require('mason-registry')
-        .get_package('java-debug-adapter')
-        :get_install_path() .. '/extension/server'
-    local java_decomp_path = require('mason-registry')
-        .get_package('vscode-java-decompiler')
-        :get_install_path() .. '/server'
+    local java_debug_path =
+        vim.fn.expand("$MASON/packages/java-debug-adapter/extension/server")
+
+    local java_decomp_path =
+        vim.fn.expand("$MASON/packages/vscode-java-decompiler/server")
+
     local jar_patterns = {
         java_debug_path .. '/com.microsoft.java.debug.plugin-*.jar',
         java_decomp_path .. '/*.jar',
@@ -348,9 +347,8 @@ local function bundle_jar_patterns()
         )
         vim.list_extend(jar_patterns, bundle_list)
     else
-        local java_test_path = require('mason-registry')
-            .get_package('java-test')
-            :get_install_path() .. '/extension/server'
+        local java_test_path =
+            vim.fn.expand("$MASON/packages/java-test/extension/server")
         vim.list_extend(jar_patterns, {
             java_test_path .. '/*.jar',
         })
@@ -360,17 +358,17 @@ end
 
 local jar_patterns = bundle_jar_patterns()
 local bundles = {}
-for _, jar_pattern in ipairs(jar_patterns) do
-    for _, bundle in ipairs(vim.split(vim.fn.glob(jar_pattern), '\n')) do
-        if true
-            and not vim.endswith(bundle, 'com.microsoft.java.test.runner-jar-with-dependencies.jar')
-            and not vim.endswith(bundle, 'com.microsoft.java.test.runner.jar')
-            and bundle ~= ""
-        then
-            table.insert(bundles, bundle)
-        end
-    end
-end
+--for _, jar_pattern in ipairs(jar_patterns) do
+--for _, bundle in ipairs(vim.split(vim.fn.glob(jar_pattern), '\n')) do
+--if true
+--and not vim.endswith(bundle, 'com.microsoft.java.test.runner-jar-with-dependencies.jar')
+--and not vim.endswith(bundle, 'com.microsoft.java.test.runner.jar')
+--and bundle ~= ""
+--then
+--table.insert(bundles, bundle)
+--end
+--end
+--end
 
 local extendedClientCapabilities = jdtls.extendedClientCapabilities;
 extendedClientCapabilities.onCompletionItemSelectedCommand = "editor.action.triggerParameterHints"
