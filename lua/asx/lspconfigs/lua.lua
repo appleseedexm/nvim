@@ -1,7 +1,6 @@
 return function(args, markers)
-    local extension_path = require('mason-registry')
-        .get_package('lua-language-server')
-        :get_install_path()
+    local extension_path =
+        vim.fn.expand("$MASON/packages/lua-language-server")
     local cmd = extension_path .. "/lua-language-server"
     return {
         cmd = { cmd },
