@@ -16,3 +16,6 @@ require("codecompanion").setup({
     },
 })
 
+
+vim.keymap.set({ 'n', 'v' }, '<leader>aa', ":CodeCompanionActions<CR>", { noremap = true, buffer = true })
+vim.keymap.set({ 'n', 'v' }, '<leader>ac', ":CodeCompanion ", { noremap = true, buffer = true })
