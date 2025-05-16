@@ -46,6 +46,7 @@ Plug('preservim/nerdcommenter')
 Plug('mfussenegger/nvim-lint')
 Plug('stevearc/conform.nvim')
 Plug('folke/lazydev.nvim')
+Plug('olimorris/codecompanion.nvim')
 
 -- SQL
 Plug('tpope/vim-dadbod', { lazy = true })
