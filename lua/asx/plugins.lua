@@ -38,7 +38,6 @@ Plug('sainnhe/everforest')
 -- Code
 Plug('iamcco/markdown-preview.nvim', { ['do'] = 'cd app && npx --yes yarn install' })
 Plug('gpanders/editorconfig.nvim')
-Plug('supermaven-inc/supermaven-nvim')
 Plug('nvim-treesitter/nvim-treesitter', { ['do'] = ':TSUpdate' })
 Plug('nvim-treesitter/nvim-treesitter-context')
 Plug('nvim-treesitter/nvim-treesitter-textobjects')
