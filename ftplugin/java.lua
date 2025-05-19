@@ -4,6 +4,7 @@ local local_java_test = false
 local home = os.getenv('HOME')
 local jdk17 = vim.fn.expand('~/.sdkman/candidates/java/17.0.14-tem')
 local jdk21 = vim.fn.expand('~/.sdkman/candidates/java/21.0.2-open')
+local jdk23 = vim.fn.expand('~/.sdkman/candidates/java/23.0.1-open')
 local jdk = jdk21
 
 local api = vim.api
@@ -116,6 +117,10 @@ local config = require('asx.lsp').mk_config({
                     {
                         name = 'JavaSE-21',
                         path = jdk21,
+                    },
+                    {
+                        name = 'JavaSE-23',
+                        path = jdk23,
                     },
                 }
             },
