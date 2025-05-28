@@ -84,5 +84,7 @@ Plug('mfussenegger/nvim-jdtls')
 -- Rust
 Plug('simrat39/rust-tools.nvim')
 
+-- Zig
+Plug('ziglang/zig.vim')
 
 vim.call('plug#end')

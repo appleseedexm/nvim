@@ -229,7 +229,8 @@ function M.enable()
         'html_ls',
         'python_ls',
         'rust-analyzer',
-        'json_ls'
+        'json_ls',
+        'zls'
     })
     M.setup()
 end
