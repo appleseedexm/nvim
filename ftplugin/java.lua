@@ -73,6 +73,7 @@ local config = require('asx.lsp').mk_config({
                     'java.util.Objects.requireNonNull',
                     'java.util.Objects.requireNonNullElse',
                     'org.mockito.Mockito.*',
+                    'org.mockito.Mockito.when',
                     'org.mockito.ArgumentMatchers.*',
                     'org.mockito.Answers.*',
                     'org.junit.Assume.*',
