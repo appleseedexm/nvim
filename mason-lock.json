@@ -19,6 +19,7 @@
   "lemminx": "0.29.0",
   "lua-language-server": "3.14.0",
   "luaformatter": "scm-1",
+  "marksman": "2024-12-18",
   "prettier": "3.5.3",
   "python-lsp-server": "1.12.2",
   "rust-analyzer": "2025-05-19",

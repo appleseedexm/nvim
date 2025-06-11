@@ -219,17 +219,18 @@ function M.enable()
     local mason = require("mason")
     mason.setup()
     vim.lsp.enable({
-        'lua_ls',
-        'lemminx',
-        'gopls',
-        'golangci_lint_ls',
         'angular_ls',
         'css_ls',
-        'typescript_ls',
+        'golangci_lint_ls',
+        'gopls',
         'html_ls',
+        'json_ls',
+        'lemminx',
+        'lua_ls',
+        'marksman',
         'python_ls',
         'rust-analyzer',
-        'json_ls',
+        'typescript_ls',
         'zls'
     })
     M.setup()
