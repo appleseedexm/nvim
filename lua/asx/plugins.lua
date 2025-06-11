@@ -34,6 +34,7 @@ Plug('rose-pine/neovim')
 Plug('Skullamortis/forest.nvim')
 Plug('rebelot/kanagawa.nvim')
 Plug('sainnhe/everforest')
+Plug('daltonmenezes/aura-theme', { ['rtp'] = 'packages/neovim' })
 
 -- Code
 Plug('iamcco/markdown-preview.nvim', { ['do'] = 'cd app && npx --yes yarn install' })
