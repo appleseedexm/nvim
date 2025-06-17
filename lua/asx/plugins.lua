@@ -8,9 +8,9 @@ Plug('junegunn/fzf', { ['do'] = vim.fn['fzf#install'] })
 Plug('junegunn/fzf.vim')
 Plug('nvim-telescope/telescope.nvim')
 Plug('nvim-telescope/telescope-fzf-native.nvim', { ['do'] = vim.fn['make'] })
---Plug('nvim-tree/nvim-tree.lua')
 Plug('kimabrandt-flx/harpoon', { branch = 'fix_initialization' })
 Plug('mikavilpas/yazi.nvim')
+Plug('max397574/better-escape.nvim')
 
 -- UI
 Plug('stevearc/dressing.nvim')
