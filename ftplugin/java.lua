@@ -113,11 +113,11 @@ local config = require('asx.lsp').mk_config({
                     {
                         name = 'JavaSE-17',
                         path = jdk17,
-                        default = true,
                     },
                     {
                         name = 'JavaSE-21',
                         path = jdk21,
+                        default = true
                     },
                     {
                         name = 'JavaSE-23',
