@@ -67,6 +67,7 @@ Plug('neovim/nvim-lspconfig')
 -- DAP
 Plug('mfussenegger/nvim-dap')
 Plug('rcarriga/nvim-dap-ui')
+Plug('theHamsta/nvim-dap-virtual-text')
 Plug('nvim-neotest/nvim-nio')
 
 -- Autocompletion
