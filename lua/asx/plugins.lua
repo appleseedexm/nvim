@@ -11,6 +11,7 @@ Plug('nvim-telescope/telescope-fzf-native.nvim', { ['do'] = vim.fn['make'] })
 Plug('kimabrandt-flx/harpoon', { branch = 'fix_initialization' })
 Plug('mikavilpas/yazi.nvim')
 Plug('max397574/better-escape.nvim')
+Plug('folke/which-key.nvim')
 
 -- UI
 Plug('stevearc/dressing.nvim')
