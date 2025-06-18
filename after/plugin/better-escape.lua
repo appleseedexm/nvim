@@ -35,9 +35,10 @@ require("better_escape").setup {
             --j = {
                 ----k = "<Esc>",
             --},
-            [" "] = {
-                [" "] = "<Esc>",
-            }
+            -- does not work :D
+            --["<leader>"] = {
+                --["<leader>"] = "<Esc>",
+            --}
         },
         s = {
             --j = {
@@ -49,3 +50,5 @@ require("better_escape").setup {
         },
     },
 }
+
+vim.api.nvim_set_keymap("v", "<leader><leader>", "<Esc>", {})
