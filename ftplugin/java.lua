@@ -266,22 +266,7 @@ config.on_attach = function(client, bufnr)
             "--enable-native-access=ALL-UNNAMED",
         }, " "),
     }
-
-    set("n", "<leader>dsc", with_compile(function()
-        dap.continue()
-    end), opts)
-    set('n', "<leader>df", with_compile(function()
-        jdtls.test_class({ config_overrides = conf_overrides })
-    end), opts)
-    set('n', "<leader>dl", with_compile(require("dap").run_last), opts)
-    set('n', "<leader>dF", with_compile(test_with_profile(jdtls.test_class)), opts)
-    set('n', "<leader>dn", with_compile(function()
-        jdtls.test_nearest_method({ config_overrides = conf_overrides })
-    end), opts)
-    set('n', "<leader>dN", with_compile(test_with_profile(jdtls.test_nearest_method)), opts)
-    set('n', '<leader>dj', require('jdtls.tests').goto_subjects, opts)
-    set('n', '<leader>dg', require('jdtls.tests').generate, opts)
-    set("n", "<leader>dss", function()
+    local pick_test = function()
         if dap.session() then
             local widgets = require("dap.ui.widgets")
             widgets.centered_float(widgets.scopes)
@@ -289,7 +274,26 @@ config.on_attach = function(client, bufnr)
             client.request_sync("java/buildWorkspace", false, 5000, bufnr)
             require("jdtls.dap").pick_test()
         end
-    end, opts)
+    end
+    local dap_keymap = {
+        { "<leader>dsc", with_compile(function() dap.continue() end),                                                   desc = "Compile & Start" },
+        { "<leader>df",  with_compile(function() jdtls.test_class({ config_overrides = conf_overrides }) end),          desc = "Compile & File" },
+        { "<leader>dl",  with_compile(require("dap").run_last),                                                         desc = "Compile & last" },
+        { "<leader>dF",  with_compile(test_with_profile(jdtls.test_class)),                                             desc = "Compile & File with profile" },
+        { "<leader>dn",  with_compile(function() jdtls.test_nearest_method({ config_overrides = conf_overrides }) end), desc = "Compile & Nearest with override" },
+        { "<leader>dN",  with_compile(test_with_profile(jdtls.test_nearest_method)),                                    desc = "Compile & Nearest" },
+        { '<leader>dj',  require('jdtls.tests').goto_subjects,                                                          desc = "Goto Subjects" },
+        { '<leader>dg',  require('jdtls.tests').generate,                                                               desc = "Generate" },
+        { "<leader>dss", pick_test,                                                                                     desc = "Pick test" },
+    }
+
+    require('which-key').add(dap_keymap, vim.tbl_deep_extend("force", opts, {
+        mode = { "v", "n" },
+        buffer = nil,
+        silent = true,
+        noremap = true,
+        nowait = false,
+    }));
 
     -- basic keymaps
     set('n', "<leader>co", jdtls.organize_imports, opts)
