@@ -11,24 +11,23 @@ Plug('nvim-telescope/telescope-fzf-native.nvim', { ['do'] = vim.fn['make'] })
 Plug('kimabrandt-flx/harpoon', { branch = 'fix_initialization' })
 Plug('mikavilpas/yazi.nvim')
 Plug('max397574/better-escape.nvim')
-Plug('folke/which-key.nvim')
+Plug('tpope/vim-repeat')
+Plug('dahu/vim-fanfingtastic')
+Plug('kylechui/nvim-surround')
+Plug('alexghergh/nvim-tmux-navigation')
+Plug('mbbill/undotree')
+Plug('folke/zen-mode.nvim')
+Plug('epwalsh/obsidian.nvim')
+Plug('tpope/vim-abolish')
 
 -- UI
 Plug('stevearc/dressing.nvim')
 Plug('nvim-tree/nvim-web-devicons')
 Plug('MunifTanjim/nui.nvim')
 Plug('nvim-lualine/lualine.nvim')
-
--- Misc
+Plug('folke/which-key.nvim')
 Plug('majutsushi/tagbar')
-Plug('kylechui/nvim-surround')
-Plug('mbbill/undotree')
-Plug('folke/zen-mode.nvim')
-Plug('dahu/vim-fanfingtastic')
-Plug('tpope/vim-repeat')
-Plug('epwalsh/obsidian.nvim')
-Plug('alexghergh/nvim-tmux-navigation')
-Plug('tpope/vim-abolish')
+
 
 -- Themes
 Plug('rose-pine/neovim')
