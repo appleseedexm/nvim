@@ -110,7 +110,8 @@ telescope.setup(
             wrap_result = true,
             mappings = {
                 n = {
-                    ["<C-y>"] = action_layout.toggle_preview
+                    ["<C-y>"] = action_layout.toggle_preview,
+                    ["<leader><leader>"] = actions.close
                 },
                 i = {
                     ["<C-y>"] = action_layout.toggle_preview,

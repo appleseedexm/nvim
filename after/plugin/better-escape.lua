@@ -36,8 +36,8 @@ require("better_escape").setup {
                 ----k = "<Esc>",
             --},
             -- does not work :D
-            --["<leader>"] = {
-                --["<leader>"] = "<Esc>",
+            --[" "] = {
+                --[" "] = "<Esc>",
             --}
         },
         s = {
