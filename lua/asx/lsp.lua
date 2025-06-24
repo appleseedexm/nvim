@@ -73,7 +73,7 @@ function M.setup()
             keymap.set({ "n", "v" }, "<leader>vca", vim.lsp.buf.code_action, opts)
             keymap.set({ "n", "v" }, "<leader>vrf",
                 "<Cmd>lua vim.lsp.buf.code_action { context = { only = {'refactor'} }}<CR>", opts)
-            keymap.set("n", "<leader>vrn", "<Cmd>lua vim.lsp.buf.rename(vim.fn.input('New Name: '))<CR>", opts)
+            keymap.set("n", "<leader>vrn", vim.lsp.buf.rename, opts)
             keymap.set("i", "<c-n>", vim.lsp.completion.get, opts)
             keymap.set("n", "<leader>clr", function() vim.lsp.codelens.refresh({ bufnr = 0 }) end)
             keymap.set("n", "<leader>cle", vim.lsp.codelens.run)
