@@ -46,3 +46,4 @@ vim.opt.splitright = true
 vim.opt.winfixheight = false
 
 vim.opt.conceallevel = 0
+vim.opt.showmode = false
