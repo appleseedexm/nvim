@@ -123,7 +123,12 @@ dapui.setup(
     }
 )
 
+-- dap
+
+dap.defaults.fallback.switchbuf = "usevisible,uselast"
+
 dap.listeners.after.event_initialized["dapui_config"] = function()
+    vim.cmd.tabnew()
     dapui.open({ reset = true })
 end
 dap.listeners.before.event_terminated["dapui_config"] = function()
@@ -131,6 +136,7 @@ dap.listeners.before.event_terminated["dapui_config"] = function()
 end
 dap.listeners.before.event_exited["dapui_config"] = function()
     dapui.close({ reset = true })
+    vim.cmd.tabclose()
 end
 
 -- dap-virtual-text
