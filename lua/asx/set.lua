@@ -47,3 +47,5 @@ vim.opt.winfixheight = false
 
 vim.opt.conceallevel = 0
 vim.opt.showmode = false
+vim.opt.title = true
+vim.opt.titlestring = [[%t%( %M%) - nvim]]
