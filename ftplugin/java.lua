@@ -59,6 +59,7 @@ local jdtls = require('jdtls')
 --jdtls.jol_path = os.getenv('HOME') .. '/apps/jol.jar'
 local config = require('asx.lsp').mk_config({
     root_dir = root_dir,
+    filetypes = { 'java' },
     settings = {
         java = {
             autobuild = { enabled = false },
