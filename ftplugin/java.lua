@@ -371,24 +371,31 @@ for _, jar_pattern in ipairs(jar_patterns) do
     end
 end
 
+-- cmp
+local cmp_nvim_lsp = require("cmp_nvim_lsp")
+local client_capabilities = vim.lsp.protocol.make_client_capabilities()
+local capabilities = vim.tbl_deep_extend("force", client_capabilities,
+    cmp_nvim_lsp.default_capabilities(
+        vim.tbl_deep_extend(
+            "force",
+            config.capabilities,
+            {
+                workspace = {
+                    didChangeWatchedFiles = {
+                        dynamicRegistration = false
+                    }
+                },
+            }
+        )))
+
+config.capabilities = capabilities
+
 local extendedClientCapabilities = jdtls.extendedClientCapabilities;
 extendedClientCapabilities.onCompletionItemSelectedCommand = "editor.action.triggerParameterHints"
 config.init_options = {
     bundles = bundles,
     extendedClientCapabilities = extendedClientCapabilities,
 }
-config.capabilities =
-    vim.tbl_deep_extend(
-        "force",
-        config.capabilities,
-        {
-            workspace = {
-                didChangeWatchedFiles = {
-                    dynamicRegistration = false
-                }
-            },
-        }
-    )
 -- mute; having progress reports is enough
 --config.handlers['language/status'] = function() end
 jdtls.start_or_attach(config)
