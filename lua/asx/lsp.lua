@@ -159,25 +159,7 @@ function M.setup()
         {}
     )
 
-    local cmp = require('cmp')
-    local cmp_select = { behavior = cmp.SelectBehavior.Select }
-    cmp.setup({
-        confirmation = {
-            default_behavior = 'insert',
-        },
-        preselect = 'item',
-        mapping = cmp.mapping.preset.insert({
-            ['<C-p>'] = cmp.mapping.select_prev_item(cmp_select),
-            ['<C-n>'] = cmp.mapping.select_next_item(cmp_select),
-            ['<C-y>'] = cmp.mapping.confirm({ select = true, behavior = cmp.ConfirmBehavior.Insert }),
-            ['<C-Space>'] = nil,
-            ['<Tab>'] = nil,
-            ['<S-Tab>'] = nil,
-        }),
-        sources = {
-            { name = 'nvim_lsp' },
-        }
-    })
+    require('mini.completion').setup()
 
     vim.diagnostic.config({
         virtual_text = true

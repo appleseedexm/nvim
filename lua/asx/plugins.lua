@@ -72,10 +72,9 @@ Plug('theHamsta/nvim-dap-virtual-text')
 Plug('nvim-neotest/nvim-nio')
 
 -- Autocompletion
-Plug('hrsh7th/nvim-cmp')
-Plug('hrsh7th/cmp-nvim-lsp')
+Plug('echasnovski/mini.completion')
 Plug('L3MON4D3/LuaSnip')
---
+
 -- Google Formatter
 Plug('google/vim-maktaba')
 Plug('google/vim-codefmt')

@@ -372,10 +372,10 @@ for _, jar_pattern in ipairs(jar_patterns) do
 end
 
 -- cmp
-local cmp_nvim_lsp = require("cmp_nvim_lsp")
+local cmp_nvim_lsp = require("mini.completion")
 local client_capabilities = vim.lsp.protocol.make_client_capabilities()
 local capabilities = vim.tbl_deep_extend("force", client_capabilities,
-    cmp_nvim_lsp.default_capabilities(
+    cmp_nvim_lsp.get_lsp_capabilities(
         vim.tbl_deep_extend(
             "force",
             config.capabilities,
