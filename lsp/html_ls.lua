@@ -1,15 +1,4 @@
 return require('asx.lsp').mk_config({
-    on_attach = function(client, bufnr)
-        vim.api.nvim_buf_create_user_command(
-            bufnr,
-            "RelativeCodeFormat",
-            function()
-                print("FormatCode")
-                vim.cmd("FormatCode")
-            end,
-            {}
-        )
-    end,
     cmd = { 'vscode-html-language-server', '--stdio' },
     filetypes = { 'html', 'htmldjango', 'htmljinja', 'svelte', 'vue', 'windi' },
     root_dir = vim.fs.root(0, { '.git', 'package.json' }),

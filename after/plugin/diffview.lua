@@ -1,1 +1,1 @@
-vim.keymap.set('n', '<leader>gd', ':DiffviewOpen origin/master... --imply-local')
+vim.keymap.set('n', '<leader>gD', ':DiffviewOpen origin/master... --imply-local')
