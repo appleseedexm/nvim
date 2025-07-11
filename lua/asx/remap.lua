@@ -25,18 +25,17 @@ vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv")
 -- append line below at end of current line without cursor jump
 vim.keymap.set("n", "J", "mzJ`z")
 
--- half-page up and down without moving the cursor
+-- half-page up and down with centered cursor
 vim.keymap.set("n", "<C-d>", "<C-d>zz")
 vim.keymap.set("n", "<C-u>", "<C-u>zz")
--- search without moving cursor
+-- search with centered cursor
 vim.keymap.set("n", "n", "nzzzv")
 vim.keymap.set("n", "N", "Nzzzv")
 
 -- paste but yank into void register
 vim.keymap.set("x", "<leader>p", [["_dP]])
 
--- next greatest remap ever : asbjornHaland
--- yank into system register
+-- yank into system register (asbjornHaland)
 vim.keymap.set({ "n", "v" }, "<leader>y", [["+y]])
 vim.keymap.set("n", "<leader>Y", [["+Y]])
 

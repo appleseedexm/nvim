@@ -243,17 +243,6 @@ config.on_attach = function(client, bufnr)
         end
     end, opts)
 
-    api.nvim_buf_create_user_command(
-        bufnr,
-        "RelativeCodeFormat",
-        function()
-            vim.cmd("FormatCode")
-            vim.cmd("w")
-        end,
-        {}
-    )
-
-
     -- debug / test
     local conf_overrides = {
         stepFilters = {

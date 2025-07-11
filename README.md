@@ -1,46 +1,50 @@
 # nvim config
 
+## Disclaimer
+
+I dont recommend using my config, but using it as reference and creating your own.
+Nobody will use neovim exactly the way I do, and while I try to keep most functionality close to its original config, some things are highly custom. 
+
+## Manual Installation Steps
+
+`telescope-fzf-native.nvim` needs a manual `make` in the plugin folder (not sure if a setup bug or a plugin bug, might be obsolete by the time you're installing this). 
+
 ## Plugins
 
 I use [vim-plug](https://github.com/junegunn/vim-plug) to manage plugins.
 
 ## Dependencies
 
-- fzf (telescope)
-- ripgrep (telescope)
-- git-delta (telescope)
-- fd (telescope)
+I work with the following tools which are integrated in my config:
+
+- tmux
+- fzf 
+- ripgrep 
+- git-delta 
+- fd 
+- lazygit 
+- yazi 
+- bat
+
+### Neovim specific
+
 - gcc (treesitter)
 - universal-ctags (tagbar)
 - nerd-fonts (lualine)
-- lazygit (lazygit)
-- yazi (yazi.nvim)
-
-## Soft Dependencies
-
-These will throw an error if not found, but probably only need configuratiom or plugin removal
-- JDKs (jdtls)
-- Obsidian (obsidian)
-- luarocks (luaformatter)
 - inotify-tools (improved file-watcher backend)
 
-## LSPs
+### Soft Dependencies
 
-- Rust
-- Java
-- Go
-- JS / TS
-- Python
-- HTML / CSS
-- JSON
-- Lua
-- Angular
+Language-specific dependencies like `rust-analyzer`, `zig` and all that. 
+If you dont use the language, throw out the config from `/lsp`.
 
-## Manual Steps
 
-`telescope-fzf-native.nvim` needs a manual `make` in the plugin folder (not sure if a setup bug or a plugin bug)
+## LSP
+
+All language server configs are in `/lsp`.
+Most tools that are invoked with neovim only are installed via `mason`.
 
 ## TODO
 
-- [ ] Replace either glaive or conform, doesnt need both
+- [x] Replace either glaive or conform, doesnt need both
 - [x] Refactor all LSPs into a single setup

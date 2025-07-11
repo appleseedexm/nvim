@@ -3,7 +3,7 @@ require('nvim-treesitter.configs').setup {
     modules = {},
     sync_install = false,
     ignore_install = {},
-    ensure_installed = { "lua", "rust", "toml", "java", "javascript", "typescript", "json", "html", "xml" },
+    ensure_installed = { "lua", "rust", "toml", "java", "javascript", "typescript", "json", "html", "xml", "zig", "css", "python", },
     auto_install = true,
     highlight = {
         enable = true,

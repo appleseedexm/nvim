@@ -72,7 +72,7 @@ vim.g.everforest_background = "hard"
 vim.g.everforest_dim_inactive_windows = 1
 vim.g.everforest_ui_contrast = "high"
 
-function ColorMyPencils(color)
+function Color(color)
     color = color or "tokyonight"
     vim.cmd.colorscheme(color)
 
@@ -88,7 +88,7 @@ function ColorToggleLightDark(color)
         vim.o.background = 'dark'
     end
 
-    ColorMyPencils(color)
+    Color(color)
 end
 
 function ColorClear()
@@ -97,4 +97,4 @@ function ColorClear()
     vim.cmd.highlight("Search", "ctermfg=0")
 end
 
-ColorMyPencils()
+Color()
