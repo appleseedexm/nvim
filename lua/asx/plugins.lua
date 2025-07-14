@@ -17,10 +17,12 @@ Plug('mbbill/undotree')
 Plug('folke/zen-mode.nvim')
 Plug('epwalsh/obsidian.nvim')
 Plug('echasnovski/mini.visits')
+Plug('echasnovski/mini.extra')
 
 -- UI
 Plug('nvim-lualine/lualine.nvim')
 Plug('folke/which-key.nvim')
+Plug('echasnovski/mini.pick')
 
 -- Themes
 Plug('rose-pine/neovim')
