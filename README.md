@@ -2,8 +2,8 @@
 
 ## Disclaimer
 
-I dont recommend using my config, but using it as reference and creating your own.
-Nobody will use neovim exactly the way I do, and while I try to keep most functionality close to its original config, some things are highly custom. 
+I dont recommend blindly using my config, but taking it as reference and creating your own.
+Nobody will use neovim exactly the way I do and while I try to keep most functionality close to their original configuration, some things are highly customized. 
 
 ## Manual Installation Steps
 
