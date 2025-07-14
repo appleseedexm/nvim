@@ -16,6 +16,7 @@ Plug('alexghergh/nvim-tmux-navigation')
 Plug('mbbill/undotree')
 Plug('folke/zen-mode.nvim')
 Plug('epwalsh/obsidian.nvim')
+Plug('echasnovski/mini.visits')
 
 -- UI
 Plug('nvim-lualine/lualine.nvim')
