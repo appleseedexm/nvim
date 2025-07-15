@@ -1,6 +1,3 @@
---vim.g.loaded_netrw = 1
-vim.g.loaded_netrwPlugin = 1
-
 -- cursor
 vim.opt.guicursor =
 -- "n-v-c:block,i-ci-ve:block,r-cr:hor20,o:hor50,a:blinkwait700-blinkoff400-blinkon250-Cursor/lCursor,sm:block-blinkwait175-blinkoff150-blinkon175"
@@ -20,6 +17,8 @@ vim.opt.undofile = true
 vim.opt.isfname:append("@-@")
 vim.opt.autoread = true
 vim.opt.autowrite = false
+--vim.g.loaded_netrw = 1
+vim.g.loaded_netrwPlugin = 1
 
 -- ui
 vim.opt.number = true
@@ -44,6 +43,7 @@ vim.opt.matchtime = 5
 vim.opt.foldmethod = "expr"
 vim.wo.foldexpr = "nvim_treesitter#foldexpr()"
 vim.opt.foldlevel = 99
+vim.opt.completeopt = "menuone,noselect,fuzzy,nosort"
 
 -- format
 vim.opt.tabstop = 4
