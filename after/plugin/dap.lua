@@ -27,25 +27,25 @@ local keymap = {
     { "<leader>du", "<cmd>lua require'dap'.step_out()<cr>",                                    desc = "Step Out" },
 }
 
-whichkey.add(keymap, {
+whichkey.add(vim.tbl_deep_extend("force", keymap, {
     mode = "n",
     buffer = nil,
     silent = true,
     noremap = true,
     nowait = false,
-})
+}))
 
 local keymap_v = {
     { "<leader>d",  group = "DAP" },
     { "<leader>de", "<cmd>lua require'dapui'.eval()<cr>", desc = "Evaluate" },
 }
-whichkey.add(keymap_v, {
+whichkey.add(vim.tbl_deep_extend("force", keymap_v, {
     mode = "v",
     buffer = nil,
     silent = true,
     noremap = true,
     nowait = false,
-})
+}))
 
 
 -- DAP UI

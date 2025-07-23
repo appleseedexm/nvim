@@ -277,13 +277,15 @@ config.on_attach = function(client, bufnr)
         { "<leader>dss", pick_test,                                                                                     desc = "Pick test" },
     }
 
-    require('which-key').add(dap_keymap, vim.tbl_deep_extend("force", opts, {
-        mode = { "v", "n" },
-        buffer = nil,
-        silent = true,
-        noremap = true,
-        nowait = false,
-    }));
+    require('which-key').add(
+        vim.tbl_deep_extend("force", dap_keymap,
+            vim.tbl_deep_extend("force", opts, {
+                mode = { "v", "n" },
+                buffer = nil,
+                silent = true,
+                noremap = true,
+                nowait = false,
+            })));
 
     -- basic keymaps
     set('n', "<leader>co", jdtls.organize_imports, opts)

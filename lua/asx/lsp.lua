@@ -129,10 +129,10 @@ function M.setup()
             keymap.set("n", "<leader>vd", vim.diagnostic.open_float, opts)
             keymap.set('n', '<leader>D', vim.lsp.buf.type_definition, opts)
             keymap.set("n", "<leader>f", vim.cmd.RelativeCodeFormat, opts)
-            keymap.set({ "n", "v" }, "<leader>vca", vim.lsp.buf.code_action, opts)
-            keymap.set({ "n", "v" }, "<leader>vrf",
+            keymap.set({ "n", "v" }, "<leader>cca", vim.lsp.buf.code_action, opts)
+            keymap.set({ "n", "v" }, "<leader>crf",
                 "<Cmd>lua vim.lsp.buf.code_action { context = { only = {'refactor'} }}<CR>", opts)
-            keymap.set("n", "<leader>vrn", vim.lsp.buf.rename, opts)
+            keymap.set("n", "<leader>crn", vim.lsp.buf.rename, opts)
             keymap.set("n", "<leader>clr", function() vim.lsp.codelens.refresh({ bufnr = 0 }) end)
             keymap.set("n", "<leader>cle", vim.lsp.codelens.run)
 
@@ -158,8 +158,8 @@ function M.setup()
                     pcall(api.nvim_del_augroup_by_name, cl_group_name)
                 end
 
-                keymap.set("n", "<leader>ca", autorefresh, { buffer = bufnr })
-                keymap.set("n", "<leader>cc", clear, { buffer = bufnr })
+                keymap.set("n", "<leader>cla", autorefresh, { buffer = bufnr })
+                keymap.set("n", "<leader>clc", clear, { buffer = bufnr })
             end
 
             if client.server_capabilities.documentHighlightProvider then
@@ -259,6 +259,14 @@ end
 function M.enable()
     local mason = require("mason")
     mason.setup()
+
+    local keymap = vim.keymap
+    keymap.del('n', 'grr')
+    keymap.del('n', 'grn')
+    keymap.del('n', 'gra')
+    keymap.del('n', 'grt')
+    keymap.del('n', 'gri')
+
     vim.lsp.enable({
         'angular_ls',
         'css_ls',
