@@ -2,11 +2,14 @@ vim.g.db_ui_use_nerd_fonts = 1
 vim.g.db_ui_execute_on_save = 0
 vim.g.db_ui_disable_mappings = 0
 
+-- since we dont use a lsp this wont interfere with mini.completion
+vim.api.nvim_command([[autocmd FileType sql setlocal omnifunc=vim_dadbod_completion#omni]])
+vim.api.nvim_command([[autocmd FileType mysql setlocal omnifunc=vim_dadbod_completion#omni]])
+vim.api.nvim_command([[autocmd FileType plsql setlocal omnifunc=vim_dadbod_completion#omni]])
+
 vim.api.nvim_create_autocmd('FileType', {
     pattern = { 'sql', 'mysql', 'plsql' },
-    callback = function()
-        local cmp = require('cmp')
-        cmp.setup.buffer({ sources = { { name = 'vim-dadbod-completion' } } })
+    callback = function(args)
         vim.keymap.set('n', '<leader>r', ':normal vip<CR><PLUG>(DBUI_ExecuteQuery)', { buffer = true })
     end
 })

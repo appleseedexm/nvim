@@ -44,14 +44,14 @@ local function setup_completion()
         -- Fallback action as function/string. Executed in Insert mode.
         -- To use built-in completion (`:h ins-completion`), set its mapping as
         -- string. Example: set '<C-x><C-l>' for 'whole lines' completion.
-        fallback_action = '<C-n>',
+        fallback_action = '<C-X><C-O>',
 
         -- Module mappings. Use `''` (empty string) to disable one. Some of them
         -- might conflict with system mappings.
         mappings = {
             -- Force two-step/fallback completions
             force_twostep = '<C-M>',
-            force_fallback = '<C-M>',
+            force_fallback = '',
 
             -- Scroll info/signature window down/up. When overriding, check for
             -- conflicts with built-in keys for popup menu (like `<C-u>`/`<C-o>`
