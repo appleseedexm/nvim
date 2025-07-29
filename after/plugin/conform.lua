@@ -11,7 +11,8 @@ conform.setup({
     },
     formatters_by_ft = {
         kotlin = { 'ktlint' },
-        java = { 'google-java-format' }
+        java = { 'google-java-format' },
+        sql = { 'sqlfmt' }
     },
     default_format_opts = {
         lsp_format = 'fallback',
