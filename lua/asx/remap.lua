@@ -47,7 +47,7 @@ vim.keymap.set("n", "<C-f>", "<cmd>silent !tmux neww tms<CR>")
 
 vim.keymap.set("n", "<A-j>", "<cmd>cnext<CR>zz")
 vim.keymap.set("n", "<A-k>", "<cmd>cprev<CR>zz")
-vim.keymap.set("n", "<leader>j", "<cmd>lnext<CR>zz")
-vim.keymap.set("n", "<leader>k", "<cmd>lprev<CR>zz")
+vim.keymap.set("n", "<A-S-j>", "<cmd>lnext<CR>zz")
+vim.keymap.set("n", "<A-S-k>", "<cmd>lprev<CR>zz")
 vim.keymap.set("n", "<C-x>", ":lclose<CR>:cclose<CR>")
 
