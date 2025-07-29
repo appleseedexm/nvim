@@ -113,6 +113,8 @@ function M.setup()
     api.nvim_create_autocmd('LspAttach', {
         group = lsp_group,
         callback = function(args)
+            setup_completion()
+
             vim.bo[args.buf].omnifunc = 'v:lua.MiniCompletion.completefunc_lsp'
 
             local client = assert(vim.lsp.get_client_by_id(args.data.client_id))
@@ -217,8 +219,6 @@ function M.setup()
     vim.diagnostic.config({
         virtual_text = true
     })
-
-    setup_completion()
 end
 
 local function mk_tag_item(name, range, uri)
