@@ -1,4 +1,5 @@
 local lsp = require 'vim.lsp'
+local cmp = require 'mini.completion'
 local api = vim.api
 local ms = lsp.protocol.Methods
 local M = {}
@@ -6,7 +7,7 @@ local M = {}
 local get_clients = vim.lsp.get_clients
 
 local function setup_completion()
-    require('mini.completion').setup({
+    cmp.setup({
         -- Delay (debounce type, in ms) between certain Neovim event and action.
         -- This can be used to (virtually) disable certain automatic actions by
         -- setting very high delay time (like 10^7).
@@ -67,13 +68,7 @@ function M.mk_config(config)
         vim.tbl_deep_extend(
             "force",
             lsp.protocol.make_client_capabilities(),
-            {
-                workspace = {
-                    didChangeWatchedFiles = {
-                        dynamicRegistration = true
-                    }
-                },
-            }
+            cmp.get_lsp_capabilities()
         )
     local defaults = {
         handlers = {},
@@ -85,7 +80,7 @@ function M.mk_config(config)
     return vim.tbl_deep_extend("force", defaults, config or {})
 end
 
-function M.setup()
+local function setup()
     local lsp_group = api.nvim_create_augroup('lsp_augroup', {})
     local keymap = vim.keymap
 
@@ -113,7 +108,6 @@ function M.setup()
     api.nvim_create_autocmd('LspAttach', {
         group = lsp_group,
         callback = function(args)
-            setup_completion()
 
             vim.bo[args.buf].omnifunc = 'v:lua.MiniCompletion.completefunc_lsp'
 
@@ -282,7 +276,10 @@ function M.enable()
         'typescript_ls',
         'zls'
     })
-    M.setup()
+
+    setup_completion()
+
+    setup()
 end
 
 return M

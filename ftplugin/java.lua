@@ -363,23 +363,14 @@ for _, jar_pattern in ipairs(jar_patterns) do
 end
 
 -- cmp
-local mini_cmp = require("mini.completion")
-local client_capabilities = vim.lsp.protocol.make_client_capabilities()
-local capabilities = vim.tbl_deep_extend("force", client_capabilities,
-    mini_cmp.get_lsp_capabilities(
-        vim.tbl_deep_extend(
-            "force",
-            config.capabilities,
-            {
-                workspace = {
-                    didChangeWatchedFiles = {
-                        dynamicRegistration = false
-                    }
-                },
+config.capabilities = vim.tbl_deep_extend("force", config.capabilities,
+    {
+        workspace = {
+            didChangeWatchedFiles = {
+                dynamicRegistration = false
             }
-        )))
-
-config.capabilities = capabilities
+        },
+    })
 
 local extendedClientCapabilities = jdtls.extendedClientCapabilities;
 extendedClientCapabilities.onCompletionItemSelectedCommand = "editor.action.triggerParameterHints"
