@@ -11,8 +11,8 @@ local api = vim.api
 local jdtls_install = local_jdtls and home .. "/code/eclipse.jdt.ls/org.eclipse.jdt.ls.product/target/repository" or
     vim.fn.expand("$MASON/packages/jdtls")
 
-local lombok_ver = "lombok-1.18.38.jar"
-local lombok = local_jdtls and home .. "/code/libs/java/" .. lombok_ver or jdtls_install .. "/lombok.jar"
+local lombok_ver = "lombok-1.18.39-builder-hotfix.jar"
+local lombok = true and home .. "/code/libs/java/" .. lombok_ver or jdtls_install .. "/lombok.jar"
 local sys_arch = vim.loop.os_uname().machine == "aarch64" and "linux_arm" or "linux"
 
 -- dap
