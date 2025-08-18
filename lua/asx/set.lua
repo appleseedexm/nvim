@@ -36,7 +36,7 @@ vim.opt.cmdheight = 1
 vim.opt.errorbells = false
 
 -- behavior
-vim.opt.selection = 'exclusive'
+vim.opt.selection = 'inclusive'
 vim.opt.encoding = 'utf-8'
 vim.opt.showmatch = false
 vim.opt.matchtime = 5
