@@ -73,7 +73,9 @@ require('mini.pick').setup({
     -- Window related options
     window = {
         -- Float window config (table or callable returning it)
-        config = nil,
+        config = {
+            width = 250
+        },
 
         -- String to use as caret in prompt
         prompt_caret = '▏',
