@@ -8,11 +8,13 @@ require("codecompanion").setup({
         }
     },
     adapters = {
-        ollama = function()
-            return require('codecompanion.adapters').extend("ollama", {
-                model = "qwen2.5-coder:32b"
-            })
-        end
+        http = {
+            ollama = function()
+                return require('codecompanion.adapters').extend("ollama", {
+                    model = "qwen2.5-coder:32b"
+                })
+            end
+        }
     },
 })
 
