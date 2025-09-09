@@ -7,6 +7,13 @@ local M = {}
 local get_clients = vim.lsp.get_clients
 
 local function setup_completion()
+    local kind_priority = { Text = -1, Snippet = 99 }
+    local opts = { filtersort = 'fuzzy', kind_priority = kind_priority }
+    local process_items = function(items, base)
+        local result = MiniCompletion.default_process_items(items, base, opts)
+        return result or items
+    end
+
     cmp.setup({
         -- Delay (debounce type, in ms) between certain Neovim event and action.
         -- This can be used to (virtually) disable certain automatic actions by
@@ -34,8 +41,7 @@ local function setup_completion()
             -- (each with `client_id` field for item's server) and word to complete.
             -- Output should be a table of the same nature as input. Common use case
             -- is custom filter/sort. Default: `default_process_items`
-            process_items = nil,
-
+            process_items = process_items,
             -- A function which takes a snippet as string and inserts it at cursor.
             -- Default: `default_snippet_insert` which tries to use 'mini.snippets'
             -- and falls back to `vim.snippet.expand` (on Neovim>=0.10).
@@ -108,7 +114,6 @@ local function setup()
     api.nvim_create_autocmd('LspAttach', {
         group = lsp_group,
         callback = function(args)
-
             vim.bo[args.buf].omnifunc = 'v:lua.MiniCompletion.completefunc_lsp'
 
             local client = assert(vim.lsp.get_client_by_id(args.data.client_id))
@@ -180,7 +185,7 @@ local function setup()
 
             local triggers = vim.tbl_get(client.server_capabilities, "completionProvider", "triggerCharacters")
             if triggers then
-                for _, char in ipairs({ "a", "e", "i", "o", "u" }) do
+                for _, char in ipairs({ "\b" }) do
                     if not vim.tbl_contains(triggers, char) then
                         table.insert(triggers, char)
                     end
