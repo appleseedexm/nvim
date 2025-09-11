@@ -1,6 +1,7 @@
 local telescope = require('telescope')
 local previewers = require('telescope.previewers')
 local builtin = require('telescope.builtin')
+local utils = require('telescope.utils')
 local action_layout = require('telescope.actions.layout')
 local actions = require('telescope.actions')
 local fzf_workspace_opts = {
@@ -9,6 +10,9 @@ local fzf_workspace_opts = {
     override_file_sorter = true,    -- override the file sorter
     case_mode = "smart_case",       -- "smart_case" or "ignore_case" or "respect_case"
 }
+
+local git_log_format = utils.__git_command(
+    { "log", "--pretty=format:%h%x20%an%x09%ad%x09%s", "--date=iso", "--follow" }, nil)
 
 local function is_workspace_git_repo()
     return vim.fn.isdirectory(vim.fn.getcwd() .. "/.git") == 1
@@ -22,6 +26,7 @@ local delta = previewers.new_termopen_previewer {
 
 local my_git_commits = function(opts)
     opts = opts or {}
+    opts.git_command = git_log_format
     opts.previewer = {
         delta,
         previewers.git_commit_message.new(opts),
@@ -33,6 +38,7 @@ end
 
 local my_git_bcommits = function(opts)
     opts = opts or {}
+    opts.git_command = git_log_format
     opts.previewer = {
         delta,
         previewers.git_commit_message.new(opts),
