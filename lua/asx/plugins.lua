@@ -18,6 +18,7 @@ Plug('folke/zen-mode.nvim')
 Plug('epwalsh/obsidian.nvim')
 Plug('echasnovski/mini.visits')
 Plug('echasnovski/mini.extra')
+Plug('echasnovski/mini.pairs')
 
 -- UI
 Plug('nvim-lualine/lualine.nvim')
