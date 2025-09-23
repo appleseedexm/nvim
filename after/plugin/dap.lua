@@ -136,7 +136,7 @@ dap.listeners.before.event_terminated["dapui_config"] = function()
 end
 dap.listeners.before.event_exited["dapui_config"] = function()
     dapui.close({ reset = true })
-    vim.cmd.tabclose()
+    pcall(vim.cmd.tabclose)
 end
 
 -- dap-virtual-text
