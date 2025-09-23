@@ -59,7 +59,10 @@ vim.keymap.set('n', '<C-p>',
     end,
     {})
 vim.keymap.set('n', '<leader>ts', function()
-    builtin.grep_string({ search = vim.fn.input("Grep string > "), additional_args = { '-i.' } })
+    builtin.grep_string({ search = vim.fn.input("Grep string -i > "), additional_args = { '-i.' } })
+end)
+vim.keymap.set('n', '<leader>tS', function()
+    builtin.grep_string({ search = vim.fn.input("Grep string > "), additional_args = {} })
 end)
 vim.keymap.set('n', '<leader>tww', function()
     builtin.lsp_workspace_symbols({ query = vim.fn.input("Grep lsp workspace symbols > ") })
