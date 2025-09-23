@@ -1,13 +1,37 @@
 local lsp = require 'vim.lsp'
 local cmp = require 'mini.completion'
 local api = vim.api
-local ms = lsp.protocol.Methods
 local M = {}
 
-local get_clients = vim.lsp.get_clients
-
 local function setup_completion()
-    local kind_priority = { Text = -1, Snippet = 99 }
+    local completionItemKind = {
+        Text = 1,
+        Method = 2,
+        Function = 3,
+        Constructor = 4,
+        Field = 5,
+        Variable = 6,
+        Class = 7,
+        Interface = 8,
+        Module = 9,
+        Property = 10,
+        Unit = 11,
+        Value = 12,
+        Enum = 13,
+        Keyword = 14,
+        Snippet = 15,
+        Color = 16,
+        File = 17,
+        Reference = 18,
+        Folder = 19,
+        EnumMember = 20,
+        Constant = 21,
+        Struct = 22,
+        Event = 23,
+        Operator = 24,
+        TypeParameter = 25,
+    }
+    local kind_priority = vim.tbl_deep_extend('force', completionItemKind, { Text = 0, Snippet = 10, Variable = 25, })
     local opts = { filtersort = 'fuzzy', kind_priority = kind_priority }
     local process_items = function(items, base)
         local result = MiniCompletion.default_process_items(items, base, opts)
