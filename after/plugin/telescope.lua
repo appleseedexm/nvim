@@ -74,6 +74,7 @@ vim.keymap.set('n', '<leader>twd', builtin.lsp_dynamic_workspace_symbols, {})
 vim.keymap.set('n', '<leader>trf', builtin.lsp_references, {})
 vim.keymap.set('n', '<leader>td', builtin.lsp_type_definitions, {})
 vim.keymap.set('n', '<leader>trs', builtin.resume, {})
+vim.keymap.set('n', '<leader>tp', builtin.pickers, {})
 vim.keymap.set("n", "<leader>tgb", my_git_bcommits, {})
 vim.keymap.set("n", "<leader>tgc", my_git_commits, {})
 vim.keymap.set("n", "<leader>tgs", builtin.git_status, {})
@@ -113,6 +114,11 @@ local pickers = {
 telescope.setup(
     {
         defaults = {
+            cache_picker = {
+                num_pickers = 10,
+                limit_entries = 1000,
+                ignore_empty_prompt = false
+            },
             sorting_strategy = "ascending",
             layout_strategy = "vertical",
             wrap_result = true,
