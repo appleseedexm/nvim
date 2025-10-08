@@ -5,7 +5,9 @@ local config_group = vim.api.nvim_create_augroup("ConfigGroup", {})
 vim.api.nvim_create_autocmd("VimResized", {
     group = config_group,
     callback = function()
+        local cur_tab = vim.api.nvim_get_current_tabpage()
         vim.cmd("tabdo wincmd =")
+        vim.cmd("tabnext " .. cur_tab)
     end,
 })
 
