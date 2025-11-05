@@ -256,7 +256,7 @@ function M.enable()
     keymap.del('n', 'gri')
 
     vim.lsp.enable({
-        'angular_ls',
+        'angularls',
         'css_ls',
         'golangci_lint_ls',
         'gopls',
