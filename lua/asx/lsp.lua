@@ -258,6 +258,7 @@ function M.enable()
     vim.lsp.enable({
         'angularls',
         'css_ls',
+        'dartls',
         'golangci_lint_ls',
         'gopls',
         'html_ls',
