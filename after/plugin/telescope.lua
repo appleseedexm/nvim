@@ -11,8 +11,11 @@ local fzf_workspace_opts = {
     case_mode = "smart_case",       -- "smart_case" or "ignore_case" or "respect_case"
 }
 
-local git_log_format = utils.__git_command(
-    { "log", "--pretty=format:%h%x20%an%x09%ad%x09%s", "--date=iso", "--follow" }, nil)
+local git_log_format = function(args)
+    args = args or {}
+    return utils.__git_command(
+        vim.list_extend({ "log", "--pretty=%h%x20%an%x09%ad%x09%s", "--date=iso", "--follow" }, args), nil)
+end
 
 local function is_workspace_git_repo()
     return vim.fn.isdirectory(vim.fn.getcwd() .. "/.git") == 1
@@ -20,13 +23,13 @@ end
 
 local delta = previewers.new_termopen_previewer {
     get_command = function(entry)
-        return { 'git', '-c', 'core.pager=delta', '-c', 'delta.side-by-side=false', 'diff', entry.value .. '^!' }
+        return { 'git', '-c', 'core.pager=delta', '-c', 'delta.side-by-side=true', 'diff', entry.value .. '^!' }
     end
 }
 
 local my_git_commits = function(opts)
     opts = opts or {}
-    opts.git_command = git_log_format
+    opts.git_command = git_log_format({ "--", "." })
     opts.previewer = {
         delta,
         previewers.git_commit_message.new(opts),
@@ -38,7 +41,7 @@ end
 
 local my_git_bcommits = function(opts)
     opts = opts or {}
-    opts.git_command = git_log_format
+    opts.git_command = git_log_format()
     opts.previewer = {
         delta,
         previewers.git_commit_message.new(opts),
