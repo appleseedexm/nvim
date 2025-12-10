@@ -26,7 +26,7 @@ return require('asx.lsp').mk_config({
             },
             workspace = {
                 checkThirdParty = false,
-                library = { "/usr/share/nvim/runtime/lua", "/home/asx/.config/nvim/lua" }
+                library = { "/usr/share/nvim/runtime/lua", vim.fn.expand('~/.config/nvim/lua') }
             }
         }
     }
