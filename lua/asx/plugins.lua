@@ -33,9 +33,9 @@ Plug('sainnhe/everforest')
 Plug('folke/tokyonight.nvim')
 
 -- Code
-Plug('nvim-treesitter/nvim-treesitter', { ['do'] = ':TSUpdate' })
+Plug('nvim-treesitter/nvim-treesitter', { ['do'] = ':TSUpdate', ['branch'] = 'main' })
 Plug('nvim-treesitter/nvim-treesitter-context')
-Plug('nvim-treesitter/nvim-treesitter-textobjects')
+Plug('nvim-treesitter/nvim-treesitter-textobjects', { ['branch'] = 'main' })
 Plug('numToStr/Comment.nvim')
 Plug('mfussenegger/nvim-lint')
 Plug('stevearc/conform.nvim')

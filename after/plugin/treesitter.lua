@@ -1,5 +1,5 @@
 -- Treesitter Plugin Setup
-require('nvim-treesitter.configs').setup {
+require('nvim-treesitter').setup {
     modules = {},
     sync_install = false,
     ignore_install = {},
@@ -48,7 +48,7 @@ end, { silent = true })
 
 
 
-require 'nvim-treesitter.configs'.setup {
+require 'nvim-treesitter'.setup {
     textobjects = {
         select = {
             enable = true,
