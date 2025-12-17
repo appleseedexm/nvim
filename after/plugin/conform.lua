@@ -12,7 +12,10 @@ conform.setup({
     formatters_by_ft = {
         kotlin = { 'ktlint' },
         java = { 'google-java-format' },
-        sql = { 'sqlfmt' }
+        sql = { 'sqlfmt' },
+        typescript = { 'prettier' },
+        javascript = { 'prettier' },
+        html = { 'prettier' }
     },
     default_format_opts = {
         lsp_format = 'fallback',
