@@ -20,7 +20,7 @@ require("yazi").setup({
     --     },
     --   },
     -- }
-    open_for_directories = true,
+    open_for_directories = false,
 
     -- open visible splits and quickfix items as yazi tabs for easy navigation
     -- https://github.com/mikavilpas/yazi.nvim/pull/359
