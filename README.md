@@ -25,6 +25,7 @@ I work with the following tools which are integrated in my config:
 - lazygit 
 - yazi 
 - bat
+- tree-sitter-cli
 
 ### Neovim specific
 
