@@ -166,10 +166,18 @@ ins_left {
         if next(clients) == nil then
             return msg
         end
+        msg = ''
         for _, client in ipairs(clients) do
             local filetypes = client.config.filetypes
             if filetypes and vim.fn.index(filetypes, buf_ft) ~= -1 then
-                return client.name
+                local progress = ''
+                for _, status in pairs(client.progress.pending) do
+                    progress = ": " .. vim.inspect(status)
+                    if status ~= nil then
+                        break
+                    end
+                end
+                msg = "[" .. client.name .. progress .. "] "
             end
         end
         return msg
