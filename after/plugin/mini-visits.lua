@@ -83,6 +83,12 @@ vim.keymap.set('n', '<Leader>vc',
 
 vim.keymap.set('n', '<Leader>vR',
     function()
-        require("mini.visits").remove_label(nil, "","")
+        require("mini.visits").remove_label(nil, "", "")
     end
     , { desc = "Remove label" })
+
+vim.keymap.set('n', '<Leader>vC',
+    function()
+        require("mini.visits").remove_label(get_branch(), "", "")
+    end
+    , { desc = "Remove label of branch" })
