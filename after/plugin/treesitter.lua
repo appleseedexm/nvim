@@ -1,5 +1,5 @@
 local languages = { "lua", "rust", "toml", "java", "javascript", "typescript", "json", "html", "xml", "zig", "css",
-    "python", };
+    "python", "yaml" };
 
 local ts = require('nvim-treesitter')
 ts.install(languages)
