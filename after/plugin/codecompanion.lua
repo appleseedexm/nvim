@@ -18,6 +18,9 @@ require("codecompanion").setup({
     },
 })
 
-vim.keymap.set({ 'n', 'v' }, '<leader>aa', ":CodeCompanionActions<CR>", { noremap = true, buffer = true, desc = "Run Code Companion Actions" })
-vim.keymap.set({ 'n', 'v' }, '<leader>ac', ":CodeCompanion ", { noremap = true, buffer = true, desc = "Start Code Companion" })
-vim.keymap.set({ 'n', 'v' }, '<leader>ah', ":CodeCompanionChat<CR>", { noremap = true, buffer = true, desc = "Open Code Companion Chat" })
+vim.keymap.set({ 'n', 'v' }, '<leader>caa', ":CodeCompanionActions<CR>",
+    { desc = "Run Code Companion Actions" })
+vim.keymap.set({ 'n', 'v' }, '<leader>cac', ":CodeCompanion ",
+    { desc = "Start Code Companion" })
+vim.keymap.set({ 'n', 'v' }, '<leader>cah', ":CodeCompanionChat<CR>",
+    { desc = "Open Code Companion Chat" })
