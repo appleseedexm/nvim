@@ -117,7 +117,7 @@ vim.keymap.set({ "n", "x", "o" }, "]]", function()
 end)
 -- You can also pass a list to group multiple queries.
 vim.keymap.set({ "n", "x", "o" }, "]o", function()
-    move.goto_next_start({ "@loop.inner", "@loop.outer" }, "textobjects")
+    require("nvim-treesitter-textobjects.move").goto_next_start({ "@loop.inner", "@loop.outer" }, "textobjects")
 end)
 -- You can also use captures from other query groups like `locals.scm` or `folds.scm`
 vim.keymap.set({ "n", "x", "o" }, "]s", function()
@@ -153,9 +153,9 @@ vim.keymap.set({ "n", "x", "o" }, "[n", function()
     require("nvim-treesitter-textobjects.move").goto_previous("@conditional.outer", "textobjects")
 end)
 -- swap
-vim.keymap.set("n", "<leader>a", function()
+vim.keymap.set("n", "<leader>s", function()
     require("nvim-treesitter-textobjects.swap").swap_next "@parameter.inner"
 end)
-vim.keymap.set("n", "<leader>A", function()
+vim.keymap.set("n", "<leader>S", function()
     require("nvim-treesitter-textobjects.swap").swap_previous "@parameter.outer"
 end)
