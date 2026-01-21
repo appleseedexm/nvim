@@ -268,7 +268,7 @@ function M.enable()
         'marksman',
         'python_ls',
         'rust-analyzer',
-        'typescript_ls',
+        'vtsls',
         'zls'
     })
 
