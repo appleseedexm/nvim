@@ -10,12 +10,15 @@ conform.setup({
         }
     },
     formatters_by_ft = {
-        kotlin = { 'ktlint' },
+        html = { 'prettier' },
         java = { 'google-java-format' },
+        javascript = { 'prettier' },
+        javascriptreact = { 'prettier' },
+        kotlin = { 'ktlint' },
         sql = { 'sqlfmt' },
         typescript = { 'prettier' },
-        javascript = { 'prettier' },
-        html = { 'prettier' }
+        typescriptreact = { 'prettier' },
+        vue = { 'prettier' },
     },
     default_format_opts = {
         lsp_format = 'fallback',
