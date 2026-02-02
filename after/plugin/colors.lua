@@ -58,8 +58,8 @@ require('kanagawa').setup({
     overrides = function(colors) -- add/modify highlights
         return {}
     end,
-    theme = "wave",      -- Load "wave" theme when 'background' option is not set
-    background = {       -- map the value of 'background' option to a theme
+    theme = "wave",    -- Load "wave" theme when 'background' option is not set
+    background = {     -- map the value of 'background' option to a theme
         dark = "wave", -- try "dragon" !
         light = "lotus"
     },
@@ -73,7 +73,18 @@ vim.g.everforest_dim_inactive_windows = 1
 vim.g.everforest_ui_contrast = "high"
 
 function Color(color)
-    color = color or "tokyonight"
+    local options = {
+        'rose-pine',
+        'kanagawa',
+        'everforest',
+        'tokyonight',
+        'kanso',
+        'gruvbox',
+        'forest',
+    }
+    local dayOfWeek = os.date("%w") + 1
+    local themeOfTheDayIdx =  dayOfWeek % #options;
+    color = options[themeOfTheDayIdx]
     vim.cmd.colorscheme(color)
 
     --vim.api.nvim_set_hl(0, "Normal", { bg = "none" })

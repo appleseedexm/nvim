@@ -31,6 +31,8 @@ Plug('Skullamortis/forest.nvim')
 Plug('rebelot/kanagawa.nvim')
 Plug('sainnhe/everforest')
 Plug('folke/tokyonight.nvim')
+Plug('webhooked/kanso.nvim')
+Plug('morhetz/gruvbox')
 
 -- Code
 Plug('nvim-treesitter/nvim-treesitter', { ['do'] = ':TSUpdate', ['branch'] = 'main' })
