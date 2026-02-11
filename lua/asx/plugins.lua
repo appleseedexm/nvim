@@ -21,7 +21,7 @@ Plug('nvim-mini/mini.extra')
 Plug('nvim-mini/mini.pairs')
 
 -- UI
-Plug('nvim-lualine/lualine.nvim')
+Plug('nvim-mini/mini.statusline')
 Plug('folke/which-key.nvim')
 Plug('nvim-mini/mini.pick')
 

@@ -1,0 +1,31 @@
+require('mini.statusline').setup()
+
+-- legacy lsp status
+-- local ins_left = {
+--     -- Lsp server name .
+--     function()
+--         local msg = 'No Active Lsp'
+--         local buf_ft = vim.api.nvim_get_option_value('filetype', { buf = 0 })
+--         local clients = vim.lsp.get_clients()
+--         if next(clients) == nil then
+--             return msg
+--         end
+--         msg = ''
+--         for _, client in ipairs(clients) do
+--             local filetypes = client.config.filetypes
+--             if filetypes and vim.fn.index(filetypes, buf_ft) ~= -1 then
+--                 local progress = ''
+--                 for _, status in pairs(client.progress.pending) do
+--                     progress = ": " .. vim.inspect(status)
+--                     if status ~= nil then
+--                         break
+--                     end
+--                 end
+--                 msg = "[" .. client.name .. progress .. "] "
+--             end
+--         end
+--         return msg
+--     end,
+--     icon = ' LSP:',
+--     color = { fg = '#ffffff', gui = 'bold' },
+-- }
