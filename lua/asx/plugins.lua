@@ -16,14 +16,14 @@ Plug('alexghergh/nvim-tmux-navigation')
 Plug('mbbill/undotree')
 Plug('folke/zen-mode.nvim')
 Plug('epwalsh/obsidian.nvim')
-Plug('echasnovski/mini.visits')
-Plug('echasnovski/mini.extra')
-Plug('echasnovski/mini.pairs')
+Plug('nvim-mini/mini.visits')
+Plug('nvim-mini/mini.extra')
+Plug('nvim-mini/mini.pairs')
 
 -- UI
 Plug('nvim-lualine/lualine.nvim')
 Plug('folke/which-key.nvim')
-Plug('echasnovski/mini.pick')
+Plug('nvim-mini/mini.pick')
 
 -- Themes
 Plug('rose-pine/neovim')
@@ -67,7 +67,7 @@ Plug('theHamsta/nvim-dap-virtual-text')
 Plug('nvim-neotest/nvim-nio')
 
 -- Autocompletion
-Plug('echasnovski/mini.completion')
+Plug('nvim-mini/mini.completion')
 Plug('L3MON4D3/LuaSnip')
 
 ---- LANGUAGES ----
