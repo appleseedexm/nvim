@@ -4,11 +4,10 @@ return require('asx.lsp').mk_config({
         vim.api.nvim_create_user_command(
             "OrganizeImports",
             function()
-                local command = {
-                    command = "typescript.organizeImports",
-                    arguments = { vim.api.nvim_buf_get_name(0) },
-                }
-                vim.lsp.buf.execute_command(command)
+                -- local command = "_typescript.organizeImports"
+                -- local filename = vim.api.nvim_buf_get_name(bufnr)
+                -- client:request(command, { filename }, nil, bufnr)
+
                 vim.lsp.buf.code_action({
                     apply = true,
                     context = {
