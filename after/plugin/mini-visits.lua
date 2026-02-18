@@ -37,11 +37,12 @@ require('mini.visits').setup({
 
 local make_select_path = function(select_global, recency_weight)
     local visits = require('mini.visits')
+    local extra = require('mini.extra')
     local sort = visits.gen_sort.default({ recency_weight = recency_weight })
-    local select_opts = { sort = sort }
+    local select_opts = { sort = sort, preserve_order = true }
     return function()
-        local cwd = select_global and '' or vim.fn.getcwd()
-        visits.select_path(cwd, select_opts)
+        select_opts.cwd = select_global and '' or vim.fn.getcwd()
+        extra.pickers.visit_paths(select_opts)
     end
 end
 
@@ -77,7 +78,7 @@ map_branch('vB', 'remove_label', 'Remove branch label')
 
 vim.keymap.set('n', '<Leader>vc',
     function()
-        require("mini.visits").select_path("", { filter = get_branch() })
+        require("mini.extra").pickers.visit_paths({ filter = get_branch(), preserve_order = true })
     end
     , { desc = "Select branch (cwd)" })
 
