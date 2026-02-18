@@ -78,6 +78,9 @@ Plug('mfussenegger/nvim-jdtls')
 -- Rust
 Plug('simrat39/rust-tools.nvim')
 
+-- Typescript
+Plug('dmmulroy/ts-error-translator.nvim')
+
 -- Zig
 Plug('ziglang/zig.vim')
 
