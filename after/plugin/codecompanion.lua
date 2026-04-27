@@ -11,7 +11,7 @@ require("codecompanion").setup({
         http = {
             ollama = function()
                 return require('codecompanion.adapters').extend("ollama", {
-                    model = "codellama:34b"
+                    model = "qwen3.6:35B"
                 })
             end
         }
