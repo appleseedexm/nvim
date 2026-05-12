@@ -11,7 +11,7 @@ local api = vim.api
 local jdtls_install = local_jdtls and home .. "/code/eclipse.jdt.ls/org.eclipse.jdt.ls.product/target/repository" or
     vim.fn.expand("$MASON/packages/jdtls")
 
-local lombok_ver = "lombok-1.18.39-builder-hotfix.jar"
+local lombok_ver = "lombok-1.18.46.jar"
 local lombok = true and home .. "/code/libs/java/" .. lombok_ver or jdtls_install .. "/lombok.jar"
 local sys_arch = vim.loop.os_uname().machine == "aarch64" and "linux_arm" or "linux"
 
@@ -62,19 +62,20 @@ local config = require('asx.lsp').mk_config({
     filetypes = { 'java' },
     settings = {
         java = {
+            compile = { nullAnalysis = { mode = 'disabled' } },
             autobuild = { enabled = false },
             maxConcurrentBuilds = 1,
             signatureHelp = { enabled = true },
             contentProvider = { preferred = 'fernflower' },
             completion = {
                 favoriteStaticMembers = {
-                    'org.hamcrest.MatcherAssert.assertThat',
+                    'org.assertj.core.api.Assertions.*',
+                    'org.hamcrest.MatcherAssert.*',
                     'org.hamcrest.Matchers.*',
                     'org.hamcrest.CoreMatchers.*',
                     'java.util.Objects.requireNonNull',
                     'java.util.Objects.requireNonNullElse',
                     'org.mockito.Mockito.*',
-                    'org.mockito.Mockito.when',
                     'org.mockito.ArgumentMatchers.*',
                     'org.mockito.Answers.*',
                     'org.junit.Assume.*',
@@ -82,7 +83,6 @@ local config = require('asx.lsp').mk_config({
                     'org.junit.jupiter.api.Assumptions.*',
                     'org.junit.jupiter.api.DynamicContainer.*',
                     'org.junit.jupiter.api.DynamicTest.*',
-                    'org.assertj.core.api.Assertions.*',
                 },
                 filteredTypes = {
                     "com.sun.*",
