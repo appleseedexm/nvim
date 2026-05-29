@@ -129,11 +129,12 @@ telescope.setup(
             mappings = {
                 n = {
                     ["<C-y>"] = action_layout.toggle_preview,
-                    ["<leader><leader>"] = actions.close
+                    ["<leader><leader>"] = actions.close,
                 },
                 i = {
                     ["<C-y>"] = action_layout.toggle_preview,
                     ["<C-s>"] = actions.cycle_previewers_next,
+                    ["<C-f>"] = actions.to_fuzzy_refine,
                 },
             },
         },
