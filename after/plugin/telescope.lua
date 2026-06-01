@@ -4,12 +4,15 @@ local builtin = require('telescope.builtin')
 local utils = require('telescope.utils')
 local action_layout = require('telescope.actions.layout')
 local actions = require('telescope.actions')
-local fzf_workspace_opts = {
-    fuzzy = false,                  -- false will only do exact matching
+
+local fzf_default_opts = {
     override_generic_sorter = true, -- override the generic sorter
     override_file_sorter = true,    -- override the file sorter
     case_mode = "smart_case",       -- "smart_case" or "ignore_case" or "respect_case"
 }
+local fzf_workspace_opts = vim.tbl_deep_extend("force", fzf_default_opts, {
+    fuzzy = false, -- false will only do exact matching
+})
 
 local git_log_format = function(args)
     args = args or {}
@@ -51,7 +54,13 @@ local my_git_bcommits = function(opts)
     builtin.git_bcommits(opts)
 end
 
-vim.keymap.set('n', '<leader>tf', function() builtin.find_files({ no_ignore = true, hidden = true }) end, {})
+vim.keymap.set('n', '<leader>tf',
+    function()
+        builtin.find_files({
+            no_ignore = true,
+            hidden = true,
+        })
+    end, {})
 vim.keymap.set('n', '<C-p>',
     function()
         if is_workspace_git_repo() then
@@ -61,10 +70,13 @@ vim.keymap.set('n', '<C-p>',
         end
     end,
     {})
-vim.keymap.set('n', '<leader>ts', function()
-    builtin.grep_string({ search = vim.fn.input("Grep string -i > "), additional_args = { '-i.' } })
-end)
 vim.keymap.set('n', '<leader>tS', function()
+    builtin.grep_string({
+        search = vim.fn.input("Grep string -i > "),
+        additional_args = { '-i.' },
+    })
+end)
+vim.keymap.set('n', '<leader>ts', function()
     builtin.grep_string({ search = vim.fn.input("Grep string > "), additional_args = {} })
 end)
 vim.keymap.set('n', '<leader>tww', function()
