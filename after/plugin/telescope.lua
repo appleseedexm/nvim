@@ -26,7 +26,8 @@ end
 
 local delta = previewers.new_termopen_previewer {
     get_command = function(entry)
-        return { 'git', '-c', 'core.pager=delta', '-c', 'delta.side-by-side=true', 'diff', entry.value .. '^!' }
+        return { 'git', '-c', 'core.pager=delta', '-c', 'delta.line-numbers=true', '-c', 'delta.side-by-side=true',
+            'diff', entry.value .. '^!' }
     end
 }
 
