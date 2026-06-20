@@ -68,11 +68,11 @@ require('kanagawa').setup({
 -- Everforest
 vim.g.everforest_enable_italic = 1
 vim.g.everforest_better_performance = 1
-vim.g.everforest_background = "hard"
+vim.g.everforest_background = "soft"
 vim.g.everforest_dim_inactive_windows = 1
-vim.g.everforest_ui_contrast = "high"
+vim.g.everforest_ui_contrast = "low"
 
-function Color(color)
+function Color(colorOverride)
     local options = {
         'rose-pine',
         'kanagawa',
@@ -83,9 +83,9 @@ function Color(color)
         'forest',
     }
     local dayOfWeek = os.date("%w") + 1
-    local themeOfTheDayIdx =  dayOfWeek % #options;
-    color = options[themeOfTheDayIdx]
-    vim.cmd.colorscheme(color)
+    local themeOfTheDayIdx = dayOfWeek % #options;
+    local color = options[themeOfTheDayIdx + 1]
+    vim.cmd.colorscheme(colorOverride or color)
 
     --vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
     --vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
@@ -108,4 +108,4 @@ function ColorClear()
     vim.cmd.highlight("Search", "ctermfg=0")
 end
 
-Color()
+Color("everforest")
