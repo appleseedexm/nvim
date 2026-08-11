@@ -262,6 +262,7 @@ function M.enable()
         'angularls',
         'css_ls',
         'dartls',
+        'eslint',
         'golangci_lint_ls',
         'gopls',
         'html_ls',

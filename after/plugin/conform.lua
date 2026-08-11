@@ -10,15 +10,15 @@ conform.setup({
         }
     },
     formatters_by_ft = {
-        html = { 'prettier' },
+        html = { 'eslint_d', 'prettier_d' },
         java = { 'google-java-format' },
-        javascript = { 'prettier' },
-        javascriptreact = { 'prettier' },
+        javascript = { 'eslint_d', 'prettier_d' },
+        javascriptreact = { 'eslint_d', 'prettier_d' },
         kotlin = { 'ktlint' },
         sql = { 'sqlfmt' },
-        typescript = { 'prettier' },
-        typescriptreact = { 'prettier' },
-        vue = { 'prettier' },
+        typescript = { 'eslint_d', 'prettier_d' },
+        typescriptreact = { 'eslint_d', 'prettier_d' },
+        vue = { 'eslint_d', 'prettier_d' },
     },
     default_format_opts = {
         lsp_format = 'fallback',

@@ -38,9 +38,10 @@ for _, pkg_name in ipairs {
     -- HTML
     'html-lsp',
     -- JS/TS
+    'eslint_d',
     'eslint-lsp',
     'angular-language-server',
-    'prettier',
+    'prettier_d',
     'typescript-language-server',
     'js-debug-adapater',
 } do
